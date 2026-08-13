@@ -1,0 +1,58 @@
+name: build and release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ios-release-latest
+  cancel-in-progress: true
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install xcpretty
+        run: sudo gem install xcpretty
+
+      - name: build
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project mond.xcodeproj \
+            -scheme mond \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build | xcpretty
+
+          rm -rf Payload mond.ipa
+          mkdir -p Payload
+          APP_PATH="$(find build/Build/Products/Release-iphoneos -maxdepth 1 -name '*.app' -print -quit)"
+          cp -R "$APP_PATH" Payload/
+          ditto -c -k --keepParent Payload mond.ipa
+          rm -rf Payload
+
+      - name: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view latest >/dev/null 2>&1; then
+            gh release delete latest --yes --cleanup-tag
+          fi
+          gh release create latest mond.ipa \
+            --target "${GITHUB_SHA}" \
+            --title "Latest" \
+            --notes "Automated build from ${GITHUB_SHA}"
