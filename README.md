@@ -98,7 +98,7 @@
 <sup>NOTE: Some tweaks may not appear on your device because they aren't supported.</sup>
 
 ## Credits
-&#45; [rooootdev](https://github.com/forcequitOS) for his work on original mond<br>
+&#45; [rooootdev](https://github.com/rooootdev) for his work on original mond<br>
 &#45; [forcequit](https://github.com/forcequitOS) for his work on bad_query<br>
 &#45; [johnny](https://github.com/0xjohnnydev) for his work on the MCM bug class<br>
 &#45; [jailbreak.party](https://github.com/jailbreakdotparty) for PartyUI, GestaltView and the implementation of [neon](https://github.com/neonmodder123)'s respring method<br>
