@@ -106,21 +106,21 @@ struct GestaltView: View {
                             Text(NSLocalizedString("disable_dynamic_island", comment: "Disable dynamic island option")).tag("no_dynamic_island")
                         }
                     
-                        Text(NSLocalizedString("iphone_14_pro", comment: "iPhone 14 Pro option")).tag("14p")
-                        Text(NSLocalizedString("iphone_14_pro_max", comment: "iPhone 14 Pro Max option")).tag("14pm")
-                        Text(NSLocalizedString("iphone_15_pro_max", comment: "iPhone 15 Pro Max option")).tag("15pm")
+                        Text("iPhone 14 Pro").tag("14p")
+                        Text("iPhone 14 Pro Max").tag("14pm")
+                        Text("iPhone 15 Pro Max").tag("15pm")
                     
                         if doubleSystemVersion() >= 18.0 {
-                            Text(NSLocalizedString("iphone_16_pro", comment: "iPhone 16 Pro option")).tag("16p")
-                            Text(NSLocalizedString("iphone_16_pro_max", comment: "iPhone 16 Pro Max option")).tag("16pm")
+                            Text("iPhone 16 Pro").tag("16p")
+                            Text("iPhone 16 Pro Max").tag("16pm")
                         }
                     
                         if doubleSystemVersion() >= 26.0 {
-                            Text(NSLocalizedString("iphone_air", comment: "iPhone Air option")).tag("air")
+                            Text("iPhone Air").tag("air")
                         }
                     
                         if hasHomeButton() {
-                            Text(NSLocalizedString("iphone_x_gestures", comment: "iPhone X Gestures option")).tag("x")
+                            Text("iPhone X Gestures").tag("x")
                         }
                     } label: {
                         HStack {
