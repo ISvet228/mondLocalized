@@ -1,3 +1,8 @@
+<p align="center">
+  <a href="https://github.com/ISvet228/mond_ru/blob/main/README.md">ENGLISH README</a>
+  <a href="https://github.com/ISvet228/mond_ru/blob/main/README_RU.md">RUSSIAN README</a>
+</p>
+
 <div align="center">
   <br>
   <img src="https://github.com/rooootdev/mond/blob/main/mond.png?raw=true" alt="логотип mond" width="200">
