@@ -43,6 +43,7 @@
 "credit_bad_query_exploit" = "Эксплойт bad_query";
 "credit_mcm_bug_class" = "Его работа над классом багов MCM";
 "credit_partyui_gestaltview" = "PartyUI, GestaltView";
+"credit_locaclization_project" = "Создание локализации";
 "done" = "Готово";
 "are_you_sure" = "Вы уверены?";
 "cancel" = "Отмена";
