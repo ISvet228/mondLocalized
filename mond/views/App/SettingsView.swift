@@ -172,6 +172,7 @@ struct SettingsView: View {
                     CreditsRow(name: "forcequit", role: NSLocalizedString("credit_bad_query_exploit", comment: "Credit role"), profile: URL(string: "https://github.com/forcequitOS")!)
                     CreditsRow(name: "johnny", role: NSLocalizedString("credit_mcm_bug_class", comment: "Credit role"), profile: URL(string: "https://github.com/0xjohnnydev")!)
                     CreditsRow(name: "jailbreak.party", role: NSLocalizedString("credit_partyui_gestaltview", comment: "Credit role"), profile: URL(string: "https://github.com/jailbreakdotparty")!)
+                    CreditsRow(name: "Hikariman", role: NSLocalizedString("credit_locaclization_project", comment: "Credit role"), profile: URL(string: "https://github.com/ISvet228")!)
                 } header: {
                     Label(NSLocalizedString("credits", comment: "Credits section title"), systemImage: "person.3.fill")
                 }
