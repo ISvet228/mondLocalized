@@ -185,25 +185,25 @@ struct GestaltView: View {
                             Text(NSLocalizedString("default_model", comment: "Default device label")).tag(machine_name())
                             if UIDevice.current.userInterfaceIdiom == .pad {
                                 if doubleSystemVersion() >= 17.4 {
-                                    Text(NSLocalizedString("ipad_pro_11_m4", comment: "iPad 11 M4 label")).tag("iPad16,3")
-                                    Text(NSLocalizedString("ipad_pro_11_m4_cellular", comment: "iPad 11 M4 cellular label")).tag("iPad16,4")
+                                    Text("iPad Pro 11-inch (M4)").tag("iPad16,3")
+                                    Text("iPad Pro 11-inch (M4, Cellular)").tag("iPad16,4")
                                 }
-                                Text(NSLocalizedString("ipad_pro_11_4th_gen", comment: "iPad 11 4th gen label")).tag("iPad14,3")
-                                Text(NSLocalizedString("ipad_pro_11_4th_gen_cellular", comment: "iPad 11 4th gen cellular label")).tag("iPad14,4")
+                                Text("iPad Pro 11-inch (4th Gen)").tag("iPad14,3")
+                                Text("iPad Pro 11-inch (4th Gen, Cellular)").tag("iPad14,4")
                             } else {
-                                Text(NSLocalizedString("iphone_15_pro", comment: "iPhone 15 Pro label")).tag("iPhone16,1")
-                                Text(NSLocalizedString("iphone_15_pro_max", comment: "iPhone 15 Pro Max label")).tag("iPhone16,2")
+                                Text("iPhone 15 Pro").tag("iPhone16,1")
+                                Text("iPhone 15 Pro Max").tag("iPhone16,2")
                                 if doubleSystemVersion() >= 18.0 {
-                                    Text(NSLocalizedString("iphone_16", comment: "iPhone 16 label")).tag("iPhone17,3")
-                                    Text(NSLocalizedString("iphone_16_plus", comment: "iPhone 16 Plus label")).tag("iPhone17,4")
-                                    Text(NSLocalizedString("iphone_16_pro", comment: "iPhone 16 Pro label")).tag("iPhone17,1")
-                                    Text(NSLocalizedString("iphone_16_pro_max", comment: "iPhone 16 Pro Max label")).tag("iPhone17,2")
+                                    Text("iPhone 16").tag("iPhone17,3")
+                                    Text("iPhone 16 Plus").tag("iPhone17,4")
+                                    Text("iPhone 16 Pro").tag("iPhone17,1")
+                                    Text("iPhone 16 Pro Max").tag("iPhone17,2")
                                 }
                                 if doubleSystemVersion() >= 19.0 {
-                                    Text(NSLocalizedString("iphone_17", comment: "iPhone 17 label")).tag("iPhone18,3")
-                                    Text(NSLocalizedString("iphone_17_pro", comment: "iPhone 17 Pro label")).tag("iPhone18,1")
-                                    Text(NSLocalizedString("iphone_17_pro_max", comment: "iPhone 17 Pro Max label")).tag("iPhone18,2")
-                                    Text(NSLocalizedString("iphone_air", comment: "iPhone Air label")).tag("iPhone18,4")
+                                    Text("iPhone 17").tag("iPhone18,3")
+                                    Text("iPhone 17 Pro").tag("iPhone18,1")
+                                    Text("iPhone 17 Pro Max").tag("iPhone18,2")
+                                    Text("iPhone Air").tag("iPhone18,4")
                                 }
                             }
                         }
