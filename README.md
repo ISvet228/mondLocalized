@@ -7,7 +7,7 @@
   <br>
   <img src="https://github.com/rooootdev/mond/blob/main/mond.png?raw=true" alt="логотип mond" width="200">
   <br>
-  <h1>mond ru/mond localized</h1>
+  <h1>mond localized</h1>
 
   <p>A utility for editing MobileGestalt on <strong>only iOS 27.0 beta 1 - 4</strong>!</p>
   <a href="https://discord.gg/gw8PcRF3Jr">
