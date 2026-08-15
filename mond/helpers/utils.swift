@@ -11,6 +11,10 @@ import UIKit
 import WebKit
 import Combine
 
+func NSLocalizedStringFromTable(_ key: String, _ table: String, comment: String) -> String {
+    return NSLocalizedString(key, tableName: table, bundle: .main, value: key, comment: comment)
+}
+
 func is_debugged() -> Bool {
     var info = kinfo_proc()
     var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid()]
