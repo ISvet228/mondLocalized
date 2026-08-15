@@ -1,7 +1,9 @@
+"app_name" = "mond";
 "do_not_reboot" = "Не перезагружайте";
 "mg_empty_warning" = "Похоже, ваш MobileGestalt.plist пуст.";
 "mg_invalid_warning" = "Похоже, ваш MobileGestalt.plist повреждён.";
 "warning" = "Внимание";
+"respring" = "Респринг";
 "bootloop_warning" = "Перезагрузка сейчас может вызвать bootloop. Попробуйте нажать «Выключить твики». Если предупреждения не исчезнут после этого, всё очень плохо.";
 "apply_tweaks" = "Применить твики";
 "revert_tweaks" = "Выключить твики";

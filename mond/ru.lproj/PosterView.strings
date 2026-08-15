@@ -13,3 +13,5 @@
 "poster_reset_success_body" = "Сделайте респринг устройства, чтобы изменения вступили в силу.";
 "poster_reset_failed_title" = "Не удалось сбросить PosterBoard!";
 "poster_reset_failed_body" = "Перезапустите приложение и попробуйте снова. Проверьте логи для подробностей.";
+"posterboard" = "PosterBoard";
+"respring" = "Респринг";

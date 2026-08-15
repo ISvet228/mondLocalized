@@ -1,0 +1,19 @@
+/* English localization for PosterView */
+
+"apply" = "Apply";
+"reset" = "Reset";
+"import_tendies" = "Import Tendies";
+"poster_import_hint" = "Pick one or more .tendies (or .zip) wallpaper packs.";
+"poster_get_tendies_prefix" = "Get .tendies";
+"poster_get_tendies_link" = "HERE";
+"imported" = "Imported";
+"poster_apply_success_title" = "Successfully applied PosterBoard!";
+"poster_apply_success_body" = "Respring your device for changes to take effect.";
+"poster_apply_failed_title" = "Failed to apply PosterBoard!";
+"poster_apply_failed_body" = "Restart the app and try again. Check logs for more detailed information.";
+"poster_reset_success_title" = "Successfully reverted PosterBoard!";
+"poster_reset_success_body" = "Respring your device for changes to take effect.";
+"poster_reset_failed_title" = "Failed to revert PosterBoard!";
+"poster_reset_failed_body" = "Restart the app and try again. Check logs for more detailed information.";
+"posterboard" = "PosterBoard";
+"respring" = "Respring";
