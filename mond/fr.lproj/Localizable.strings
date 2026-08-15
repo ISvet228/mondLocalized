@@ -1,0 +1,135 @@
+/* French localization for mond */
+
+/*ContentView*/
+"app_name" = "mond";
+"logs" = "Journaux";
+"mobile_gestalt" = "MobileGestalt";
+"posterboard" = "PosterBoard";
+"tweaks" = "Tweaks";
+"only_mobilegestalt_available" = "Seul MobileGestalt est disponible lorsque la méthode est réglée sur cmg.\nPosterBoard est encore en développement et peut ne pas fonctionner comme prévu.";
+"posterboard_dev_warning" = "PosterBoard est encore en développement et peut ne pas fonctionner comme prévu.";
+
+/*LogsView*/
+"copy_output" = "Copier la sortie des journaux";
+
+/*SettingsView*/
+"settings" = "Options";
+"unknown_app" = "App inconnu";
+"method" = "Méthode";
+"run_exploit" = "Tester l'Exploit";
+"exploit" = "Exploit";
+"exploit_method_cmg" = "CMG: Supporte iOS 27.0 b1 - b4. PosterBoard ne fonctionne pas avec cette méthode. Utiliser seulement si bad_query ne fonctionne pas.";
+"exploit_method_bad_query_prefix" = "bad_query: Supporte iOS 27.0 b1 - b4. Développé par";
+"forcequit" = "forcequit";
+"sandbox_extension_token_placeholder" = "Sandbox Extension Token.";
+"token_class" = "Classe:";
+"token_path" = "Chemin:";
+"copy_token" = "Copier le token";
+"failed_to_get_token" = "Échec à obtenir le token.";
+"generate_token" = "Générer un Token";
+"token" = "Token";
+"sandbox_token_valid" = "Votre token est valide.";
+"sandbox_token_invalid" = "Votre token est invalide.";
+"exploit_failed_version" = "Désactivé parce que l'exploit a échoué. Votre version d'iOS est-elle prise en charge?";
+"keep_alive" = "Rester ouvert";
+"respring" = "Respring";
+"tools" = "Outils";
+"respring_method_prefix" = "Méthode de Respring développé par";
+"neon" = "neon";
+"respring_method_middle" = ", implementation Swift développé par";
+"skadz" = "skadz";
+"credits" = "Crédits";
+"credit_main_developer" = "Développeur principal";
+"credit_bad_query_exploit" = "L'exploit bad_query";
+"credit_mcm_bug_class" = "Son travail sur la classe de bugs MCM";
+"credit_partyui_gestaltview" = "PartyUI, GestaltView";
+"credit_locaclization_project" = "Projet de localisation";
+"done" = "Terminé";
+"are_you_sure" = "Êtes-vous sûr?";
+"cancel" = "Annuler";
+"confirm" = "Confirmer";
+"confirm_respring" = "Confirmer que vous souhaiter respring.";
+
+/*GestaltView*/
+"do_not_reboot" = "Ne pas redémarrer!";
+"mg_empty_warning" = "Votre MobileGestalt.plist est vide.";
+"mg_invalid_warning" = "Votre MobileGestalt.plist est invalide.";
+"warning" = "Avertissement";
+"bootloop_warning" = "Redémarrer maintenant pourrait empêcher votre appareil de redémarrer. Essayez d'appuyer sur 'Annuler les Tweaks'. Si les avertissements ne disparaissent pas après cela, vous êtes foutu.";
+"apply_tweaks" = "Appliquer les Tweaks";
+"revert_tweaks" = "Annuler les Tweaks";
+"warning_footer" = "AVERTISSEMENT : Ces tweaks peuvent casser des fonctionnalités de votre appareil ou le softbrick s'ils sont mal utilisés !";
+"original_subtype_format" = "Original (%d)";
+"disable_dynamic_island" = "Désactiver la Dynamic Island";
+"subtype" = "Soustype";
+"custom_device_name" = "Nom d'appareil personnalisé";
+"device_name" = "Nom d'appareil";
+"device_artwork" = "Photo de l'appareil";
+"dynamic_island" = "Dynamic Island";
+"always_on_display" = "Toujours à l'écran";
+"aod_vibrancy" = "Vibrance de l'AOD";
+"charge_limit" = "Limite de charge";
+"boot_chime" = "Son de démarrage";
+"liquid_glass_lpm" = "Liquid Glass en mode Économie de batterie";
+"software_oriented_features" = "Fonctions logiciels";
+"camera_control" = "Commande photo";
+"action_button" = "Bouton d'action";
+"crash_detection" = "Détection d’accident";
+"enable_tap_to_wake" = "Activer Taper pour allumer";
+"pulse_width_modulation" = "Modulation de largeur d'impulsion";
+"hardware_oriented_features" = "Fonctions matériels";
+"security_research_device_ui" = "Interface Appareil de Recherche en Sécurité";
+"disable_region_restrictions" = "Désactiver les restrictions géographiques";
+"disable_region_restrictions_info" = "Ce tweak peut être cassé ou n'avoir aucun effet sur certaines versions d'iOS ou appareils.";
+"apple_intelligence" = "Apple Intelligence";
+"apple_intelligence_info" = "Comment utiliser ce tweak :\n1. Usurper l'identité du modèle à côté du premier supporté par Apple Intelligence.\n2. Usurper l'identité de retour à votre modèle.\n3. Usurper l'identité à votre modèle final et vous devriez voir l'icône Apple Intelligence dans Réglages.\n4. Connectez l'iPhone à l'alimentation et laissez l'onglet Réglages > Stockage ouvert pendant ~1 heure.\n\nREMARQUE : N'usurpez pas l'identité de retour.";
+"spoofing" = "Spoofing";
+"default_model" = "Par défaut";
+"device_spoofing_info" = "Infos de spoofing d'appareil";
+"device_spoofing_info_body" = "Ne faites du spoofing de votre modèle d'appareil que si vous voulez télécharger Apple Intelligence. Cela peut casser Face ID. Si vous décidez d'annuler le spoofing et voulez garder Apple Intelligence, N'ENTREZ PAS à nouveau dans le menu Apple Intelligence & Siri dans Réglages.";
+"eligibility" = "Éligibilité";
+"allow_installing_ipados_apps" = "Autoriser l'installation d'apps iPadOS";
+"apple_pencil_settings" = "Réglages Apple Pencil";
+"stage_manager" = "Stage Manager";
+"ipados_ui" = "Interface iPadOS";
+"ipados_ui_info" = "C'est un tweak très dangereux à utiliser ! Si vous utilisez un code d'accès alphanumérique, N'UTILISEZ PAS CE TWEAK DU TOUT ! S'il vous plaît ne désactivez pas \"Afficher le Dock dans Stage Manager\" ou votre appareil BOOTLOOPERA en rotation paysage ! Certains utilisateurs ont aussi signalé que l'activation de l'interface iPadOS et puis le tapotement de Stage Manager peut faire entrer l'appareil en Mode Récupération, même si l'interface elle-même semble inchangée. La barre de recherche Réglages peut se déplacer vers le haut avant que cela ne se produise. En gardant ces trois choses à l'esprit, vous pouvez rencontrer une instabilité générale, ou d'autres problèmes majeurs comme la disparition aléatoire de données d'app. Mais j'imagine que quelques fonctionnalités de multitâche marrantes qui rendent quand même l'appareil relativement inutilisable, c'est cool ? Peu importe mec, je ne suis pas là pour te dire comment utiliser ton propre appareil.";
+"ipados_features" = "Fonctionnalités iPadOS";
+"internal_storage" = "Stockage Interne";
+"internal_features" = "Fonctionnalités Internes";
+"metal_hud_in_all_apps" = "Affichage Metal dans Toutes les Apps";
+"internal" = "Interne";
+"missing_artwork_subtype" = "Impossible d'obtenir ArtworkDeviceSubType !";
+"missing_artwork_device_name" = "Impossible d'obtenir ArtworkDeviceProductDescription !";
+"failed_load_current_mg" = "Impossible de charger le MobileGestalt courant !";
+"failed_load_current_mg_body" = "Redémarrez l'app et réessayez. Consultez les logs pour plus de détails.";
+"mg_apply_success_title" = "Tweaks Gestalt appliqués avec succès !";
+"mg_apply_success_body" = "Respring votre appareil pour que les modifications prennent effet. Notez que certains tweaks peuvent nécessiter un redémarrage pour s'appliquer correctement";
+"mg_apply_failed_title" = "Impossible d'appliquer MobileGestalt !";
+"mg_apply_failed_body" = "Redémarrez l'app et réessayez. Consultez les logs pour plus de détails.";
+"mg_revert_success_title" = "Tweaks Gestalt annulés avec succès !";
+"mg_revert_success_body" = "Redémarrez votre appareil pour que les modifications prennent effet.";
+"mg_revert_failed_title" = "Impossible d'annuler MobileGestalt !";
+"mg_revert_failed_body" = "Consultez les logs pour plus d'informations sur l'erreur.";
+"warning_alert_title" = "Avertissement !";
+"ipados_ui_alert_body" = "C'est un tweak très dangereux à utiliser ! Si vous utilisez un code d'accès alphanumérique, N'UTILISEZ PAS CE TWEAK DU TOUT ! S'il vous plaît ne désactivez pas \"Afficher le Dock dans Stage Manager\" ou votre appareil BOOTLOOPERA en rotation paysage ! En gardant ces deux choses à l'esprit, vous pouvez rencontrer une instabilité générale, ou d'autres problèmes majeurs comme la disparition aléatoire de données d'app. Je ne sais honnêtement pas pourquoi tu voudrais utiliser ce tweak de toute façon, ce n'est pas comme si ton appareil allait être vraiment utilisable (parce que les apps s'affichent bizarrement) quand c'est activé.";
+"region_restrictions_alert_body" = "S'il vous plaît n'utilisez pas cette fonctionnalité pour contourner les restrictions régionales qui équivaudraient à enfreindre les lois régionales (par ex. désactiver le son de l'obturateur de l'appareil photo). NOUS NE SERONS PAS TENUS RESPONSABLES de l'activation d'activités illégales !";
+"apple_intelligence_spoof_title" = "Spoof Apple Intelligence";
+"apple_intelligence_spoof_body" = "Comment utiliser ce tweak :\n1. Faire du spoofing du modèle à côté du premier supporté par Apple Intelligence.\n2. Faire du spoofing de retour à votre modèle.\n3. Faire du spoofing à votre modèle final et vous devriez voir l'icône Apple Intelligence dans Réglages.\n4. Connectez l'iPhone à l'alimentation et laissez l'onglet Réglages > Stockage ouvert pendant ~1 heure.\n\nREMARQUE : Ne faites pas de spoofing de retour.";
+
+/*PosterView*/
+"apply" = "Appliquer";
+"reset" = "Réinitialiser";
+"import_tendies" = "Importer Tendies";
+"poster_import_hint" = "Sélectionnez un ou plusieurs packs de fond d'écran .tendies (ou .zip).";
+"poster_get_tendies_prefix" = "Obtenir .tendies";
+"poster_get_tendies_link" = "ICI";
+"imported" = "Importé";
+"poster_apply_success_title" = "PosterBoard appliqué avec succès !";
+"poster_apply_success_body" = "Respring votre appareil pour que les modifications prennent effet.";
+"poster_apply_failed_title" = "Impossible d'appliquer PosterBoard !";
+"poster_apply_failed_body" = "Redémarrez l'app et réessayez. Consultez les journaux pour plus d'informations détaillées.";
+"poster_reset_success_title" = "PosterBoard annulé avec succès !";
+"poster_reset_success_body" = "Respring votre appareil pour que les modifications prennent effet.";
+"poster_reset_failed_title" = "Impossible d'annuler PosterBoard !";
+"poster_reset_failed_body" = "Redémarrez l'app et réessayez. Consultez les journaux pour plus d'informations détaillées.";
+
