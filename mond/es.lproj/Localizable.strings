@@ -1,4 +1,4 @@
-/* English localization for mond */
+/* Spanish localization for mond */
 
 /*ContentView*/
 "app_name" = "mond";
@@ -65,15 +65,15 @@
 "custom_device_name" = "Nombre de dispositivo personalizado";
 "device_name" = "Nombre de dispositivo";
 "device_artwork" = "Detalles del dispositivo";
-"dynamic_island" = "Isla Dinámica";
+"dynamic_island" = "Habilitar Isla Dinámica";
 "always_on_display" = "Always On Display";
 "aod_vibrancy" = "Vibración AOD";
 "charge_limit" = "Límite de carga";
-"boot_chime" = "Sonido de inicio";
+"boot_chime" = "Sonido de arranque";
 "liquid_glass_lpm" = "Modo de Bajo Consumo del Liquid Glass";
 "software_oriented_features" = "Carácteristicas orientadas a software";
 "camera_control" = "Control de cámara";
-"action_button" = "Botón lateral";
+"action_button" = "Configuración del Botón lateral";
 "crash_detection" = "Detección de accidentes";
 "enable_tap_to_wake" = "Activar Tap to Wake";
 "pulse_width_modulation" = "Modulación del ancho de pulso";
@@ -83,7 +83,7 @@
 "disable_region_restrictions_info" = "Este tweak puede romperse o no funcionar en algunas versiones de iOS o dispositivos especificos.";
 "apple_intelligence" = "Apple Intelligence";
 "apple_intelligence_info" = "Cómo usar este tweak:\n1. Suplanta el modelo junto al primero compatible con Apple Intelligence.\n2. Suplanta de regreso a tu modelo.\n3. Suplanta tu modelo por última vez a uno soportado y deberías ver el icono de Apple Intelligence en Configuración.\n4. Conecta tu iDevice a la corriente y deja la pestaña Configuración > General > Almacenamiento durante +/- 1 hora.\n\nNOTA: No suplantes a tu modelo original durante el proceso.";
-"spoofing" = "Suplantando";
+"spoofing" = "Suplantar Dispositivo";
 "default_model" = "Por defecto";
 "device_spoofing_info" = "Información del dispositivo suplantado";
 "device_spoofing_info_body" = "Solo suplanta tu modelo de dispositivo si lo que quieres es descargar Apple Intelligence. Hacer esto romperá Face ID mientras un modelo esté siendo suplantado. Si decides revertir la suplantación y mantener Apple Intelligence, NO ENTRES al menú Apple Intelligence & Siri en la Configuración.";
@@ -97,12 +97,12 @@
 "internal_storage" = "Información interna del almacenamiento";
 "internal_features" = "Carácteristicas internas";
 "metal_hud_in_all_apps" = "HUD de Metal en cualquier app";
-"internal" = "Interno";
+"internal" = "Carácteristicas Internas";
 "missing_artwork_subtype" = "¡Error al intentar obtener ArtworkDeviceSubType!";
 "missing_artwork_device_name" = "¡Error al intentar obtener ArtworkDeviceProductDescription!";
 "failed_load_current_mg" = "¡Error al intentar cargar el MobileGestalt actual!";
 "failed_load_current_mg_body" = "Reinicia la app e intenta de nuevo. Revisa los registros para más información.";
-"mg_apply_success_title" = "¡Tweaks del MovileGestalt aplicados correctamente!";
+"mg_apply_success_title" = "¡Tweaks del MobileGestalt aplicados correctamente!";
 "mg_apply_success_body" = "Reinicia SpringBoard para que los cambios surtan efectos. Considera que algunos tweaks pueden requerir un reinicio del sistema para aplicarse correctamente";
 "mg_apply_failed_title" = "¡Error al intentar aplicar cambios al MobileGestalt!";
 "mg_apply_failed_body" = "Reinicia la app e intenta de nuevo. Revisa los registros para más información.";
