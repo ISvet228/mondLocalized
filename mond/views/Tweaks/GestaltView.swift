@@ -18,7 +18,7 @@ struct GestaltView: View {
     @State private var is_loading: Bool = false
     
     @State private var og_st: Int = 0
-    @State private var selected_st: String = ""
+    @State private var selected_st: String = "og"
     
     @State private var enable_devicename: Bool = false
     @State private var og_devicename: String = ""
