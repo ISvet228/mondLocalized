@@ -7,7 +7,7 @@
 "posterboard" = "PosterBoard";
 "tweaks" = "Tweaks";
 "only_mobilegestalt_available" = "Only MobileGestalt is available when method is set to cmg.\nPosterBoard is still in development and may not work as expected.";
-"posterboard_dev_warning" = "PosterBoard is still in development and may not work as expected.";
+"housearrest_dev_warning" = "HouseArrest is still in development and may not work as expected.";
 
 /*LogsView*/
 "copy_output" = "Copy Output";
@@ -20,7 +20,6 @@
 "exploit" = "Exploit";
 "exploit_method_cmg" = "CMG: Supports iOS 27.0 b1 - b4. PosterBoard wont work with this method. Only use this when bad_query isnt working for you.";
 "exploit_method_bad_query_prefix" = "bad_query: Supports iOS 27.0 b1 - b4. By";
-"forcequit" = "forcequit";
 "sandbox_extension_token_placeholder" = "Sandbox Extension Token.";
 "token_class" = "Class:";
 "token_path" = "Path:";
@@ -35,9 +34,7 @@
 "respring" = "Respring";
 "tools" = "Tools";
 "respring_method_prefix" = "Respring method by";
-"neon" = "neon";
 "respring_method_middle" = ", swift implementation by";
-"skadz" = "skadz";
 "credits" = "Credits";
 "credit_main_developer" = "Main developer";
 "credit_bad_query_exploit" = "The bad_query exploit";
