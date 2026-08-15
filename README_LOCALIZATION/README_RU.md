@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://github.com/ISvet228/mond_ru/blob/main/README.md">ENGLISH README</a>
-  <a href="https://github.com/ISvet228/mond_ru/blob/main/README_RU.md">RUSSIAN README</a>
-  <a href="https://github.com/ISvet228/mond_ru/blob/main/README_ES.md">SPANISH README</a>
+  <a href="https://github.com/ISvet228/mond_ru/blob/main/README_LOCALIZATIONS/README_RU.md">RUSSIAN README</a>
+  <a href="https://github.com/ISvet228/mond_ru/blob/main/README_LOCALIZATIONS/README_ES.md">SPANISH README</a>
 </p>
 
 <div align="center">
