@@ -22,7 +22,7 @@ struct ContentView: View {
                     LogView()
                         .modifier(TerminalPlatter())
                 } header: {
-                    Label(NSLocalizedString("logs", comment: "Logs section header"), systemImage: "apple.terminal")
+                    Label(NSLocalizedStringFromTable("logs", "ContentView", comment: "Logs section header"), systemImage: "apple.terminal")
                 }
                 
                 Section {
@@ -46,12 +46,12 @@ struct ContentView: View {
                     }
                     .disabled(true)
                 } header: {
-                    Label(NSLocalizedString("tweaks", comment: "Tweaks section header"), systemImage: "paintbrush")
+                    Label(NSLocalizedStringFromTable("tweaks", "ContentView", comment: "Tweaks section header"), systemImage: "paintbrush")
                 } footer: {
                     if method == "cmg" {
-                         Text(NSLocalizedString("only_mobilegestalt_available", comment: "CMG warning footer"))
+                         Text(NSLocalizedStringFromTable("only_mobilegestalt_available", "ContentView", comment: "CMG warning footer"))
                     } else {
-                        Text(NSLocalizedString("housearrest_dev_warning", comment: "PosterBoard warning footer"))
+                        Text(NSLocalizedStringFromTable("housearrest_dev_warning", "ContentView", comment: "PosterBoard warning footer"))
                     }
                 }
             }

@@ -33,7 +33,7 @@ struct PosterView: View {
                                 ProgressView()
                             }
                             
-                            Text(NSLocalizedString("apply", comment: "Apply poster button"))
+                            Text(NSLocalizedStringFromTable("apply", "PosterView", comment: "Apply poster button"))
                         }
                     }
                     .disabled(state.poster_files.isEmpty || busy)
@@ -41,7 +41,7 @@ struct PosterView: View {
                     Button {
                         reset()
                     } label: {
-                        Text(NSLocalizedString("reset", comment: "Reset poster button"))
+                        Text(NSLocalizedStringFromTable("reset", "PosterView", comment: "Reset poster button"))
                     }
                     .disabled(busy)
                 }
@@ -50,15 +50,15 @@ struct PosterView: View {
                     Button {
                         show_importer = true
                     } label: {
-                        Text(NSLocalizedString("import_tendies", comment: "Import tendies button"))
+                        Text(NSLocalizedStringFromTable("import_tendies", "PosterView", comment: "Import tendies button"))
                     }
                     .disabled(busy)
                 } footer: {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(NSLocalizedString("poster_import_hint", comment: "Wallpaper import hint"))
+                        Text(NSLocalizedStringFromTable("poster_import_hint", "PosterView", comment: "Wallpaper import hint"))
                         HStack(alignment: .firstTextBaseline, spacing: 4) {
-                            Text(NSLocalizedString("poster_get_tendies_prefix", comment: "Get tendies prefix"))
-                            Link(NSLocalizedString("poster_get_tendies_link", comment: "Get tendies link label"), destination: URL(string: "https://cowabun.ga/wallpapers")!)
+                            Text(NSLocalizedStringFromTable("poster_get_tendies_prefix", "PosterView", comment: "Get tendies prefix"))
+                            Link(NSLocalizedStringFromTable("poster_get_tendies_link", "PosterView", comment: "Get tendies link label"), destination: URL(string: "https://cowabun.ga/wallpapers")!)
                         }
                     }
                     .sheet(isPresented: $show_browser) {
@@ -75,11 +75,11 @@ struct PosterView: View {
                             state.remove_poster_files(at: offsets)
                         }
                     } header: {
-                        Label(NSLocalizedString("imported", comment: "Imported section header"), systemImage: "document.on.document")
+                        Label(NSLocalizedStringFromTable("imported", "PosterView", comment: "Imported section header"), systemImage: "document.on.document")
                     }
                 }
             }
-            .navigationTitle(NSLocalizedString("posterboard", comment: "PosterBoard navigation title"))
+            .navigationTitle(NSLocalizedStringFromTable("posterboard", "PosterView", comment: "PosterBoard navigation title"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
@@ -113,9 +113,9 @@ struct PosterView: View {
             print("(pb) applied \(count) descriptor(s).")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_apply_success_title", comment: "Poster apply success title"),
-                body: NSLocalizedString("poster_apply_success_body", comment: "Poster apply success body"),
-                actionLabel: NSLocalizedString("respring", comment: "Respring action label"),
+                title: NSLocalizedStringFromTable("poster_apply_success_title", "PosterView", comment: "Poster apply success title"),
+                body: NSLocalizedStringFromTable("poster_apply_success_body", "PosterView", comment: "Poster apply success body"),
+                actionLabel: NSLocalizedStringFromTable("respring", "PosterView", comment: "Respring action label"),
                 action: {
                     state.respring()
                 }
@@ -124,8 +124,8 @@ struct PosterView: View {
             print("(pb) failed: \(error.localizedDescription)\n")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_apply_failed_title", comment: "Poster apply failure title"),
-                body: NSLocalizedString("poster_apply_failed_body", comment: "Poster apply failure body")
+                title: NSLocalizedStringFromTable("poster_apply_failed_title", "PosterView", comment: "Poster apply failure title"),
+                body: NSLocalizedStringFromTable("poster_apply_failed_body", "PosterView", comment: "Poster apply failure body")
             )
         }
     }
@@ -137,9 +137,9 @@ struct PosterView: View {
             print("(pb) reset done.")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_reset_success_title", comment: "Poster reset success title"),
-                body: NSLocalizedString("poster_reset_success_body", comment: "Poster reset success body"),
-                actionLabel: NSLocalizedString("respring", comment: "Respring action label"),
+                title: NSLocalizedStringFromTable("poster_reset_success_title", "PosterView", comment: "Poster reset success title"),
+                body: NSLocalizedStringFromTable("poster_reset_success_body", "PosterView", comment: "Poster reset success body"),
+                actionLabel: NSLocalizedStringFromTable("respring", "PosterView", comment: "Respring action label"),
                 action: {
                     state.respring()
                 }
@@ -148,8 +148,8 @@ struct PosterView: View {
             print("(pb) failed: \(error.localizedDescription)")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_reset_failed_title", comment: "Poster reset failure title"),
-                body: NSLocalizedString("poster_reset_failed_body", comment: "Poster reset failure body")
+                title: NSLocalizedStringFromTable("poster_reset_failed_title", "PosterView", comment: "Poster reset failure title"),
+                body: NSLocalizedStringFromTable("poster_reset_failed_body", "PosterView", comment: "Poster reset failure body")
             )
         }
     }

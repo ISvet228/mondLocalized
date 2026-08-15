@@ -47,7 +47,7 @@ struct LogView: View {
                     Button {
                         UIPasteboard.general.string = log
                     } label: {
-                        Label(NSLocalizedString("copy_output", comment: "Copy output action"), systemImage: "doc.on.doc")
+                        Label(NSLocalizedStringFromTable("copy_output", "LogsView", comment: "Copy output action"), systemImage: "doc.on.doc")
                     }
                 }
             }

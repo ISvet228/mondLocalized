@@ -69,16 +69,18 @@ struct GestaltView: View {
                 if !is_valid || is_empty {
                     Section {
                         if is_empty {
-                            PlainAlert(title: NSLocalizedString("do_not_reboot", comment: "Warning title"), icon: "exclamationmark.triangle.fill", text: NSLocalizedString("mg_empty_warning", comment: "Empty gestalt warning"), color: Color.yellow)
+                            PlainAlert(title: NSLocalizedStringFromTable("do_not_reboot", "GestaltView", comment: "Warning title"), icon: "exclamationmark.triangle.fill", 
+                            text: NSLocalizedStringFromTable("mg_empty_warning", "GestaltView", comment: "Empty gestalt warning"), color: Color.yellow)
                         }
                         
                         if !is_valid {
-                            PlainAlert(title: NSLocalizedString("do_not_reboot", comment: "Warning title"), icon: "exclamationmark.triangle.fill", text: NSLocalizedString("mg_invalid_warning", comment: "Invalid gestalt warning"), color: Color.yellow)
+                            PlainAlert(title: NSLocalizedStringFromTable("do_not_reboot", "GestaltView", comment: "Warning title"), icon: "exclamationmark.triangle.fill", 
+                            text: NSLocalizedStringFromTable("mg_invalid_warning", "GestaltView", comment: "Invalid gestalt warning"), color: Color.yellow)
                         }
                     } header: {
-                        Label(NSLocalizedString("warning", comment: "Warning section label"), systemImage: "exclamationmark.triangle")
+                        Label(NSLocalizedStringFromTable("warning", "GestaltView", comment: "Warning section label"), systemImage: "exclamationmark.triangle")
                     } footer: {
-                        Text(NSLocalizedString("bootloop_warning", comment: "Bootloop warning text"))
+                        Text(NSLocalizedStringFromTable("bootloop_warning", "GestaltView", comment: "Bootloop warning text"))
                     }
                 }
                 
@@ -86,24 +88,24 @@ struct GestaltView: View {
                     Button {
                         mg_apply()
                     } label: {
-                        Text(NSLocalizedString("apply_tweaks", comment: "Apply tweaks button"))
+                        Text(NSLocalizedStringFromTable("apply_tweaks", "GestaltView", comment: "Apply tweaks button"))
                     }
                     
                     Button {
                         mg_revert()
                     } label: {
-                        Text(NSLocalizedString("revert_tweaks", comment: "Revert tweaks button"))
+                        Text(NSLocalizedStringFromTable("revert_tweaks", "GestaltView", comment: "Revert tweaks button"))
                     }
                 } footer: {
-                    Text(NSLocalizedString("warning_footer", comment: "Warning footer text"))
+                    Text(NSLocalizedStringFromTable("warning_footer", "GestaltView", comment: "Warning footer text"))
                 }
                 
                 Section {
                     Picker(selection: $selected_st) {
-                        Text(String(format: NSLocalizedString("original_subtype_format", comment: "Original subtype label"), og_st)).tag("og")
+                        Text(String(format: NSLocalizedStringFromTable("original_subtype_format", "GestaltView", comment: "Original subtype label"), og_st)).tag("og")
                         
                         if is_device_good() {
-                            Text(NSLocalizedString("disable_dynamic_island", comment: "Disable dynamic island option")).tag("no_dynamic_island")
+                            Text(NSLocalizedStringFromTable("disable_dynamic_island", "GestaltView", comment: "Disable dynamic island option")).tag("no_dynamic_island")
                         }
                     
                         Text("iPhone 14 Pro").tag("14p")
@@ -124,65 +126,65 @@ struct GestaltView: View {
                         }
                     } label: {
                         HStack {
-                            Text(NSLocalizedString("subtype", comment: "Subtype label"))
+                            Text(NSLocalizedStringFromTable("subtype", "GestaltView", comment: "Subtype label"))
                             Spacer()
                         }
                     }
                     
-                    Toggle(NSLocalizedString("custom_device_name", comment: "Custom device name toggle"), isOn: $enable_devicename)
+                    Toggle(NSLocalizedStringFromTable("custom_device_name", "GestaltView", comment: "Custom device name toggle"), isOn: $enable_devicename)
                     
                     if enable_devicename {
-                        TextField(NSLocalizedString("device_name", comment: "Device name field placeholder"), text: $mg_devicename)
+                        TextField(NSLocalizedStringFromTable("device_name", "GestaltView", comment: "Device name field placeholder"), text: $mg_devicename)
                     }
                 } header: {
-                    Label(NSLocalizedString("device_artwork", comment: "Device artwork header"), systemImage: "paintbrush.pointed")
+                    Label(NSLocalizedStringFromTable("device_artwork", "GestaltView", comment: "Device artwork header"), systemImage: "paintbrush.pointed")
                 }
                 
                 // basic tweak toggles
                 Section {
-                    PlainToggle(text: NSLocalizedString("dynamic_island", comment: "Dynamic Island toggle"), minSupportedVersion: 19.0, isOn: mg_key_binding(["YlEtTtHlNesRBMal1CqRaA"]))
-                    PlainToggle(text: NSLocalizedString("always_on_display", comment: "Always On Display toggle"), minSupportedVersion: 18.0, isOn: mg_key_binding(["j8/Omm6s1lsmTDFsXjsBfA", "2OOJf1VhaM7NxfRok3HbWQ"]))
-                    PlainToggle(text: NSLocalizedString("aod_vibrancy", comment: "AOD Vibrancy toggle"), minSupportedVersion: 18.0, isOn: mg_key_binding(["ykpu7qyhqFweVMKtxNylWA"]))
-                    PlainToggle(text: NSLocalizedString("charge_limit", comment: "Charge Limit toggle"), minSupportedVersion: 17.0, isOn: mg_key_binding(["37NVydb//GP/GrhuTN+exg"]))
-                    PlainToggle(text: NSLocalizedString("boot_chime", comment: "Boot Chime toggle"), isOn: mg_key_binding(["QHxt+hGLaBPbQJbXiUJX3w"]))
-                    PlainToggle(text: NSLocalizedString("liquid_glass_lpm", comment: "Liquid Glass LPM toggle"), minSupportedVersion: 19.0, isOn: mg_key_binding(["SAGvsp6O6kAQ4fEfDJpC4Q"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("dynamic_island", "GestaltView", comment: "Dynamic Island toggle"), minSupportedVersion: 19.0, isOn: mg_key_binding(["YlEtTtHlNesRBMal1CqRaA"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("always_on_display", "GestaltView", comment: "Always On Display toggle"), minSupportedVersion: 18.0, isOn: mg_key_binding(["j8/Omm6s1lsmTDFsXjsBfA", "2OOJf1VhaM7NxfRok3HbWQ"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("aod_vibrancy", "GestaltView", comment: "AOD Vibrancy toggle"), minSupportedVersion: 18.0, isOn: mg_key_binding(["ykpu7qyhqFweVMKtxNylWA"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("charge_limit", "GestaltView", comment: "Charge Limit toggle"), minSupportedVersion: 17.0, isOn: mg_key_binding(["37NVydb//GP/GrhuTN+exg"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("boot_chime", "GestaltView", comment: "Boot Chime toggle"), isOn: mg_key_binding(["QHxt+hGLaBPbQJbXiUJX3w"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("liquid_glass_lpm", "GestaltView", comment: "Liquid Glass LPM toggle"), minSupportedVersion: 19.0, isOn: mg_key_binding(["SAGvsp6O6kAQ4fEfDJpC4Q"]))
                 } header: {
-                    Label(NSLocalizedString("software_oriented_features", comment: "Software features header"), systemImage: "gearshape")
+                    Label(NSLocalizedStringFromTable("software_oriented_features", "GestaltView", comment: "Software features header"), systemImage: "gearshape")
                 }
                 
                 Section {
-                    PlainToggle(text: NSLocalizedString("camera_control", comment: "Camera Control toggle"), minSupportedVersion: 18.0, isOn: mg_key_binding(["CwvKxM2cEogD3p+HYgaW0Q", "oOV1jhJbdV3AddkcCg0AEA"]))
-                    PlainToggle(text: NSLocalizedString("action_button", comment: "Action Button toggle"), minSupportedVersion: 17.0, isOn: mg_key_binding(["cT44WE1EohiwRzhsZ8xEsw"]))
-                    PlainToggle(text: NSLocalizedString("crash_detection", comment: "Crash Detection toggle"), isOn: mg_key_binding(["HCzWusHQwZDea6nNhaKndw"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("camera_control", "GestaltView", comment: "Camera Control toggle"), minSupportedVersion: 18.0, isOn: mg_key_binding(["CwvKxM2cEogD3p+HYgaW0Q", "oOV1jhJbdV3AddkcCg0AEA"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("action_button", "GestaltView", comment: "Action Button toggle"), minSupportedVersion: 17.0, isOn: mg_key_binding(["cT44WE1EohiwRzhsZ8xEsw"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("crash_detection", "GestaltView", comment: "Crash Detection toggle"), isOn: mg_key_binding(["HCzWusHQwZDea6nNhaKndw"]))
                     if hasHomeButton() {
-                        PlainToggle(text: NSLocalizedString("enable_tap_to_wake", comment: "Tap to wake toggle"), isOn: mg_key_binding(["yZf3GTRMGTuwSV/lD7Cagw"]))
+                        PlainToggle(text: NSLocalizedStringFromTable("enable_tap_to_wake", "GestaltView", comment: "Tap to wake toggle"), isOn: mg_key_binding(["yZf3GTRMGTuwSV/lD7Cagw"]))
                     }
-                    PlainToggle(text: NSLocalizedString("pulse_width_modulation", comment: "PWM toggle"), minSupportedVersion: 19.0, isOn: mg_key_binding(["6IejgN+1Fmu5/QrZFOIeNw"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("pulse_width_modulation", "GestaltView", comment: "PWM toggle"), minSupportedVersion: 19.0, isOn: mg_key_binding(["6IejgN+1Fmu5/QrZFOIeNw"]))
                 } header: {
-                    Label(NSLocalizedString("hardware_oriented_features", comment: "Hardware features header"), systemImage: "iphone")
+                    Label(NSLocalizedStringFromTable("hardware_oriented_features", "GestaltView", comment: "Hardware features header"), systemImage: "iphone")
                 }
                 
                 Section {
-                    PlainToggle(text: NSLocalizedString("security_research_device_ui", comment: "Security Research Device UI toggle"), minSupportedVersion: 26.0, isOn: mg_key_binding(["XYlJKKkj2hztRP1NWWnhlw"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("security_research_device_ui", "GestaltView", comment: "Security Research Device UI toggle"), minSupportedVersion: 26.0, isOn: mg_key_binding(["XYlJKKkj2hztRP1NWWnhlw"]))
                     
                     PlainToggle(
-                        text: NSLocalizedString("disable_region_restrictions", comment: "Disable region restrictions toggle"),
+                        text: NSLocalizedStringFromTable("disable_region_restrictions", "GestaltView", comment: "Disable region restrictions toggle"),
                         infoType: .info,
-                        infoMessage: NSLocalizedString("disable_region_restrictions_info", comment: "Region restriction info"),
+                        infoMessage: NSLocalizedStringFromTable("disable_region_restrictions_info", "GestaltView", comment: "Region restriction info"),
                         isOn: mg_region_restrict_binding()
                     )
                     
                     PlainToggle(
-                        text: NSLocalizedString("apple_intelligence", comment: "Apple Intelligence toggle"),
+                        text: NSLocalizedStringFromTable("apple_intelligence", "GestaltView", comment: "Apple Intelligence toggle"),
                         infoType: .info,
-                        infoMessage: NSLocalizedString("apple_intelligence_info", comment: "Apple intelligence info"),
+                        infoMessage: NSLocalizedStringFromTable("apple_intelligence_info", "GestaltView", comment: "Apple intelligence info"),
                         minSupportedVersion: 18.1,
                         isOn: mg_apple_intelligence_binding()
                     )
                     
                     HStack(spacing: 10) {
-                        Picker(NSLocalizedString("spoofing", comment: "Spoofing picker label"), selection: $product_type) {
-                            Text(NSLocalizedString("default_model", comment: "Default device label")).tag(machine_name())
+                        Picker(NSLocalizedStringFromTable("spoofing", "GestaltView", comment: "Spoofing picker label"), selection: $product_type) {
+                            Text(NSLocalizedStringFromTable("default_model", "GestaltView", comment: "Default device label")).tag(machine_name())
                             if UIDevice.current.userInterfaceIdiom == .pad {
                                 if doubleSystemVersion() >= 17.4 {
                                     Text("iPad Pro 11-inch (M4)").tag("iPad16,3")
@@ -210,8 +212,8 @@ struct GestaltView: View {
                         
                         Button {
                             Alertinator.shared.alert(
-                                title: NSLocalizedString("device_spoofing_info", comment: "Device spoofing info alert title"),
-                                body: NSLocalizedString("device_spoofing_info_body", comment: "Device spoofing info alert body")
+                                title: NSLocalizedStringFromTable("device_spoofing_info", "GestaltView", comment: "Device spoofing info alert title"),
+                                body: NSLocalizedStringFromTable("device_spoofing_info_body", "GestaltView", comment: "Device spoofing info alert body")
                             )
                         } label: {
                             Image(systemName: "info.circle")
@@ -220,38 +222,38 @@ struct GestaltView: View {
                         .buttonStyle(.plain)
                     }
                 } header: {
-                    Label(NSLocalizedString("eligibility", comment: "Eligibility header"), systemImage: "checklist")
+                    Label(NSLocalizedStringFromTable("eligibility", "GestaltView", comment: "Eligibility header"), systemImage: "checklist")
                 }
                 
                 Section {
                     let cache_extra = mg_dict_now["CacheExtra"] as? NSMutableDictionary
                     
-                    PlainToggle(text: NSLocalizedString("allow_installing_ipados_apps", comment: "Allow installing iPadOS apps toggle"), isOn: mg_key_binding(["9MZ5AdH43csAUajl/dU+IQ"], type: [Int].self, default_val: [1], on_val: [1, 2]))
-                    PlainToggle(text: NSLocalizedString("apple_pencil_settings", comment: "Apple Pencil Settings toggle"), isOn: mg_key_binding(["yhHcB0iH0d1XzPO/CFd3ow"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("allow_installing_ipados_apps", "GestaltView", comment: "Allow installing iPadOS apps toggle"), isOn: mg_key_binding(["9MZ5AdH43csAUajl/dU+IQ"], type: [Int].self, default_val: [1], on_val: [1, 2]))
+                    PlainToggle(text: NSLocalizedStringFromTable("apple_pencil_settings", "GestaltView", comment: "Apple Pencil Settings toggle"), isOn: mg_key_binding(["yhHcB0iH0d1XzPO/CFd3ow"]))
                     
                     if UIDevice.current.userInterfaceIdiom == .pad {
-                        PlainToggle(text: NSLocalizedString("stage_manager", comment: "Stage Manager toggle"), isOn: mg_key_binding(["qeaj75wk3HF4DwQ8qbIi7g"]))
+                        PlainToggle(text: NSLocalizedStringFromTable("stage_manager", "GestaltView", comment: "Stage Manager toggle"), isOn: mg_key_binding(["qeaj75wk3HF4DwQ8qbIi7g"]))
                     }
                     PlainToggle(
-                        text: NSLocalizedString("ipados_ui", comment: "iPadOS UI toggle"),
+                        text: NSLocalizedStringFromTable("ipados_ui", "GestaltView", comment: "iPadOS UI toggle"),
                         infoType: .warning,
-                        infoMessage: NSLocalizedString("ipados_ui_info", comment: "iPadOS UI warning info"),
+                        infoMessage: NSLocalizedStringFromTable("ipados_ui_info", "GestaltView", comment: "iPadOS UI warning info"),
                         isOn: mg_trollpad_binding()
                     )
                     .disabled(cache_extra?["+3Uf0Pm5F8Xy7Onyvko0vA"] as? String != "iPhone")
                 } header: {
-                    Label(NSLocalizedString("ipados_features", comment: "iPadOS features header"), systemImage: "ipad")
+                    Label(NSLocalizedStringFromTable("ipados_features", "GestaltView", comment: "iPadOS features header"), systemImage: "ipad")
                 }
                 
                 Section {
-                    PlainToggle(text: NSLocalizedString("internal_storage", comment: "Internal Storage toggle"), isOn: mg_key_binding(["LBJfwOEzExRxzlAnSuI7eg"]))
-                    PlainToggle(text: NSLocalizedString("internal_features", comment: "Internal Features toggle"), isOn: mg_internal_binding())
-                    PlainToggle(text: NSLocalizedString("metal_hud_in_all_apps", comment: "Metal HUD toggle"), isOn: mg_key_binding(["EqrsVvjcYDdxHBiQmGhAWw"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("internal_storage", "GestaltView", comment: "Internal Storage toggle"), isOn: mg_key_binding(["LBJfwOEzExRxzlAnSuI7eg"]))
+                    PlainToggle(text: NSLocalizedStringFromTable("internal_features", "GestaltView", comment: "Internal Features toggle"), isOn: mg_internal_binding())
+                    PlainToggle(text: NSLocalizedStringFromTable("metal_hud_in_all_apps", "GestaltView", comment: "Metal HUD toggle"), isOn: mg_key_binding(["EqrsVvjcYDdxHBiQmGhAWw"]))
                 } header: {
-                    Label(NSLocalizedString("internal", comment: "Internal header"), systemImage: "ant")
+                    Label(NSLocalizedStringFromTable("internal", "GestaltView", comment: "Internal header"), systemImage: "ant")
                 }
             }
-            .navigationTitle(NSLocalizedString("app_name", comment: "App navigation title"))
+            .navigationTitle(NSLocalizedStringFromTable("app_name", "GestaltView", comment: "App navigation title"))
             .tint(Color("AccentColor"))
             .onAppear {
                 mg_load()
@@ -280,9 +282,9 @@ struct GestaltView: View {
         var errorDescription: String? {
             switch self {
             case .missingArtworkSubtype:
-                return NSLocalizedString("missing_artwork_subtype", comment: "Missing artwork subtype error")
+                return NSLocalizedStringFromTable("missing_artwork_subtype", "GestaltView", comment: "Missing artwork subtype error")
             case .missingArtworkDeviceName:
-                return NSLocalizedString("missing_artwork_device_name", comment: "Missing artwork device name error")
+                return NSLocalizedStringFromTable("missing_artwork_device_name", "GestaltView", comment: "Missing artwork device name error")
             }
         }
     }
@@ -345,7 +347,7 @@ struct GestaltView: View {
                     self.is_valid = false
                     self.is_empty = (try? FileManager.default.attributesOfItem(atPath: mg_url_now.path))?[.size] as? UInt64 == 0
                     self.is_loading = false
-                    Alertinator.shared.alert(title: NSLocalizedString("failed_load_current_mg", comment: "Failed to load MobileGestalt alert title"), body: NSLocalizedString("failed_load_current_mg_body", comment: "Failed to load MobileGestalt alert body"))
+                    Alertinator.shared.alert(title: NSLocalizedStringFromTable("failed_load_current_mg", "GestaltView", comment: "Failed to load MobileGestalt alert title"), body: NSLocalizedStringFromTable("failed_load_current_mg_body", "GestaltView", comment: "Failed to load MobileGestalt alert body"))
                 }
             }
         }
@@ -371,12 +373,12 @@ struct GestaltView: View {
             enable_devicename = false
 
             print("(mg) successfully overwrote mobilegestalt!")
-            Alertinator.shared.alert(title: NSLocalizedString("mg_apply_success_title", comment: "Gestalt apply success title"), body: NSLocalizedString("mg_apply_success_body", comment: "Gestalt apply success body"), actionLabel: NSLocalizedString("respring", comment: "Respring action label"), action: {
+            Alertinator.shared.alert(title: NSLocalizedStringFromTable("mg_apply_success_title", "GestaltView", comment: "Gestalt apply success title"), body: NSLocalizedStringFromTable("mg_apply_success_body", "GestaltView", comment: "Gestalt apply success body"), actionLabel: NSLocalizedStringFromTable("respring", "GestaltView", comment: "Respring action label"), action: {
                 state.respring()
             })
         } catch {
             print("(mg) failed to apply mobilegestalt: \(error)")
-            Alertinator.shared.alert(title: NSLocalizedString("mg_apply_failed_title", comment: "Gestalt apply failure title"), body: NSLocalizedString("mg_apply_failed_body", comment: "Gestalt apply failure body"))
+            Alertinator.shared.alert(title: NSLocalizedStringFromTable("mg_apply_failed_title", "GestaltView", comment: "Gestalt apply failure title"), body: NSLocalizedStringFromTable("mg_apply_failed_body", "GestaltView", comment: "Gestalt apply failure body"))
         }
     }
     
@@ -387,11 +389,11 @@ struct GestaltView: View {
             try mg_write(backup_data)
 
             print("(mg) successfully reverted mobilegestalt!)")
-            Alertinator.shared.alert(title: NSLocalizedString("mg_revert_success_title", comment: "Gestalt revert success title"), body: NSLocalizedString("mg_revert_success_body", comment: "Gestalt revert success body"))
+            Alertinator.shared.alert(title: NSLocalizedStringFromTable("mg_revert_success_title", "GestaltView", comment: "Gestalt revert success title"), body: NSLocalizedStringFromTable("mg_revert_success_body", "GestaltView", comment: "Gestalt revert success body"))
         } catch {
             // The direct file write path now surfaces the underlying error through the catch.
             print("(mg) failed to revert mobilegestalt: \(error)")
-            Alertinator.shared.alert(title: NSLocalizedString("mg_revert_failed_title", comment: "Gestalt revert failure title"), body: NSLocalizedString("mg_revert_failed_body", comment: "Gestalt revert failure body"))
+            Alertinator.shared.alert(title: NSLocalizedStringFromTable("mg_revert_failed_title", "GestaltView", comment: "Gestalt revert failure title"), body: NSLocalizedStringFromTable("mg_revert_failed_body", "GestaltView", comment: "Gestalt revert failure body"))
         }
     }
 
@@ -459,8 +461,8 @@ struct GestaltView: View {
     
             if enabled {
                 Alertinator.shared.alert(
-                    title: NSLocalizedString("warning_alert_title", comment: "Warning alert title"),
-                    body: NSLocalizedString("ipados_ui_alert_body", comment: "iPadOS UI alert body")
+                    title: NSLocalizedStringFromTable("warning_alert_title", "GestaltView", comment: "Warning alert title"),
+                    body: NSLocalizedStringFromTable("ipados_ui_alert_body", "GestaltView", comment: "iPadOS UI alert body")
                 )
             }
     
@@ -494,7 +496,7 @@ struct GestaltView: View {
                 guard let cache_extra = self.mg_dict_now["CacheExtra"] as? NSMutableDictionary else { return }
                 
                 if enabled {
-                    Alertinator.shared.alert(title: NSLocalizedString("warning_alert_title", comment: "Warning alert title"), body: NSLocalizedString("region_restrictions_alert_body", comment: "Region restrictions alert body"))
+                    Alertinator.shared.alert(title: NSLocalizedStringFromTable("warning_alert_title", "GestaltView", comment: "Warning alert title"), body: NSLocalizedStringFromTable("region_restrictions_alert_body", "GestaltView", comment: "Region restrictions alert body"))
                     cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] = "US"
                     cache_extra["zHeENZu+wbg7PUprwNwBWg"] = "LL/A"
                 } else {
@@ -525,8 +527,8 @@ struct GestaltView: View {
                     cache_extra[key] = 1
     
                     Alertinator.shared.alert(
-                        title: NSLocalizedString("apple_intelligence_spoof_title", comment: "Apple Intelligence spoof title"),
-                        body: NSLocalizedString("apple_intelligence_spoof_body", comment: "Apple Intelligence spoof body")
+                        title: NSLocalizedStringFromTable("apple_intelligence_spoof_title", "GestaltView", comment: "Apple Intelligence spoof title"),
+                        body: NSLocalizedStringFromTable("apple_intelligence_spoof_body", "GestaltView", comment: "Apple Intelligence spoof body")
                     )
                 } else {
                     cache_extra.removeObject(forKey: key)

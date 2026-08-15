@@ -47,7 +47,7 @@ struct SettingsView: View {
                             VStack(alignment: .leading) {
                                 Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
                                      ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
-                                     ?? NSLocalizedString("unknown_app", comment: "Fallback app name"))
+                                     ?? NSLocalizedStringFromTable("unknown_app", "SettingsView", comment: "Fallback app name"))
                                 .font(.headline)
                                 
                                 Text("\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0")")
@@ -67,7 +67,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Picker(NSLocalizedString("method", comment: "Method picker label"), selection: $method) {
+                    Picker(NSLocalizedStringFromTable("method", "SettingsView", comment: "Method picker label"), selection: $method) {
                         Text("bad_query").tag("bad_query")
                         Text("cmg").tag("cmg")
                     }
@@ -76,16 +76,16 @@ struct SettingsView: View {
                     Button {
                         grant_all(state: state)
                     } label: {
-                        Text(NSLocalizedString("run_exploit", comment: "Run exploit button"))
+                        Text(NSLocalizedStringFromTable("run_exploit", "SettingsView", comment: "Run exploit button"))
                     }
                 } header: {
-                    Label(NSLocalizedString("exploit", comment: "Exploit section title"), systemImage: "wrench.and.screwdriver")
+                    Label(NSLocalizedStringFromTable("exploit", "SettingsView", comment: "Exploit section title"), systemImage: "wrench.and.screwdriver")
                 } footer: {
                     if method == "cmg" {
-                        Text(NSLocalizedString("exploit_method_cmg", comment: "CMG footer text"))
+                        Text(NSLocalizedStringFromTable("exploit_method_cmg", "SettingsView", comment: "CMG footer text"))
                     } else {
                         HStack(alignment: .firstTextBaseline, spacing: 4) {
-                            Text(NSLocalizedString("exploit_method_bad_query_prefix", comment: "bad_query intro text"))
+                            Text(NSLocalizedStringFromTable("exploit_method_bad_query_prefix", "SettingsView", comment: "bad_query intro text"))
                             Link("forcequit", destination: URL(string: "https://github.com/forcequitOS")!)
                         }
                     }
@@ -93,7 +93,7 @@ struct SettingsView: View {
                 
                 Section {
                     HStack {
-                        TextField(NSLocalizedString("sandbox_extension_token_placeholder", comment: "Token field placeholder"), text: $token)
+                        TextField(NSLocalizedStringFromTable("sandbox_extension_token_placeholder", "SettingsView", comment: "Token field placeholder"), text: $token)
                         
                         Spacer()
                         
@@ -104,41 +104,41 @@ struct SettingsView: View {
                         }
                     }
                     .contextMenu {
-                        Text(NSLocalizedString("token_class", comment: "Token class label") + " \(token.split(separator: ";").first { $0.contains("com.apple") }.map(String.init) ?? "N/A")")
-                        Text(NSLocalizedString("token_path", comment: "Token path label") + " \(token.split(separator: ";").last.map(String.init) ?? "N/A")")
+                        Text(NSLocalizedStringFromTable("token_class", "SettingsView", comment: "Token class label") + " \(token.split(separator: ";").first { $0.contains("com.apple") }.map(String.init) ?? "N/A")")
+                        Text(NSLocalizedStringFromTable("token_path", "SettingsView", comment: "Token path label") + " \(token.split(separator: ";").last.map(String.init) ?? "N/A")")
                         
                         Button {
                             UIPasteboard.general.string = token
                         } label: {
-                            Label(NSLocalizedString("copy_token", comment: "Copy token action"), systemImage: "doc.on.doc")
+                            Label(NSLocalizedStringFromTable("copy_token", "SettingsView", comment: "Copy token action"), systemImage: "doc.on.doc")
                         }
                     }
                     .lineLimit(1)
                     
                     Button {
-                        token = sandbox_extension_issue_file(path: TweakPaths.gestalt_dir) ?? NSLocalizedString("failed_to_get_token", comment: "Failed token fallback")
+                        token = sandbox_extension_issue_file(path: TweakPaths.gestalt_dir) ?? NSLocalizedStringFromTable("failed_to_get_token", "SettingsView", comment: "Failed token fallback")
                     } label: {
-                        Text(NSLocalizedString("generate_token", comment: "Generate token button"))
+                        Text(NSLocalizedStringFromTable("generate_token", "SettingsView", comment: "Generate token button"))
                     }
                     .disabled(!state.exploit_succeeded)
                 } header: {
-                    Label(NSLocalizedString("token", comment: "Token section title"), systemImage: "key")
+                    Label(NSLocalizedStringFromTable("token", "SettingsView", comment: "Token section title"), systemImage: "key")
                 } footer: {
-                    if !token.isEmpty && token != NSLocalizedString("failed_to_get_token", comment: "Failed token fallback") {
+                    if !token.isEmpty && token != NSLocalizedStringFromTable("failed_to_get_token", "SettingsView", comment: "Failed token fallback") {
                         if valid {
-                            Text(NSLocalizedString("sandbox_token_valid", comment: "Valid sandbox token"))
+                            Text(NSLocalizedStringFromTable("sandbox_token_valid", "SettingsView", comment: "Valid sandbox token"))
                         } else {
-                            Text(NSLocalizedString("sandbox_token_invalid", comment: "Invalid sandbox token"))
+                            Text(NSLocalizedStringFromTable("sandbox_token_invalid", "SettingsView", comment: "Invalid sandbox token"))
                         }
                     }
                     
                     if !state.exploit_succeeded {
-                        Text(NSLocalizedString("exploit_failed_version", comment: "Exploit failure message"))
+                        Text(NSLocalizedStringFromTable("exploit_failed_version", "SettingsView", comment: "Exploit failure message"))
                     }
                 }
                 
                 Section {
-                    Toggle(NSLocalizedString("keep_alive", comment: "Keep alive toggle"), isOn: $ka_on)
+                    Toggle(NSLocalizedStringFromTable("keep_alive", "SettingsView", comment: "Keep alive toggle"), isOn: $ka_on)
                         .onChange(of: ka_on) { _, enabled in
                             if enabled {
                                 keep_alive()
@@ -147,58 +147,58 @@ struct SettingsView: View {
                             }
                         }
                 } header: {
-                    Label(NSLocalizedString("settings", comment: "Settings section title"), systemImage: "gear")
+                    Label(NSLocalizedStringFromTable("settings", "SettingsView", comment: "Settings section title"), systemImage: "gear")
                 }
                 
                 Section {
                     Button {
                         show_confirm = true
                     } label: {
-                        Text(NSLocalizedString("respring", comment: "Respring button"))
+                        Text(NSLocalizedStringFromTable("respring", "SettingsView", comment: "Respring button"))
                     }
                 } header: {
-                    Label(NSLocalizedString("tools", comment: "Tools section title"), systemImage: "wrench.and.screwdriver")
+                    Label(NSLocalizedStringFromTable("tools", "SettingsView", comment: "Tools section title"), systemImage: "wrench.and.screwdriver")
                 } footer: {
                     HStack(alignment: .firstTextBaseline, spacing: 4) {
-                        Text(NSLocalizedString("respring_method_prefix", comment: "Respring intro text"))
+                        Text(NSLocalizedStringFromTable("respring_method_prefix", "SettingsView", comment: "Respring intro text"))
                         Link("neon", destination: URL(string: "https://github.com/neonmodder123")!)
-                        Text(NSLocalizedString("respring_method_middle", comment: "Respring middle text"))
+                        Text(NSLocalizedStringFromTable("respring_method_middle", "SettingsView", comment: "Respring middle text"))
                         Link("skadz", destination: URL(string: "https://github.com/skadz108")!)
                     }
                 }
                 
                 Section {
-                    CreditsRow(name: "roooot", role: NSLocalizedString("credit_main_developer", comment: "Credit role"), profile: URL(string: "https://github.com/rooootdev")!)
-                    CreditsRow(name: "forcequit", role: NSLocalizedString("credit_bad_query_exploit", comment: "Credit role"), profile: URL(string: "https://github.com/forcequitOS")!)
-                    CreditsRow(name: "johnny", role: NSLocalizedString("credit_mcm_bug_class", comment: "Credit role"), profile: URL(string: "https://github.com/0xjohnnydev")!)
-                    CreditsRow(name: "jailbreak.party", role: NSLocalizedString("credit_partyui_gestaltview", comment: "Credit role"), profile: URL(string: "https://github.com/jailbreakdotparty")!)
-                    CreditsRow(name: "Hikariman", role: NSLocalizedString("credit_locaclization_project", comment: "Credit role"), profile: URL(string: "https://github.com/ISvet228")!)
+                    CreditsRow(name: "roooot", role: NSLocalizedStringFromTable("credit_main_developer", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/rooootdev")!)
+                    CreditsRow(name: "forcequit", role: NSLocalizedStringFromTable("credit_bad_query_exploit", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/forcequitOS")!)
+                    CreditsRow(name: "johnny", role: NSLocalizedStringFromTable("credit_mcm_bug_class", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/0xjohnnydev")!)
+                    CreditsRow(name: "jailbreak.party", role: NSLocalizedStringFromTable("credit_partyui_gestaltview", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/jailbreakdotparty")!)
+                    CreditsRow(name: "Hikariman", role: NSLocalizedStringFromTable("credit_locaclization_project", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/ISvet228")!)
                 } header: {
-                    Label(NSLocalizedString("credits", comment: "Credits section title"), systemImage: "person.3.fill")
+                    Label(NSLocalizedStringFromTable("credits", "SettingsView", comment: "Credits section title"), systemImage: "person.3.fill")
                 }
             }
-            .navigationTitle(NSLocalizedString("settings", comment: "Settings view title"))
+            .navigationTitle(NSLocalizedStringFromTable("settings", "SettingsView", comment: "Settings view title"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
                         Button {
                             dismiss()
                         } label: {
-                            Text(NSLocalizedString("done", comment: "Done button"))
+                            Text(NSLocalizedStringFromTable("done", "SettingsView", comment: "Done button"))
                         }
                     }
                 }
             }
-            .alert(NSLocalizedString("are_you_sure", comment: "Confirmation dialog title"), isPresented: $show_confirm) {
-                Button(NSLocalizedString("cancel", comment: "Cancel button")) {
+            .alert(NSLocalizedStringFromTable("are_you_sure", "SettingsView", comment: "Confirmation dialog title"), isPresented: $show_confirm) {
+                Button(NSLocalizedStringFromTable("cancel", "SettingsView", comment: "Cancel button")) {
                     show_confirm = false
                 }
                 
-                Button(NSLocalizedString("confirm", comment: "Confirm button")) {
+                Button(NSLocalizedStringFromTable("confirm", "SettingsView", comment: "Confirm button")) {
                     state.respring()
                 }
             } message: {
-                Text(NSLocalizedString("confirm_respring", comment: "Respring confirmation message"))
+                Text(NSLocalizedStringFromTable("confirm_respring", "SettingsView", comment: "Respring confirmation message"))
             }
         }
     }
