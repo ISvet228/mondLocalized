@@ -29,22 +29,29 @@ struct ContentView: View {
                     NavigationLink {
                         GestaltView()
                     } label: {
-                        Text(NSLocalizedString("mobile_gestalt", comment: "MobileGestalt entry"))
+                        Text("MobileGestalt")
                     }
                     
                     NavigationLink {
                         PosterView()
                     } label: {
-                        Text(NSLocalizedString("posterboard", comment: "PosterBoard entry"))
+                        Text("PosterBoard")
                     }
                     .disabled(method == "cmg")
+                    
+                    NavigationLink {
+                        SantanderView()
+                    } label: {
+                        Text("HouseArrest")
+                    }
+                    .disabled(true)
                 } header: {
                     Label(NSLocalizedString("tweaks", comment: "Tweaks section header"), systemImage: "paintbrush")
                 } footer: {
                     if method == "cmg" {
                          Text(NSLocalizedString("only_mobilegestalt_available", comment: "CMG warning footer"))
                     } else {
-                        Text(NSLocalizedString("posterboard_dev_warning", comment: "PosterBoard warning footer"))
+                        Text(NSLocalizedString("housearrest_dev_warning", comment: "PosterBoard warning footer"))
                     }
                 }
             }
