@@ -86,7 +86,7 @@ struct SettingsView: View {
                     } else {
                         HStack(alignment: .firstTextBaseline, spacing: 4) {
                             Text(NSLocalizedString("exploit_method_bad_query_prefix", comment: "bad_query intro text"))
-                            Link("forcequit", destination: URL(string: "https://github.com/forcequitOS"))
+                            Link("forcequit", destination: URL(string: "https://github.com/forcequitOS")!)
                         }
                     }
                 }
@@ -161,9 +161,9 @@ struct SettingsView: View {
                 } footer: {
                     HStack(alignment: .firstTextBaseline, spacing: 4) {
                         Text(NSLocalizedString("respring_method_prefix", comment: "Respring intro text"))
-                        Link("neon", destination: URL(string: "https://github.com/neonmodder123"))
+                        Link("neon", destination: URL(string: "https://github.com/neonmodder123")!)
                         Text(NSLocalizedString("respring_method_middle", comment: "Respring middle text"))
-                        Link("skadz", destination: URL(string: "https://github.com/skadz108"))
+                        Link("skadz", destination: URL(string: "https://github.com/skadz108")!)
                     }
                 }
                 
