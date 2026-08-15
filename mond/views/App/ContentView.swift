@@ -55,7 +55,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle(NSLocalizedString("app_name", comment: "App title"))
+            .navigationTitle("mond")
             .tint(Color("AccentColor"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
