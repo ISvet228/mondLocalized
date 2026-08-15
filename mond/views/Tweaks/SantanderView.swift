@@ -5,6 +5,7 @@
 //  Created by ruter on 14.08.26.
 //
 
+import Foundation
 import SwiftUI
 import UIKit
 import UniformTypeIdentifiers

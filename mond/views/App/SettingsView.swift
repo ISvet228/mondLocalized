@@ -5,6 +5,7 @@
 //  Created by ruter on 18.07.26.
 //
 
+import Foundation
 import SwiftUI
 import PartyUI
 
