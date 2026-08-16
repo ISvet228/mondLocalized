@@ -162,7 +162,7 @@ struct GestaltView: View {
                 }
 
                 Section {
-                    TweakToggle(title: "Security Research Device Mode")
+                    TweakToggle(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: "Disable Region Restrictions")
                     TweakToggle(title: "Apple Intelligence")
 

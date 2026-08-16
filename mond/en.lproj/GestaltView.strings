@@ -31,7 +31,7 @@
 "hardware.pulse_width_modulation" = "Pulse Width Modulation";
 "hardware.hardware_oriented_features" = "Hardware-Oriented Feature";
 
-"eligibility.security_research_device_ui" = "Security Research Device Mode";
+"eligibility.security_research_device_mode" = "Security Research Device Mode";
 "eligibility.disable_region_restrictions" = "Disable Region Restrictions";
 "eligibility.apple_intelligence" = "Apple Intelligence";
 "eligibility.spoofing" = "Spoofing";
