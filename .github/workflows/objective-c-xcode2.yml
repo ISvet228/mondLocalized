@@ -3,7 +3,7 @@ name: build and release
 on:
   push:
     branches:
-      - main
+      - SECOND-LOCALIZATION-ENCHANTMENT
   workflow_dispatch:
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
           ditto -c -k --keepParent Payload mond.ipa
           rm -rf Payload
 
-      - name: release
+      - name: scum
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
