@@ -61,7 +61,7 @@ struct PosterView: View {
                     }
                     .disabled(busy)
                 } footer: {
-                    Text(markdown: NSLocalizedString("tendies_warning", tableName: "PosterView", comment: ""))
+                    Text(try! AttributedString(markdown:NSLocalizedString("tendies_warning", tableName: "PosterView", comment: "")))
                 }
 
                 if !state.poster_files.isEmpty {

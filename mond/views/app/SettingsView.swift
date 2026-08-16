@@ -83,7 +83,7 @@ struct SettingsView: View {
                     Label(NSLocalizedString("exploit", tableName: "SettingsView", comment: "Exploit section header"), systemImage: "wrench.and.screwdriver")
                 } footer: {
                     if (method == "cmg") {
-                        Text(markdown:NSLocalizedString("exploit_method_cmg", tableName: "SettingsView", comment: "CMG supported versions footer text"))
+                        Text(try! AttributedString(markdown:NSLocalizedString("exploit_method_cmg", tableName: "SettingsView", comment: "CMG supported versions footer text")))
                     } else {
                         Text(try! AttributedString(markdown:NSLocalizedString("exploit_method_bad_query", tableName: "SettingsView", comment: "bad_query supported versions footer text")))
                     }
