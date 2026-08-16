@@ -4,7 +4,7 @@
 "bootloop_warning" = "Rebooting now might cause a bootloop. Try pressing 'Revert Tweaks'. If the warnings dont go away after that, you're fucked.";
 "apply_tweaks" = "Apply Tweaks";
 "revert_tweaks" = "Revert Tweaks";
-"warning_footer" = "**WARNING:** These tweaks have the capability to break features on your device or softbrick it if misused!";
+"tweak_warning" = "**WARNING:** These tweaks have the capability to break features on your device or softbrick it if misused!";
 "original_subtype_format" = "Original (%d)";
 "disable_dynamic_island" = "Disable Dynamic Island";
 "subtype" = "Subtype";
