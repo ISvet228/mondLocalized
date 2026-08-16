@@ -41,8 +41,8 @@
 
 "ipados.allow_ipados_apps" = "iPadOS Features";
 "ipados.apple_pencil_settings" = "Apple Pencil Settings";
-"ipados.stage_manager_support" = "Stage Manager Support"
-"ipados.ipados_mode" = "Enable iPadOS Mode"
+"ipados.stage_manager_support" = "Stage Manager Support";
+"ipados.ipados_mode" = "Enable iPadOS Mode";
 "ipados.ipados_features" = "iPadOS Features";
 
 "internal.storage" = "Internal Storage View";
