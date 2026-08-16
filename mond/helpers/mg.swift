@@ -147,7 +147,7 @@ let all_tweaks: [mg_tweak] = [
         },
         w_on: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
-            Alertinator.shared.alert(title: NSLocaclizedString("warning", comment: ""), body: NSLocalizedString("eligibility.disable_region_restrictions_warning", tableName: "GestaltView", comment: ""))
+            Alertinator.shared.alert(title: NSLocalizedString("warning", comment: ""), body: NSLocalizedString("eligibility.disable_region_restrictions_warning", tableName: "GestaltView", comment: ""))
             cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] = "US"
             cache_extra["zHeENZu+wbg7PUprNwBWg"] = "LL/A"
         },
