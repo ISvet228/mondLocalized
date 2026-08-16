@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: ios-release-latest
+  group: ios-release-development
   cancel-in-progress: true
 
 jobs:
@@ -39,8 +41,10 @@ jobs:
 
           rm -rf Payload mond.ipa
           mkdir -p Payload
+
           APP_PATH="$(find build/Build/Products/Release-iphoneos -maxdepth 1 -name '*.app' -print -quit)"
           cp -R "$APP_PATH" Payload/
+
           ditto -c -k --keepParent Payload mond.ipa
           rm -rf Payload
 
@@ -49,10 +53,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          if gh release view latest >/dev/null 2>&1; then
-            gh release delete latest --yes --cleanup-tag
+
+          if gh release view development >/dev/null 2>&1; then
+            gh release delete development --yes --cleanup-tag
           fi
-          gh release create latest mond.ipa \
+
+          NOTES="$(git log -5 --pretty=format:'- %h %s')"
+
+          gh release create development mond.ipa \
             --target "${GITHUB_SHA}" \
-            --title "Latest" \
-            --notes "Automated build from ${GITHUB_SHA}"
+            --title "Development" \
+            --prerelease \
+            --notes "automated build from ${GITHUB_SHA}
+
+          ${NOTES}"
