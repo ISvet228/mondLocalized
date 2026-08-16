@@ -82,8 +82,11 @@ struct SettingsView: View {
                 } header: {
                     Label(NSLocalizedString("exploit", tableName: "SettingsView", comment: "Exploit section header"), systemImage: "wrench.and.screwdriver")
                 } footer: {
-                    Text(method == "cmg" ? NSLocaclizedString("exploit_method_cmg", tableName: "SettingsView", comment: "") : 
-                    NSLocaclizedString("exploit_method_bad_query_prefix", tableName: "SettingsView", comment: ""))
+                    if (method == "cmg") {
+                        Text(NSLocalizedString("exploit_method_cmg", tableName: "SettingsView", comment: "CMG supported versions footer text"))
+                    } else {
+                        Text(NSLocalizedString("exploit_method_bad_query_prefix", tableName: "SettingsView", comment: "bad_query supported versions footer text"))
+                    }
                 }
                 
                 Section {
