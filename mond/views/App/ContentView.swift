@@ -5,7 +5,6 @@
 //  Created by ruter on 17.07.26.
 //
 
-import Foundation
 import SwiftUI
 import PartyUI
 
@@ -23,36 +22,56 @@ struct ContentView: View {
                     LogView()
                         .modifier(TerminalPlatter())
                 } header: {
-                    Label(NSLocalizedStringFromTable("logs", "ContentView", comment: "Logs section header"), systemImage: "apple.terminal")
+                    Label("Logs", systemImage: "apple.terminal")
                 }
                 
                 Section {
                     NavigationLink {
                         GestaltView()
                     } label: {
-                        Text("MobileGestalt")
+                        HStack {
+                            Text("MobileGestalt")
+                            if state.granting_mg {
+                                Spacer()
+                                ProgressView()
+                                    .tint(Color.primary)
+                            }
+                        }
                     }
+                    .disabled(state.mg_granted != true)
                     
                     NavigationLink {
                         PosterView()
                     } label: {
-                        Text("PosterBoard")
+                        HStack {
+                            Text("PosterBoard")
+                            if state.granting_pb {
+                                Spacer()
+                                ProgressView()
+                                    .tint(Color.primary)
+                            }
+                        }
                     }
-                    .disabled(method == "cmg")
+                    .disabled(method == "cmg" || state.pb_granted != true)
                     
                     NavigationLink {
                         SantanderView()
                     } label: {
-                        Text("HouseArrest")
+                        HStack {
+                            Text("HouseArrest")
+                            if state.granting_apps {
+                                Spacer()
+                                ProgressView()
+                                    .tint(Color.primary)
+                            }
+                        }
                     }
-                    .disabled(true)
+                    .disabled(method == "cmg" || state.apps_granted != true)
                 } header: {
-                    Label(NSLocalizedStringFromTable("tweaks", "ContentView", comment: "Tweaks section header"), systemImage: "paintbrush")
+                    Label("Tweaks", systemImage: "paintbrush")
                 } footer: {
                     if method == "cmg" {
-                         Text(NSLocalizedStringFromTable("only_mobilegestalt_available", "ContentView", comment: "CMG warning footer"))
-                    } else {
-                        Text(NSLocalizedStringFromTable("housearrest_dev_warning", "ContentView", comment: "PosterBoard warning footer"))
+                         Text("Only MobileGestalt is available when method is set to cmg.")
                     }
                 }
             }

@@ -5,7 +5,6 @@
 //  Created by ruter on 18.07.26.
 //
 
-import Foundation
 import SwiftUI
 import PartyUI
 
@@ -16,6 +15,7 @@ struct SettingsView: View {
     @AppStorage("method") private var method: String = "bad_query"
     @AppStorage("ka_on") private var ka_on = true
     @AppStorage("token") private var token: String = ""
+    @AppStorage("dismiss_after_import") private var dismiss_after_import = false
     
     @State private var show_confirm: Bool = false
     
@@ -48,7 +48,7 @@ struct SettingsView: View {
                             VStack(alignment: .leading) {
                                 Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
                                      ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
-                                     ?? NSLocalizedStringFromTable("unknown_app", "SettingsView", comment: "Fallback app name"))
+                                     ?? "Unknown App")
                                 .font(.headline)
                                 
                                 Text("\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0")")
@@ -68,7 +68,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Picker(NSLocalizedStringFromTable("method", "SettingsView", comment: "Method picker label"), selection: $method) {
+                    Picker("Method", selection: $method) {
                         Text("bad_query").tag("bad_query")
                         Text("cmg").tag("cmg")
                     }
@@ -77,24 +77,17 @@ struct SettingsView: View {
                     Button {
                         grant_all(state: state)
                     } label: {
-                        Text(NSLocalizedStringFromTable("run_exploit", "SettingsView", comment: "Run exploit button"))
+                        Text("Run Exploit")
                     }
                 } header: {
-                    Label(NSLocalizedStringFromTable("exploit", "SettingsView", comment: "Exploit section title"), systemImage: "wrench.and.screwdriver")
+                    Label("Exploit", systemImage: "wrench.and.screwdriver")
                 } footer: {
-                    if method == "cmg" {
-                        Text(NSLocalizedStringFromTable("exploit_method_cmg", "SettingsView", comment: "CMG footer text"))
-                    } else {
-                        HStack(alignment: .firstTextBaseline, spacing: 4) {
-                            Text(NSLocalizedStringFromTable("exploit_method_bad_query_prefix", "SettingsView", comment: "bad_query intro text"))
-                            Link("forcequit", destination: URL(string: "https://github.com/forcequitOS")!)
-                        }
-                    }
+                    Text(method == "cmg" ? "**CMG:** Supports iOS 27.0 b1 - b4. Only MobileGestalt will work with this method. Only use this when bad_query isnt working for you." : "**bad_query:** Supports iOS 27.0 b1 - b4. By [forcequit](https://github.com/forcequitOS).")
                 }
                 
                 Section {
                     HStack {
-                        TextField(NSLocalizedStringFromTable("sandbox_extension_token_placeholder", "SettingsView", comment: "Token field placeholder"), text: $token)
+                        TextField("Sandbox Extension Token.", text: $token)
                         
                         Spacer()
                         
@@ -105,46 +98,41 @@ struct SettingsView: View {
                         }
                     }
                     .contextMenu {
-                         let tokenValue = token.split(separator: ";")
-                          .first { $0.contains("com.apple") }
-                          .map(String.init) ?? "N/A"
-    
-                            // 2. Теперь компилятор моментально соберет эту строку
-                        Text("\(NSLocalizedStringFromTable("token_class", "SettingsView", comment: "Token class label")) \(tokenValue)")
-                        Text(NSLocalizedStringFromTable("token_path", "SettingsView", comment: "Token path label") + " \(token.split(separator: ";").last.map(String.init) ?? "N/A")")
+                        Text("Class: \(token.split(separator: ";").first { $0.contains("com.apple") }.map(String.init) ?? "N/A")")
+                        Text("Path: \(token.split(separator: ";").last.map(String.init) ?? "N/A")")
                         
                         Button {
                             UIPasteboard.general.string = token
                         } label: {
-                            Label(NSLocalizedStringFromTable("copy_token", "SettingsView", comment: "Copy token action"), systemImage: "doc.on.doc")
+                            Label("Copy token", systemImage: "doc.on.doc")
                         }
                     }
                     .lineLimit(1)
                     
                     Button {
-                        token = sandbox_extension_issue_file(path: TweakPaths.gestalt_dir) ?? NSLocalizedStringFromTable("failed_to_get_token", "SettingsView", comment: "Failed token fallback")
+                        token = sandbox_extension_issue_file(path: TweakPaths.gestalt_dir) ?? "Failed to get token."
                     } label: {
-                        Text(NSLocalizedStringFromTable("generate_token", "SettingsView", comment: "Generate token button"))
+                        Text("Generate Token")
                     }
                     .disabled(!state.exploit_succeeded)
                 } header: {
-                    Label(NSLocalizedStringFromTable("token", "SettingsView", comment: "Token section title"), systemImage: "key")
+                    Label("Token", systemImage: "key")
                 } footer: {
-                    if !token.isEmpty && token != NSLocalizedStringFromTable("failed_to_get_token", "SettingsView", comment: "Failed token fallback") {
+                    if !token.isEmpty && token != "Failed to get token." {
                         if valid {
-                            Text(NSLocalizedStringFromTable("sandbox_token_valid", "SettingsView", comment: "Valid sandbox token"))
+                            Text("Your sandbox token is valid.")
                         } else {
-                            Text(NSLocalizedStringFromTable("sandbox_token_invalid", "SettingsView", comment: "Invalid sandbox token"))
+                            Text("Your sandbox token is invalid.")
                         }
                     }
                     
                     if !state.exploit_succeeded {
-                        Text(NSLocalizedStringFromTable("exploit_failed_version", "SettingsView", comment: "Exploit failure message"))
+                        Text("Disabled because the exploit failed. Is your iOS version supported?")
                     }
                 }
                 
                 Section {
-                    Toggle(NSLocalizedStringFromTable("keep_alive", "SettingsView", comment: "Keep alive toggle"), isOn: $ka_on)
+                    PlainToggle(text: "Keep Alive", infoType: .info, infoMessage: "Keeps the app running in the background after you close it, allowing it to remain active.", isOn: $ka_on)
                         .onChange(of: ka_on) { _, enabled in
                             if enabled {
                                 keep_alive()
@@ -152,59 +140,56 @@ struct SettingsView: View {
                                 let_die()
                             }
                         }
+
+                    PlainToggle(text: "Dismiss after importing", infoType: .info, infoMessage: "When enabled, the Tendies explorer will close automatically after importing a .tendies file into PosterBoard.", isOn: $dismiss_after_import)
                 } header: {
-                    Label(NSLocalizedStringFromTable("settings", "SettingsView", comment: "Settings section title"), systemImage: "gear")
+                    Label("Settings", systemImage: "gear")
                 }
                 
                 Section {
                     Button {
                         show_confirm = true
                     } label: {
-                        Text(NSLocalizedString("respring", comment: "Respring button"))
+                        Text("Respring")
                     }
                 } header: {
-                    Label(NSLocalizedStringFromTable("tools", "SettingsView", comment: "Tools section title"), systemImage: "wrench.and.screwdriver")
+                    Label("Tools", systemImage: "wrench.and.screwdriver")
                 } footer: {
-                    HStack(alignment: .firstTextBaseline, spacing: 4) {
-                        Text(NSLocalizedStringFromTable("respring_method_prefix", "SettingsView", comment: "Respring intro text"))
-                        Link("neon", destination: URL(string: "https://github.com/neonmodder123")!)
-                        Text(NSLocalizedStringFromTable("respring_method_middle", "SettingsView", comment: "Respring middle text"))
-                        Link("skadz", destination: URL(string: "https://github.com/skadz108")!)
-                    }
+                    Text("Respring method by [neon](https://github.com/neonmodder123), swift implementation by [skadz](https://github.com/skadz108).")
                 }
                 
                 Section {
-                    CreditsRow(name: "roooot", role: NSLocalizedStringFromTable("credit_main_developer", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/rooootdev")!)
-                    CreditsRow(name: "forcequit", role: NSLocalizedStringFromTable("credit_bad_query_exploit", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/forcequitOS")!)
-                    CreditsRow(name: "johnny", role: NSLocalizedStringFromTable("credit_mcm_bug_class", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/0xjohnnydev")!)
-                    CreditsRow(name: "jailbreak.party", role: NSLocalizedStringFromTable("credit_partyui_gestaltview", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/jailbreakdotparty")!)
-                    CreditsRow(name: "Hikariman", role: NSLocalizedStringFromTable("credit_locaclization_project", "SettingsView", comment: "Credit role"), profile: URL(string: "https://github.com/ISvet228")!)
+                    CreditsRow(name: "roooot", role: "Main developer", profile: URL(string: "https://github.com/rooootdev")!)
+                    CreditsRow(name: "forcequit", role: "The bad_query exploit", profile: URL(string: "https://github.com/forcequitOS")!)
+                    CreditsRow(name: "johnny", role: "His work on the MCM bug class", profile: URL(string: "https://github.com/0xjohnnydev")!)
+                    CreditsRow(name: "jailbreak.party", role: "PartyUI, GestaltView", profile: URL(string: "https://github.com/jailbreakdotparty")!)
+                    CreditsRow(name: "SerStars", role: "Tendies repository", profile: URL(string: "https://github.com/SerStars")!)
                 } header: {
-                    Label(NSLocalizedStringFromTable("credits", "SettingsView", comment: "Credits section title"), systemImage: "person.3.fill")
+                    Label("Credits", systemImage: "person.3.fill")
                 }
             }
-            .navigationTitle(NSLocalizedStringFromTable("settings", "SettingsView", comment: "Settings view title"))
+            .navigationTitle("Settings")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
                         Button {
                             dismiss()
                         } label: {
-                            Text(NSLocalizedStringFromTable("done", "SettingsView", comment: "Done button"))
+                            Text("Done")
                         }
                     }
                 }
             }
-            .alert(NSLocalizedStringFromTable("are_you_sure", "SettingsView", comment: "Confirmation dialog title"), isPresented: $show_confirm) {
-                Button(NSLocalizedStringFromTable("cancel", "SettingsView", comment: "Cancel button")) {
+            .alert("Are you sure?", isPresented: $show_confirm) {
+                Button("Cancel") {
                     show_confirm = false
                 }
                 
-                Button(NSLocalizedStringFromTable("confirm", "SettingsView", comment: "Confirm button")) {
+                Button("Confirm") {
                     state.respring()
                 }
             } message: {
-                Text(NSLocalizedStringFromTable("confirm_respring", "SettingsView", comment: "Respring confirmation message"))
+                Text("Confirm that you want to respring.")
             }
         }
     }

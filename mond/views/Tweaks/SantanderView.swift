@@ -5,397 +5,475 @@
 //  Created by ruter on 14.08.26.
 //
 
-import Foundation
 import SwiftUI
-import UIKit
-import UniformTypeIdentifiers
 import AVKit
 import AVFoundation
-
-struct SantanderView: View {
-    var body: some View {
-        SantanderBrowserSheet(
-            start_path: "/private/var/mobile/Containers/Data/Application/"
-        )
-    }
-}
-
-struct SantanderBrowserSheet: UIViewControllerRepresentable {
-    let start_path: String
-
-    func makeUIViewController(context: Context) -> SantanderPathListViewController {
-        SantanderPathListViewController(path: SantanderPath(url: URL(fileURLWithPath: start_path)))
-    }
-
-    func updateUIViewController(_ uiViewController: SantanderPathListViewController, context: Context) {}
-}
-
-private struct SantanderDirectoryListing {
-    let items: [SantanderPath]
-    let emptyStateMessage: String?
-}
+import UniformTypeIdentifiers
+import ImageIO
 
 struct SantanderPath: Hashable {
     let url: URL
-    let lastPathComponent: String
-    let isDirectory: Bool
-    let contentType: UTType?
+    let last_path_component: String
+    let display_name: String?
+    let is_directory: Bool
+    let content_type: UTType?
 
     var path: String { url.path }
-    var title: String { path == "/" ? "/" : lastPathComponent }
+    var title: String { display_name ?? (path == "/" ? "/" : last_path_component) }
+    var is_hidden: Bool { last_path_component.hasPrefix(".") }
 
-    var displayImage: UIImage? {
-        if isDirectory { return UIImage(systemName: "folder.fill") }
-        guard let type = contentType else { return UIImage(systemName: "doc") }
-        if type.isSubtype(of: .text) { return UIImage(systemName: "doc.text") }
-        if type.isSubtype(of: .image) { return UIImage(systemName: "photo") }
-        if type.isSubtype(of: .audio) { return UIImage(systemName: "waveform") }
-        if type.isSubtype(of: .movie) || type.isSubtype(of: .video) { return UIImage(systemName: "play") }
-        return UIImage(systemName: "doc")
+    var icon_name: String {
+        if is_directory { return "folder.fill" }
+        guard let type = content_type else { return "doc" }
+        if type.isSubtype(of: .text) { return "doc.text" }
+        if type.isSubtype(of: .image) { return "photo" }
+        if type.isSubtype(of: .audio) { return "waveform" }
+        if type.isSubtype(of: .movie) || type.isSubtype(of: .video) { return "play" }
+        return "doc"
     }
 
     nonisolated init(url: URL) {
         self.url = url
-        self.lastPathComponent = url.path == "/" ? "/" : url.lastPathComponent
+        self.last_path_component = url.path == "/" ? "/" : url.lastPathComponent
         let values = try? url.resourceValues(forKeys: [.contentTypeKey])
-        var isDir = ObjCBool(false)
-        let exists = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
-        self.isDirectory = exists && isDir.boolValue
-        self.contentType = values?.contentType
+        var is_dir = ObjCBool(false)
+        let exists = FileManager.default.fileExists(atPath: url.path, isDirectory: &is_dir)
+        self.is_directory = exists && is_dir.boolValue
+        self.content_type = values?.contentType
+        self.display_name = nil
+    }
+
+    nonisolated init(url: URL, is_directory: Bool) {
+        self.url = url
+        self.last_path_component = url.path == "/" ? "/" : url.lastPathComponent
+        self.is_directory = is_directory
+        self.content_type = nil
+        self.display_name = nil
+    }
+
+    nonisolated init(url: URL, display_name: String?, is_directory: Bool) {
+        self.url = url
+        self.last_path_component = url.path == "/" ? "/" : url.lastPathComponent
+        self.display_name = display_name
+        self.is_directory = is_directory
+        self.content_type = nil
     }
 }
 
-final class SantanderPathListViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
-    private var unfilteredContents: [SantanderPath]
-    private var renderedContents: [SantanderPath]
-    private let currentPath: SantanderPath
-    private let initialEmptyStateMessage: String?
-    private var isSearching = false
-    private var displayHiddenFiles = true
+struct SantanderView: View {
+    var body: some View {
+        SantanderDirectoryView(path: SantanderPath(
+            url: URL(fileURLWithPath: "/private/var/mobile/Containers/Data/Application/"),
+            is_directory: true
+        ))
+    }
+}
 
-    init(path: SantanderPath) {
-        let initialListing = Self.loadDirectoryContents(for: path)
-        self.currentPath = path
-        self.unfilteredContents = initialListing.items
-        self.renderedContents = initialListing.items
-        self.initialEmptyStateMessage = initialListing.emptyStateMessage
-        super.init(style: .insetGrouped)
-        self.title = path.title
+private struct SantanderDirectoryListing {
+    let items: [SantanderPath]
+    let empty_state_message: String?
+}
+
+struct SantanderDirectoryView: View {
+    let path: SantanderPath
+
+    @State private var items: [SantanderPath] = []
+    @State private var empty_message: String?
+    @State private var is_loading = true
+    @State private var search_text = ""
+    @State private var sort_ascending = true
+    @State private var display_hidden_files = true
+
+    var body: some View {
+        content
+            .navigationTitle(path.title)
+            .searchable(text: $search_text, placement: .navigationBarDrawer(displayMode: .always))
+            .toolbar { toolbar }
+            .task { load() }
     }
 
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
-        navigationItem.title = currentPath.title
-        configureSearchController()
-        configureRightBarButton()
-        applyFilters()
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        renderedContents.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let path = renderedContents[indexPath.row]
-        return pathCellRow(forURL: path, displayFullPathAsSubtitle: isSearching)
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        open(renderedContents[indexPath.row])
-    }
-
-    private func applyFilters(query: String? = nil) {
-        let query = query ?? searchQuery
-        renderedContents = filteredContents(matching: query)
-        updateEmptyState(query: query)
-        tableView.reloadData()
-    }
-
-    private func updateEmptyState(query: String) {
-        guard renderedContents.isEmpty else {
-            tableView.backgroundView = nil
-            return
-        }
-
-        let message: String
-        if !query.isEmpty {
-            message = "No matching items."
-        } else if !displayHiddenFiles && !unfilteredContents.isEmpty {
-            message = "No visible items. Enable \"Display hidden files\" to show dotfiles."
+    @ViewBuilder
+    private var content: some View {
+        if is_loading {
+            ProgressView()
+        } else if rendered_items.isEmpty {
+            ContentUnavailableView(empty_state_message, systemImage: "folder")
         } else {
-            message = initialEmptyStateMessage ?? "Directory is empty."
-        }
-
-        let label = UILabel()
-        label.text = message
-        label.textColor = .secondaryLabel
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = .preferredFont(forTextStyle: .body)
-        tableView.backgroundView = label
-    }
-
-    private func filteredContents(matching query: String) -> [SantanderPath] {
-        var items = unfilteredContents
-        if !displayHiddenFiles {
-            items.removeAll { $0.lastPathComponent.hasPrefix(".") }
-        }
-        guard !query.isEmpty else {
-            return items
-        }
-        return items.filter {
-            $0.lastPathComponent.localizedCaseInsensitiveContains(query) || $0.path.localizedCaseInsensitiveContains(query)
+            list
         }
     }
 
-    private var searchQuery: String {
-        navigationItem.searchController?.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-    }
-
-    private func configureSearchController() {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        definesPresentationContext = true
-    }
-
-    private func configureRightBarButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "ellipsis.circle"),
-            menu: makeRightBarButton()
-        )
-    }
-
-    private func makeRightBarButton() -> UIMenu {
-        let sortAZ = makeMenuAction(title: "Sort A-Z", image: "textformat") { [weak self] in
-            self?.unfilteredContents.sort {
-                $0.lastPathComponent.localizedCaseInsensitiveCompare($1.lastPathComponent) == .orderedAscending
+    private var list: some View {
+        List(rendered_items, id: \.self) { item in
+            if item.is_directory {
+                NavigationLink {
+                    SantanderDirectoryView(path: item)
+                } label: {
+                    row(for: item)
+                }
+            } else {
+                NavigationLink {
+                    SantanderFileView(path: item)
+                } label: {
+                    row(for: item)
+                }
             }
-            self?.applyFilters()
         }
-        let sortZA = makeMenuAction(title: "Sort Z-A", image: "textformat") { [weak self] in
-            self?.unfilteredContents.sort {
-                $0.lastPathComponent.localizedCaseInsensitiveCompare($1.lastPathComponent) == .orderedDescending
+        .listStyle(.insetGrouped)
+    }
+
+    private func row(for item: SantanderPath) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: item.icon_name)
+                .foregroundStyle(item.is_directory ? Color.accentColor : Color.secondary)
+                .frame(width: 28)
+            Text(item.title)
+                .foregroundStyle(item.is_hidden ? Color.secondary : Color.primary)
+                .lineLimit(1)
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var toolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Menu {
+                NavigationLink {
+                    SantanderDirectoryView(path: root_path)
+                } label: {
+                    Label("Go to Root", systemImage: "externaldrive")
+                }
+                NavigationLink {
+                    SantanderDirectoryView(path: home_path)
+                } label: {
+                    Label("Go to Home", systemImage: "house")
+                }
+                Divider()
+                Toggle("Display hidden files", isOn: $display_hidden_files)
+                Divider()
+                Button {
+                    sort_ascending = true
+                } label: {
+                    Label("Sort A-Z", systemImage: "textformat")
+                }
+                Button {
+                    sort_ascending = false
+                } label: {
+                    Label("Sort Z-A", systemImage: "textformat")
+                }
+            } label: {
+                Image(systemName: "ellipsis.circle")
             }
-            self?.applyFilters()
         }
-        let goRoot = makeMenuAction(title: "Go to Root", image: "externaldrive") { [weak self] in
-            self?.replaceDirectory(with: "/")
+    }
+
+    private var root_path: SantanderPath {
+        SantanderPath(url: URL(fileURLWithPath: "/"), is_directory: true)
+    }
+
+    private var home_path: SantanderPath {
+        SantanderPath(url: URL(fileURLWithPath: NSHomeDirectory()), is_directory: true)
+    }
+
+    private var rendered_items: [SantanderPath] {
+        var result = items
+        if !display_hidden_files {
+            result.removeAll { $0.is_hidden }
         }
-        let goHome = makeMenuAction(title: "Go to Home", image: "house") { [weak self] in
-            self?.replaceDirectory(with: NSHomeDirectory())
+        let query = search_text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !query.isEmpty {
+            result = result.filter {
+                $0.title.localizedCaseInsensitiveContains(query) || $0.path.localizedCaseInsensitiveContains(query)
+            }
         }
-        return UIMenu(children: [
-            UIMenu(title: "Sort by..", image: UIImage(systemName: "arrow.up.arrow.down"), children: [sortAZ, sortZA]),
-            UIMenu(title: "Go to..", image: UIImage(systemName: "arrow.right"), children: [goRoot, goHome])
-        ])
+        if sort_ascending {
+            result.sort { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+        } else {
+            result.sort { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedDescending }
+        }
+        return result
     }
 
-    private func makeMenuAction(title: String, image systemName: String, handler: @escaping () -> Void) -> UIAction {
-        UIAction(title: title, image: UIImage(systemName: systemName)) { _ in handler() }
+    private var empty_state_message: String {
+        if !search_text.isEmpty { return "No matching items." }
+        if !display_hidden_files && !items.isEmpty {
+            return "No visible items. Enable \"Display hidden files\" to show dotfiles."
+        }
+        return empty_message ?? "Directory is empty."
     }
 
-    private func replaceDirectory(with path: String) {
-        let vc = SantanderPathListViewController(path: SantanderPath(url: URL(fileURLWithPath: path)))
-        navigationController?.setViewControllers([vc], animated: true)
+    private func load() {
+        is_loading = true
+        let path = path
+        DispatchQueue.global(qos: .userInitiated).async {
+            let listing = Self.load_directory_contents(for: path)
+            DispatchQueue.main.async {
+                self.items = listing.items
+                self.empty_message = listing.empty_state_message
+                self.is_loading = false
+            }
+        }
     }
 
-    private func open(_ path: SantanderPath) {
-        let viewController = path.isDirectory
-            ? SantanderPathListViewController(path: path)
-            : SantanderFileReaderViewController(path: path)
-        navigationController?.pushViewController(viewController, animated: true)
+    private static func load_directory_contents(for path: SantanderPath) -> SantanderDirectoryListing {
+        let apps_root = "/var/mobile/Containers/Data/Application"
+
+        var normalized = path.path
+        if normalized.hasPrefix("/private/") { normalized.removeFirst("/private/".count - 1) }
+        if normalized.hasSuffix("/") { normalized.removeLast() }
+
+        if normalized == apps_root {
+            let items = list_containers(apps_root).map { container in
+                let url = URL(fileURLWithPath: container, isDirectory: true)
+                return SantanderPath(url: url, display_name: bundle_id(for: url), is_directory: true)
+            }
+            if items.isEmpty {
+                return SantanderDirectoryListing(items: [], empty_state_message: "No app containers found.")
+            }
+            return SantanderDirectoryListing(items: items, empty_state_message: nil)
+        }
+
+        if let listing = try_direct_listing(for: path) {
+            return listing
+        }
+
+        var grant_c = path.path.utf8CString.map { Int8($0) }
+        let handle = bad_query(&grant_c, true, nil, false, nil)
+        if handle >= 0, let listing = try_direct_listing(for: path) {
+            return listing
+        }
+
+        return SantanderDirectoryListing(items: [], empty_state_message: "Cannot list directory (missing permissions).")
     }
 
-    private static func loadDirectoryContents(for path: SantanderPath) -> SantanderDirectoryListing {
-        guard path.isDirectory else {
-            return SantanderDirectoryListing(items: [], emptyStateMessage: "Not a directory.")
+    private static func try_direct_listing(for path: SantanderPath) -> SantanderDirectoryListing? {
+        guard path.is_directory else {
+            return SantanderDirectoryListing(items: [], empty_state_message: "Not a directory.")
         }
 
         let fm = FileManager.default
-        var isDir = ObjCBool(false)
-        let exists = fm.fileExists(atPath: path.path, isDirectory: &isDir)
-        if !exists || !isDir.boolValue {
-            return SantanderDirectoryListing(items: [], emptyStateMessage: "Directory no longer exists.")
+        var is_dir = ObjCBool(false)
+        let exists = fm.fileExists(atPath: path.path, isDirectory: &is_dir)
+        if !exists || !is_dir.boolValue {
+            return nil
         }
         if !fm.isReadableFile(atPath: path.path) {
-            return SantanderDirectoryListing(items: [], emptyStateMessage: "Cannot list directory (missing permissions).")
+            return nil
         }
 
         do {
             let urls = try fm.contentsOfDirectory(at: path.url, includingPropertiesForKeys: nil)
             let items = urls.map(SantanderPath.init(url:))
-            if items.isEmpty {
-                return SantanderDirectoryListing(items: [], emptyStateMessage: "Directory is empty.")
-            }
-            return SantanderDirectoryListing(items: items, emptyStateMessage: nil)
+            return SantanderDirectoryListing(items: items, empty_state_message: items.isEmpty ? "Directory is empty." : nil)
         } catch {
-            let nsError = error as NSError
-            if nsError.domain == NSCocoaErrorDomain && nsError.code == NSFileReadNoPermissionError {
-                return SantanderDirectoryListing(items: [], emptyStateMessage: "Cannot list directory (missing permissions).")
+            return nil
+        }
+    }
+
+    private static func bundle_id(for container: URL) -> String? {
+        let candidates = [
+            container.appendingPathComponent(".com.apple.mobile_container_manager.metadata.plist"),
+            container.appendingPathComponent("com.apple.mobile_container_manager.metadata.plist")
+        ]
+
+        for url in candidates {
+            if let data = try? Data(contentsOf: url), let id = metadata_identifier(from: data) {
+                return id
             }
-            return SantanderDirectoryListing(items: [], emptyStateMessage: "Unable to list directory: \(nsError.localizedDescription)")
         }
+
+        for url in candidates {
+            if let id = pb.read_meta_key(at: url, key: "MCMMetadataIdentifier") {
+                return id
+            }
+        }
+
+        return nil
     }
 
-    func updateSearchResults(for searchController: UISearchController) {
-        let query = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        isSearching = !query.isEmpty
-        applyFilters(query: query)
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
-        applyFilters(query: "")
-    }
-
-    private func pathCellRow(forURL fsItem: SantanderPath, displayFullPathAsSubtitle useSubtitle: Bool = false) -> UITableViewCell {
-        let cell = UITableViewCell(style: useSubtitle ? .subtitle : .default, reuseIdentifier: nil)
-        var conf = cell.defaultContentConfiguration()
-        conf.text = fsItem.title
-        conf.image = fsItem.displayImage
-
-        if fsItem.lastPathComponent.first == "." {
-            conf.textProperties.color = .gray
-            conf.secondaryTextProperties.color = .gray
-        }
-        if useSubtitle {
-            conf.secondaryText = fsItem.path
-        }
-        if fsItem.isDirectory {
-            cell.accessoryType = .disclosureIndicator
-        }
-
-        cell.contentConfiguration = conf
-        return cell
+    private static func metadata_identifier(from data: Data) -> String? {
+        let plist = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: Any]
+        return plist?["MCMMetadataIdentifier"] as? String
     }
 }
 
-private final class SantanderFileReaderViewController: UIViewController {
-    private let path: SantanderPath
-    private let textView = UITextView()
-    private var playerViewController: AVPlayerViewController?
-    
+struct SantanderFileView: View {
+    let path: SantanderPath
+
+    @State private var is_editing = false
+    @State private var is_editable = false
+    @State private var edit_text = ""
+    @State private var original_encoding: String.Encoding = .utf8
+    @State private var original_plist_format: PropertyListSerialization.PropertyListFormat?
+    @State private var save_error: String?
+
     private enum PreviewKind {
         case image
         case video
         case audio
         case text
     }
-    
-    init(path: SantanderPath) {
-        self.path = path
-        super.init(nibName: nil, bundle: nil)
-        self.title = path.title
-    }
-    
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .action,
-            target: self,
-            action: #selector(shareFile)
-        )
-        switch previewKind(for: path) {
-        case .image:
-            showImagePreview()
-        case .video:
-            showVideoPreview()
-        case .audio:
-            showAudioPreview()
-        case .text:
-            showTextPreview(text: Self.renderFile(at: path.url))
-        }
-    }
-    
-    @objc private func shareFile() {
-        guard FileManager.default.isReadableFile(atPath: path.path) else {
-            showTextPreview(text: failureText("Failed to share file"))
-            return
-        }
-        
-        let activityController = UIActivityViewController(activityItems: [path.url], applicationActivities: nil)
-        if let popover = activityController.popoverPresentationController {
-            popover.barButtonItem = navigationItem.rightBarButtonItem
-        }
-        present(activityController, animated: true)
-    }
-    
-    private func showTextPreview(text: String) {
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isEditable = false
-        textView.alwaysBounceVertical = true
-        textView.font = .monospacedSystemFont(ofSize: 13, weight: .regular)
-        attachFullScreenView(textView)
-        textView.text = text
-    }
-    
-    private func showImagePreview() {
-        guard let image = UIImage(contentsOfFile: path.path) else {
-            showTextPreview(text: failureText("Failed to render image"))
-            return
-        }
 
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .black
-        imageView.clipsToBounds = true
-        imageView.image = image
-        attachFullScreenView(imageView)
+    var body: some View {
+        content
+            .navigationTitle(path.title)
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if is_editing {
+                        Button("Cancel") {
+                            is_editing = false
+                        }
+                        Button("Save") {
+                            save()
+                        }
+                    } else {
+                        ShareLink(item: path.url) {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        if is_editable {
+                            Button {
+                                begin_editing()
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                            }
+                        }
+                    }
+                }
+            }
+            .task {
+                if preview_kind == .text,
+                   Self.grant_file_read(path.path),
+                   let data = try? Data(contentsOf: path.url) {
+                    is_editable = Self.decode_text(from: data) != nil
+                        || Self.plist_editor_content(from: data) != nil
+                }
+            }
+            .alert("Save Failed", isPresented: Binding(
+                get: { save_error != nil },
+                set: { if !$0 { save_error = nil } }
+            )) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(save_error ?? "")
+            }
     }
-    
-    private func showVideoPreview() {
-        showMediaPreview(errorTitle: "Failed to play video")
+
+    @ViewBuilder
+    private var content: some View {
+        if is_editing {
+            TextEditor(text: $edit_text)
+                .font(.system(size: 13, design: .monospaced))
+                .padding(4)
+        } else {
+            switch preview_kind {
+            case .image:
+                image_preview
+            case .video:
+                MediaPlayerView(url: path.url, is_audio: false)
+            case .audio:
+                MediaPlayerView(url: path.url, is_audio: true)
+            case .text:
+                text_preview
+            }
+        }
     }
-    
-    private func showAudioPreview() {
-        showMediaPreview(errorTitle: "Failed to play audio")
+
+    private var image_preview: some View {
+        Group {
+            if let image = load_image() {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black)
+            } else {
+                ContentUnavailableView(failure_text("Failed to render image"), systemImage: "photo")
+            }
+        }
     }
-    
-    private func showMediaPreview(errorTitle: String) {
-        guard FileManager.default.isReadableFile(atPath: path.path) else {
-            showTextPreview(text: failureText(errorTitle))
+
+    private var text_preview: some View {
+        ScrollView {
+            Text(Self.render_file(at: path.url))
+                .font(.system(size: 13, design: .monospaced))
+                .textSelection(.enabled)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+        }
+    }
+
+    private func begin_editing() {
+        guard Self.grant_file_read(path.path),
+              let data = try? Data(contentsOf: path.url) else {
             return
         }
-        
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-        try? AVAudioSession.sharedInstance().setActive(true, options: [])
-        
-        let playerVC = AVPlayerViewController()
-        playerVC.player = AVPlayer(url: path.url)
-        playerVC.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        addChild(playerVC)
-        attachFullScreenView(playerVC.view)
-        playerVC.didMove(toParent: self)
-        playerVC.player?.play()
-        playerViewController = playerVC
+        if let (text, format) = Self.plist_editor_content(from: data) {
+            edit_text = text
+            original_encoding = .utf8
+            original_plist_format = format
+            is_editing = true
+            return
+        }
+        guard let (text, encoding) = Self.decode_text_encoding(from: data) else {
+            return
+        }
+        edit_text = text
+        original_encoding = encoding
+        original_plist_format = nil
+        is_editing = true
     }
-    
-    deinit {
-        playerViewController?.player?.pause()
+
+    private func save() {
+        guard Self.grant_file_write(path.path) else {
+            save_error = "Missing write permission."
+            return
+        }
+        if let format = original_plist_format {
+            save_plist(format: format)
+            return
+        }
+        guard let data = edit_text.data(using: original_encoding) else {
+            save_error = "Could not encode text."
+            return
+        }
+        do {
+            try data.write(to: path.url)
+            is_editing = false
+        } catch {
+            save_error = error.localizedDescription
+        }
     }
-    
-    private func previewKind(for path: SantanderPath) -> PreviewKind {
-        if let type = path.contentType {
+
+    private func save_plist(format: PropertyListSerialization.PropertyListFormat) {
+        guard let edited_data = edit_text.data(using: .utf8) else {
+            save_error = "Could not encode text."
+            return
+        }
+        let object: Any
+        if let json = try? JSONSerialization.jsonObject(with: edited_data) {
+            object = json
+        } else if let plist = try? PropertyListSerialization.propertyList(from: edited_data, options: [], format: nil) {
+            object = plist
+        } else {
+            save_error = "Edited text is not a valid plist/JSON document."
+            return
+        }
+        do {
+            let out_data = try PropertyListSerialization.data(fromPropertyList: object, format: format, options: 0)
+            try out_data.write(to: path.url)
+            is_editing = false
+        } catch {
+            save_error = error.localizedDescription
+        }
+    }
+
+    private var preview_kind: PreviewKind {
+        if let type = path.content_type {
             if type.isSubtype(of: .image) { return .image }
             if type.isSubtype(of: .movie) || type.isSubtype(of: .video) { return .video }
             if type.isSubtype(of: .audio) { return .audio }
             return .text
         }
-        
+
         let ext = path.url.pathExtension.lowercased()
         if ["png", "jpg", "jpeg", "gif", "heic", "heif", "bmp", "tif", "tiff", "webp"].contains(ext) {
             return .image
@@ -413,65 +491,88 @@ private final class SantanderFileReaderViewController: UIViewController {
         return .text
     }
 
-    private func attachFullScreenView(_ contentView: UIView) {
-        view.addSubview(contentView)
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    private func load_image() -> Image? {
+        _ = Self.grant_file_read(path.path)
+        guard let source = CGImageSourceCreateWithURL(path.url as CFURL, nil),
+              let cg_image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+            return nil
+        }
+        return Image(decorative: cg_image, scale: 1)
     }
 
-    private func failureText(_ title: String) -> String {
+    private func failure_text(_ title: String) -> String {
         """
         \(title):
         \(path.path)
 
-        \(Self.unreadableFileDetails(for: path.url))
+        \(Self.unreadable_file_details(for: path.url))
         """
     }
-    
-    private static func renderFile(at url: URL) -> String {
+
+    private static func grant_file_read(_ path: String) -> Bool {
+        let fm = FileManager.default
+        if fm.isReadableFile(atPath: path) {
+            return true
+        }
+        var path_c = path.utf8CString.map { Int8($0) }
+        let handle = bad_query(&path_c, true, nil, false, nil)
+        return handle >= 0 && fm.isReadableFile(atPath: path)
+    }
+
+    private static func grant_file_write(_ path: String) -> Bool {
+        let fm = FileManager.default
+        if fm.isWritableFile(atPath: path) {
+            return true
+        }
+        var path_c = path.utf8CString.map { Int8($0) }
+        let handle = bad_query(&path_c, true, nil, false, nil)
+        return handle >= 0 && fm.isWritableFile(atPath: path)
+    }
+
+    private static func render_file(at url: URL) -> String {
         let data: Data
         do {
             data = try Data(contentsOf: url, options: .mappedIfSafe)
         } catch {
-            return """
-            Failed to read file:
-            \(url.path)
-            Error: \(error.localizedDescription)
-            
-            \(unreadableFileDetails(for: url))
-            """
+            guard grant_file_read(url.path),
+                  let granted = try? Data(contentsOf: url, options: .mappedIfSafe) else {
+                return """
+                Failed to read file:
+                \(url.path)
+                Error: \(error.localizedDescription)
+
+                \(unreadable_file_details(for: url))
+                """
+            }
+            data = granted
         }
-        
+
         if data.isEmpty {
             return "(empty file)"
         }
-        
-        if let plist = decodePropertyList(from: data) {
+
+        if let plist = decode_property_list(from: data) {
             return plist
         }
-        
-        if let text = decodeText(from: data) {
+
+        if let text = decode_text(from: data) {
             return text
         }
-        
-        return binaryPreview(from: data)
+
+        return binary_preview(from: data)
     }
-    
-    private static func unreadableFileDetails(for url: URL) -> String {
+
+    private static func unreadable_file_details(for url: URL) -> String {
         let fm = FileManager.default
         var lines: [String] = []
-        
-        var isDir = ObjCBool(false)
-        let exists = fm.fileExists(atPath: url.path, isDirectory: &isDir)
+
+        var is_dir = ObjCBool(false)
+        let exists = fm.fileExists(atPath: url.path, isDirectory: &is_dir)
         lines.append("Exists: \(exists ? "yes" : "no")")
         if exists {
-            lines.append("Kind: \(isDir.boolValue ? "directory" : "regular item")")
+            lines.append("Kind: \(is_dir.boolValue ? "directory" : "regular item")")
         }
-        
+
         let keys: Set<URLResourceKey> = [
             .contentTypeKey,
             .isSymbolicLinkKey,
@@ -485,25 +586,25 @@ private final class SantanderFileReaderViewController: UIViewController {
             if let size = values.fileSize {
                 lines.append("Size: \(size) bytes")
             }
-            if let isSymLink = values.isSymbolicLink {
-                lines.append("Symlink: \(isSymLink ? "yes" : "no")")
+            if let is_symlink = values.isSymbolicLink {
+                lines.append("Symlink: \(is_symlink ? "yes" : "no")")
             }
             if values.isSymbolicLink == true,
                let target = try? fm.destinationOfSymbolicLink(atPath: url.path) {
                 lines.append("Symlink target: \(target)")
             }
-            if let isAlias = values.isAliasFile {
-                lines.append("Alias file: \(isAlias ? "yes" : "no")")
+            if let is_alias = values.isAliasFile {
+                lines.append("Alias file: \(is_alias ? "yes" : "no")")
             }
         }
-        
+
         if let attrs = try? fm.attributesOfItem(atPath: url.path) {
-            if let fileType = attrs[.type] as? FileAttributeType {
-                lines.append("File attribute type: \(fileType.rawValue)")
+            if let file_type = attrs[.type] as? FileAttributeType {
+                lines.append("File attribute type: \(file_type.rawValue)")
             }
-            let ownerName = attrs[.ownerAccountName] as? String
-            let ownerID = (attrs[.ownerAccountID] as? NSNumber)?.intValue
-            switch (ownerName, ownerID) {
+            let owner_name = attrs[.ownerAccountName] as? String
+            let owner_id = (attrs[.ownerAccountID] as? NSNumber)?.intValue
+            switch (owner_name, owner_id) {
             case let (name?, id?):
                 lines.append("Owner: \(name) (\(id))")
             case let (name?, nil):
@@ -513,10 +614,10 @@ private final class SantanderFileReaderViewController: UIViewController {
             default:
                 break
             }
-            
-            let groupName = attrs[.groupOwnerAccountName] as? String
-            let groupID = (attrs[.groupOwnerAccountID] as? NSNumber)?.intValue
-            switch (groupName, groupID) {
+
+            let group_name = attrs[.groupOwnerAccountName] as? String
+            let group_id = (attrs[.groupOwnerAccountID] as? NSNumber)?.intValue
+            switch (group_name, group_id) {
             case let (name?, id?):
                 lines.append("Group: \(name) (\(id))")
             case let (name?, nil):
@@ -530,38 +631,47 @@ private final class SantanderFileReaderViewController: UIViewController {
                 lines.append(String(format: "POSIX perms: %04o", perms.intValue))
             }
         }
-        
+
         lines.append("Readable: \(fm.isReadableFile(atPath: url.path) ? "yes" : "no")")
         lines.append("Writable: \(fm.isWritableFile(atPath: url.path) ? "yes" : "no")")
         lines.append("Executable: \(fm.isExecutableFile(atPath: url.path) ? "yes" : "no")")
-        
+
         return lines.joined(separator: "\n")
     }
-    
-    private static func decodePropertyList(from data: Data) -> String? {
+
+    private static func decode_property_list(from data: Data) -> String? {
+        plist_editor_content(from: data)?.0
+    }
+
+    private static func plist_editor_content(from data: Data) -> (String, PropertyListSerialization.PropertyListFormat)? {
         guard data.starts(with: Data("bplist".utf8)) || data.starts(with: Data("<?xml".utf8)) else {
             return nil
         }
-        
-        guard let plistObject = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) else {
+
+        var format: PropertyListSerialization.PropertyListFormat = .xml
+        guard let plist_object = try? PropertyListSerialization.propertyList(from: data, options: [], format: &format) else {
             return nil
         }
-        
-        if JSONSerialization.isValidJSONObject(plistObject),
-           let jsonData = try? JSONSerialization.data(withJSONObject: plistObject, options: [.prettyPrinted, .sortedKeys]),
-           let json = String(data: jsonData, encoding: .utf8) {
-            return json
+
+        if JSONSerialization.isValidJSONObject(plist_object),
+           let json_data = try? JSONSerialization.data(withJSONObject: plist_object, options: [.prettyPrinted, .sortedKeys]),
+           let json = String(data: json_data, encoding: .utf8) {
+            return (json, format)
         }
-        
-        if let xmlData = try? PropertyListSerialization.data(fromPropertyList: plistObject, format: .xml, options: 0),
-           let xml = String(data: xmlData, encoding: .utf8) {
-            return xml
+
+        if let xml_data = try? PropertyListSerialization.data(fromPropertyList: plist_object, format: .xml, options: 0),
+           let xml = String(data: xml_data, encoding: .utf8) {
+            return (xml, format)
         }
-        
-        return String(describing: plistObject)
+
+        return (String(describing: plist_object), format)
     }
-    
-    private static func decodeText(from data: Data) -> String? {
+
+    private static func decode_text(from data: Data) -> String? {
+        decode_text_encoding(from: data)?.0
+    }
+
+    private static func decode_text_encoding(from data: Data) -> (String, String.Encoding)? {
         let encodings: [String.Encoding] = [
             .utf8,
             .utf16,
@@ -576,17 +686,17 @@ private final class SantanderFileReaderViewController: UIViewController {
             .macOSRoman,
             .nonLossyASCII
         ]
-        
+
         for encoding in encodings {
             guard let value = String(data: data, encoding: encoding) else { continue }
-            if looksLikeText(value) {
-                return value
+            if looks_like_text(value) {
+                return (value, encoding)
             }
         }
         return nil
     }
-    
-    private static func looksLikeText(_ value: String) -> Bool {
+
+    private static func looks_like_text(_ value: String) -> Bool {
         if value.isEmpty { return true }
         let scalars = value.unicodeScalars
         let disallowed = scalars.filter { scalar in
@@ -598,14 +708,14 @@ private final class SantanderFileReaderViewController: UIViewController {
         }
         return Double(disallowed.count) / Double(scalars.count) < 0.01
     }
-    
-    private static func binaryPreview(from data: Data) -> String {
+
+    private static func binary_preview(from data: Data) -> String {
         let limit = min(data.count, 4096)
         let chunk = data.prefix(limit)
         var lines: [String] = []
         lines.append("Binary data (\(data.count) bytes). Showing first \(limit) bytes:")
         lines.append("")
-        
+
         var offset = 0
         while offset < chunk.count {
             let row = chunk[offset..<min(offset + 16, chunk.count)]
@@ -619,5 +729,38 @@ private final class SantanderFileReaderViewController: UIViewController {
         }
 
         return lines.joined(separator: "\n")
+    }
+}
+
+private struct MediaPlayerView: View {
+    let url: URL
+    var is_audio: Bool = false
+
+    @State private var player: AVPlayer
+
+    init(url: URL, is_audio: Bool) {
+        self.url = url
+        self.is_audio = is_audio
+        _player = State(initialValue: AVPlayer(url: url))
+    }
+
+    var body: some View {
+        ZStack {
+            VideoPlayer(player: player)
+            if is_audio {
+                Image(systemName: "music.note")
+                    .font(.system(size: 60))
+                    .foregroundStyle(.secondary)
+                    .allowsHitTesting(false)
+            }
+        }
+        .onAppear {
+            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try? AVAudioSession.sharedInstance().setActive(true, options: [])
+            player.play()
+        }
+        .onDisappear {
+            player.pause()
+        }
     }
 }
