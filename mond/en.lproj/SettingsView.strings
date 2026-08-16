@@ -16,9 +16,9 @@
 "sandbox_token_invalid" = "Your sandbox token is invalid.";
 "exploit_failed_version" = "Disabled because the exploit failed. Is your iOS version supported?";
 "keep_alive" = "Keep Alive";
-"keep_alive_info" = "Keeps the app running in the background after you close it, allowing it to remain active."
-"dismiss_after_importing" = "Dismiss after importing"
-"dismiss_after_importing_info" = "When enabled, the Tendies explorer will close automatically after importing a .tendies file into PosterBoard."
+"keep_alive_info" = "Keeps the app running in the background after you close it, allowing it to remain active.";
+"dismiss_after_importing" = "Dismiss after importing";
+"dismiss_after_importing_info" = "When enabled, the Tendies explorer will close automatically after importing a .tendies file into PosterBoard.";
 "settings" = "Settings";
 "tools" = "Tools";
 "respring_method_credits" = "Respring method by [neon](https://github.com/neonmodder123), swift implementation by [skadz](https://github.com/skadz108).";
