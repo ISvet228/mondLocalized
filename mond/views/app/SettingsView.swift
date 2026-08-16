@@ -146,8 +146,8 @@ struct SettingsView: View {
                             }
                         }
 
-                    PlainToggle(text: NSLocalizedString("dismiss_after_import", tableName: "SettingsView", comment: "Dismiss after import toggle label"), infoType: .info, 
-                    infoMessage: NSLocalizedString("dismiss_after_import_info", tableName: "SettingsView", comment: "Dismiss after import info message"), isOn: $dismiss_after_import)
+                    PlainToggle(text: NSLocalizedString("dismiss_after_importing", tableName: "SettingsView", comment: "Dismiss after import toggle label"), infoType: .info, 
+                    infoMessage: NSLocalizedString("dismiss_after_importing_info", tableName: "SettingsView", comment: "Dismiss after import info message"), isOn: $dismiss_after_import)
                 } header: {
                     Label(NSLocalizedString("settings", tableName: "SettingsView", comment: "Settings section label"), systemImage: "gear")
                 }
