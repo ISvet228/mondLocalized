@@ -85,7 +85,7 @@ struct SettingsView: View {
                     if (method == "cmg") {
                         Text(try! AttributedString(markdown:NSLocalizedString("exploit_method_cmg", tableName: "SettingsView", comment: "CMG supported versions footer text")))
                     } else {
-                        Text(try! AttributedString(markdown:NSLocalizedString("exploit_method_bad_query", tableName: "SettingsView", comment: "bad_query supported versions footer text")))
+                        Text(try! AttributedString(markdown:NSLocalizedString("exploit_method_bad_query_prefix", tableName: "SettingsView", comment: "bad_query supported versions footer text")))
                     }
                 }
                 
