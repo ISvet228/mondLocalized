@@ -137,7 +137,7 @@ struct GestaltView: View {
                 }
 
                 Section {
-                    TweakToggle(title: NSLocalizedStrings("enable_dynamic_island_capability", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("enable_dynamic_island_capability", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("always_on_display", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("aod_vibrancy", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("disable_wallpaper_parallax", tableName: "GestaltView", comment: ""))
