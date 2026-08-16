@@ -93,7 +93,7 @@ struct GestaltView: View {
                         Text(NSLocalizedString("respring", comment: ""))
                     }
                 } footer: {
-                    Text(try! AttributedString(NSLocalizedString("tweak_warning", tableName: "GestaltView", comment: "")))
+                    Text(try! AttributedString(markdown: NSLocalizedString("tweak_warning", tableName: "GestaltView", comment: "")))
                 }
 
                 Section {
