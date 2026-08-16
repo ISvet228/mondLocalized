@@ -27,7 +27,7 @@ var path: String {
 
 @main
 struct mond: App {
-    @StateObject private var state = AppState()
+    @StateObject private var state = AppState.shared
     
     @AppStorage("ka_on") private var ka_on = true
     

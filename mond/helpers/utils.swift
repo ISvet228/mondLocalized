@@ -126,6 +126,8 @@ struct RespringView: UIViewRepresentable {
 }
 
 final class AppState: ObservableObject {
+    static let shared = AppState()
+
     @Published var show_respring = false
     @Published var exploit_succeeded = false
     @Published var granting_pb = false

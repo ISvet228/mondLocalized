@@ -345,7 +345,7 @@ func cache_data_offset(_ key: String) -> Int {
     return 0
 }
 
-let state = AppState()
+let state = AppState.shared
 
 let mg_device_name_key = "mg_device_name"
 var mg_device_name: String {
