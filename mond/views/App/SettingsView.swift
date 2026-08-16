@@ -160,7 +160,7 @@ struct SettingsView: View {
                     Button {
                         show_confirm = true
                     } label: {
-                        Text(NSLocalizedString("respring", "SettingsView", comment: "Respring button"))
+                        Text(NSLocalizedString("respring", comment: "Respring button"))
                     }
                 } header: {
                     Label(NSLocalizedStringFromTable("tools", "SettingsView", comment: "Tools section title"), systemImage: "wrench.and.screwdriver")
