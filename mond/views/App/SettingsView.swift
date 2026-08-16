@@ -105,7 +105,8 @@ struct SettingsView: View {
                         }
                     }
                     .contextMenu {
-                        Text(NSLocalizedStringFromTable("token_class", "SettingsView", comment: "Token class label") + " \(token.split(separator: ";").first { $0.contains("com.apple") }.map(String.init) ?? "N/A")")
+                        let tokenValue = token.split(separator: ";").first { $0.contains("com.apple") }.map(String.init) ?? "N/A"
+                        Text(NSLocalizedStringFromTable("token_class", "SettingsView", comment: "Token class label") + " \(tokenValue)")
                         Text(NSLocalizedStringFromTable("token_path", "SettingsView", comment: "Token path label") + " \(token.split(separator: ";").last.map(String.init) ?? "N/A")")
                         
                         Button {
