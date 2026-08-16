@@ -1,11 +1,6 @@
-/* Spanish localization for GestaltView */
-
-"app_name" = "mond";
 "do_not_reboot" = "¡No reinicies!";
 "mg_empty_warning" = "Tu archivo MobileGestalt.plist parece estar vacío.";
 "mg_invalid_warning" = "Tu archivo MobileGestalt.plist parece ser inválido.";
-"warning" = "Advertencia";
-"respring" = "Respring";
 "bootloop_warning" = "Reiniciar ahora puede causar un bootloop. Intenta con 'Revertir Tweaks'. Si la advertencias no se van después de revertir, entonces estás jodido.";
 "apply_tweaks" = "Aplicar Tweaks";
 "revert_tweaks" = "Revertir Tweaks";
@@ -61,7 +56,6 @@
 "mg_revert_success_body" = "Reinicia tu dispositivo para que los cambios surtan efecto.";
 "mg_revert_failed_title" = "¡Error al intentar revertir los cambios al MobileGestalt!";
 "mg_revert_failed_body" = "Revisa los registros para más información.";
-"warning_alert_title" = "¡Advertencia!";
 "ipados_ui_alert_body" = "¡Este es un tweak muy peligroso de usar! Si usas un código de acceso alfanumérico, ¡NO USES ESTE TWEAK EN ABSOLUTO! ¡Por favor, no apagues \"Mostrar Dock en Stage Manager\" o tu dispositivo entrará en BOOTLOOP al rotar a horizontal! Con estas dos cosas en mente, puede experimentar inestabilidad general u otros problemas importantes, como que los datos de la aplicación desaparezcan aleatoriamente. Honestamente, no estoy muy seguro de por qué querrías usar este ajuste de todos modos, no es como si tu dispositivo fuera a ser tan utilizable (debido a que las aplicaciones se escalan de forma extraña) cuando está habilitado.";
 "region_restrictions_alert_body" = "Por favor, no utilice esta función para eludir las restricciones regionales que equivaldrían a infringir las leyes regionales (por ejemplo, deshabilitar el sonido del obturador de la cámara). ¡NO seremos responsables de permitir ninguna actividad ilegal!";
 "apple_intelligence_spoof_title" = "Suplantación para Apple Intelligence";

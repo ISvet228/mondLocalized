@@ -1,9 +1,4 @@
-/* Spanish localization for ContentView */
-
 "logs" = "Registros";
-"mobile_gestalt" = "MobileGestalt";
-"posterboard" = "PosterBoard";
 "tweaks" = "Tweaks";
 "only_mobilegestalt_available" = "Solo los ajustes de MobileGestalt estan disponibles cuando el metodo cmg está activo.\nPosterBoard todavía está en desarrollo y puede que no funcione a como se espera.";
 "housearrest_dev_warning" = "HouseArrest todavía está en desarrollo y puede que no funcione a como se espera.";
-"posterboard_dev_warning" = "PosterBoard todavía está en desarrollo y puede que no funcione a como se espera.";

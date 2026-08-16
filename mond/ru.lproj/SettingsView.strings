@@ -16,7 +16,6 @@
 "sandbox_token_invalid" = "Ваш токен песочницы недействителен.";
 "exploit_failed_version" = "Отключено, потому что эксплойт не сработал. Ваша версия iOS поддерживается?";
 "keep_alive" = "Поддерживать в фоне";
-"respring" = "Респринг";
 "tools" = "Инструменты";
 "respring_method_prefix" = "Способ респринга от";
 "respring_method_middle" = ", реализация на Swift от";

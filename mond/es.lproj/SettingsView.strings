@@ -1,5 +1,3 @@
-/* Spanish localization for SettingsView */
-
 "settings" = "Configuración";
 "unknown_app" = "App Desconocida";
 "method" = "Método";
@@ -7,7 +5,6 @@
 "exploit" = "Exploit";
 "exploit_method_cmg" = "CMG: Es compatible con iOS 27.0 b1 - b4. PosterBoard no funcionará con este método. Solo usa este exploit si bad_query no está funcionando en tu dispositivo.";
 "exploit_method_bad_query_prefix" = "bad_query: Soporta iOS 27.0 b1 - b4. Por";
-"forcequit" = "forcequit";
 "sandbox_extension_token_placeholder" = "Token de extensión de sandbox.";
 "token_class" = "Clase:";
 "token_path" = "Ruta:";
@@ -19,12 +16,9 @@
 "sandbox_token_invalid" = "El token sandbox es inválido.";
 "exploit_failed_version" = "Desactivado porque el exploit falló. ¿Es compatible con tu versión de iOS?";
 "keep_alive" = "Mantener activo";
-"respring" = "Respring";
 "tools" = "Herramientas";
 "respring_method_prefix" = "Método de Respring por";
-"neon" = "neon";
 "respring_method_middle" = ", implementación de swift by";
-"skadz" = "skadz";
 "credits" = "Créditos";
 "credit_main_developer" = "Desarrollador principal";
 "credit_bad_query_exploit" = "El exploit bad_query";

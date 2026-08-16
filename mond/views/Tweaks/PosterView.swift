@@ -80,7 +80,7 @@ struct PosterView: View {
                     }
                 }
             }
-            .navigationTitle(NSLocalizedStringFromTable("posterboard", "PosterView", comment: "PosterBoard navigation title"))
+            .navigationTitle("PosterBoard")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
@@ -116,7 +116,7 @@ struct PosterView: View {
             Alertinator.shared.alert(
                 title: NSLocalizedStringFromTable("poster_apply_success_title", "PosterView", comment: "Poster apply success title"),
                 body: NSLocalizedStringFromTable("poster_apply_success_body", "PosterView", comment: "Poster apply success body"),
-                actionLabel: NSLocalizedStringFromTable("respring", "PosterView", comment: "Respring action label"),
+                actionLabel: NSLocalizedString("respring", comment: "Respring action label"),
                 action: {
                     state.respring()
                 }
@@ -140,7 +140,7 @@ struct PosterView: View {
             Alertinator.shared.alert(
                 title: NSLocalizedStringFromTable("poster_reset_success_title", "PosterView", comment: "Poster reset success title"),
                 body: NSLocalizedStringFromTable("poster_reset_success_body", "PosterView", comment: "Poster reset success body"),
-                actionLabel: NSLocalizedStringFromTable("respring", "PosterView", comment: "Respring action label"),
+                actionLabel: NSLocalizedString("respring", comment: "Respring action label"),
                 action: {
                     state.respring()
                 }

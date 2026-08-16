@@ -254,7 +254,7 @@ struct GestaltView: View {
                     Label(NSLocalizedStringFromTable("internal", "GestaltView", comment: "Internal header"), systemImage: "ant")
                 }
             }
-            .navigationTitle(NSLocalizedStringFromTable("app_name", "GestaltView", comment: "App navigation title"))
+            .navigationTitle("mond")
             .tint(Color("AccentColor"))
             .onAppear {
                 mg_load()
@@ -374,7 +374,7 @@ struct GestaltView: View {
             enable_devicename = false
 
             print("(mg) successfully overwrote mobilegestalt!")
-            Alertinator.shared.alert(title: NSLocalizedStringFromTable("mg_apply_success_title", "GestaltView", comment: "Gestalt apply success title"), body: NSLocalizedStringFromTable("mg_apply_success_body", "GestaltView", comment: "Gestalt apply success body"), actionLabel: NSLocalizedStringFromTable("respring", "GestaltView", comment: "Respring action label"), action: {
+            Alertinator.shared.alert(title: NSLocalizedStringFromTable("mg_apply_success_title", "GestaltView", comment: "Gestalt apply success title"), body: NSLocalizedStringFromTable("mg_apply_success_body", "GestaltView", comment: "Gestalt apply success body"), actionLabel: NSLocalizedString("respring", comment: "Respring action label"), action: {
                 state.respring()
             })
         } catch {
@@ -462,7 +462,7 @@ struct GestaltView: View {
     
             if enabled {
                 Alertinator.shared.alert(
-                    title: NSLocalizedStringFromTable("warning_alert_title", "GestaltView", comment: "Warning alert title"),
+                    title: NSLocalizedString("warning", comment: "Warning alert title"),
                     body: NSLocalizedStringFromTable("ipados_ui_alert_body", "GestaltView", comment: "iPadOS UI alert body")
                 )
             }
@@ -497,7 +497,7 @@ struct GestaltView: View {
                 guard let cache_extra = self.mg_dict_now["CacheExtra"] as? NSMutableDictionary else { return }
                 
                 if enabled {
-                    Alertinator.shared.alert(title: NSLocalizedStringFromTable("warning_alert_title", "GestaltView", comment: "Warning alert title"), body: NSLocalizedStringFromTable("region_restrictions_alert_body", "GestaltView", comment: "Region restrictions alert body"))
+                    Alertinator.shared.alert(title: NSLocalizedString("warning", comment: "Warning alert title"), body: NSLocalizedStringFromTable("region_restrictions_alert_body", "GestaltView", comment: "Region restrictions alert body"))
                     cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] = "US"
                     cache_extra["zHeENZu+wbg7PUprwNwBWg"] = "LL/A"
                 } else {

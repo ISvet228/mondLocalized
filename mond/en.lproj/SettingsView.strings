@@ -1,5 +1,3 @@
-/* English localization for SettingsView */
-
 "settings" = "Settings";
 "unknown_app" = "Unknown App";
 "method" = "Method";
@@ -18,7 +16,6 @@
 "sandbox_token_invalid" = "Your sandbox token is invalid.";
 "exploit_failed_version" = "Disabled because the exploit failed. Is your iOS version supported?";
 "keep_alive" = "Keep Alive";
-"respring" = "Respring";
 "tools" = "Tools";
 "respring_method_prefix" = "Respring method by";
 "respring_method_middle" = ", swift implementation by";

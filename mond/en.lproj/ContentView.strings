@@ -1,8 +1,4 @@
-/* English localization for ContentView */
-
 "logs" = "Logs";
-"mobile_gestalt" = "MobileGestalt";
-"posterboard" = "PosterBoard";
 "tweaks" = "Tweaks";
 "only_mobilegestalt_available" = "Only MobileGestalt is available when method is set to cmg.\nHouseArrest is still in development and may not work as expected.";
 "housearrest_dev_warning" = "HouseArrest is still in development and may not work as expected.";

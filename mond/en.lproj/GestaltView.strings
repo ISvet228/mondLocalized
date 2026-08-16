@@ -1,11 +1,6 @@
-/* English localization for GestaltView */
-
-"app_name" = "mond";
 "do_not_reboot" = "Do not reboot!";
 "mg_empty_warning" = "Your MobileGestalt.plist seems to be empty.";
 "mg_invalid_warning" = "Your MobileGestalt.plist seems to be invalid.";
-"warning" = "Warning";
-"respring" = "Respring";
 "bootloop_warning" = "Rebooting now might cause a bootloop. Try pressing 'Revert Tweaks'. If the warnings dont go away after that, you're fucked.";
 "apply_tweaks" = "Apply Tweaks";
 "revert_tweaks" = "Revert Tweaks";
@@ -61,7 +56,6 @@
 "mg_revert_success_body" = "Reboot your device for changes to take effect.";
 "mg_revert_failed_title" = "Failed to revert MobileGestalt!";
 "mg_revert_failed_body" = "Check logs for error information.";
-"warning_alert_title" = "Warning!";
 "ipados_ui_alert_body" = "This is a very dangerous tweak to use! If you use an alphanumeric passcode, DO NOT USE THIS TWEAK AT ALL! Please do not turn off \"Show Dock In Stage Manager\" or your device will BOOTLOOP when rotating to landscape! With these two things in mind, you may experience general instability, or other major issues such as app data randomly disappearing. I'm honestly not too certain why you'd want to use this tweak anyways, it's not like your device is gonna be all that usable (due to apps scaling weirdly) when it's enabled.";
 "region_restrictions_alert_body" = "Please do not use this feature to bypass region restrictions that would equate to breaking regional laws (e.g. disabling the camera shutter sound). We will NOT be held responsible for enabling any illegal activites!";
 "apple_intelligence_spoof_title" = "Apple Intelligence Spoof";

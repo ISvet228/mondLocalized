@@ -1,5 +1,3 @@
-/* Spanish localization for PosterView */
-
 "apply" = "Aplicar";
 "reset" = "Quitar";
 "import_tendies" = "Importar Tendies";
@@ -15,5 +13,3 @@
 "poster_reset_success_body" = "Reinicia SpringBoard ara aplicar los cambios.";
 "poster_reset_failed_title" = "¡Error al intentar revertir los cambios a PosterBoard!";
 "poster_reset_failed_body" = "Reinicia la app e intenta de nuevo. Revisa los registros para más información.";
-"posterboard" = "PosterBoard";
-"respring" = "Respring";
