@@ -38,7 +38,7 @@
 "eligibility.default_model" = "Default";
 "eligibility.device_spoofing_info" = "Device Spoofing Info";
 "eligibility.device_spoofing_info_body" = "Only spoof your device model if you want to download Apple Intelligence. This may break Face ID. If you decide to unspoof and want to keep Apple Intelligence, do NOT re-enter the Apple Intelligence & Siri menu in Settings.";
-eligibility.eligibility = "Eligibility"
+eligibility.eligibility = "Eligibility";
 
 "ipados.allow_ipados_apps" = "iPadOS Features";
 "ipados.apple_pencil_settings" = "Apple Pencil Settings";
@@ -50,20 +50,3 @@ eligibility.eligibility = "Eligibility"
 "internal.internal_features" = "Internal Features";
 "internal.apple_internal_install" = "Apple Internal Install";
 "internal.internal" = "Internal";
-
-"missing_artwork_subtype" = "Failed to get ArtworkDeviceSubType!";
-"missing_artwork_device_name" = "Failed to get ArtworkDeviceProductDescription!";
-"failed_load_current_mg" = "Failed to load current MobileGestalt!";
-"failed_load_current_mg_body" = "Restart the app and try again. Check logs for more detailed information.";
-"mg_apply_success_title" = "Successfully applied Gestalt tweaks!";
-"mg_apply_success_body" = "Respring your device for changes to take effect. Note that some tweaks may require a reboot for them to apply properly";
-"mg_apply_failed_title" = "Failed to apply MobileGestalt!";
-"mg_apply_failed_body" = "Restart the app and try again. Check logs for more detailed information.";
-"mg_revert_success_title" = "Successfully reverted Gestalt tweaks!";
-"mg_revert_success_body" = "Reboot your device for changes to take effect.";
-"mg_revert_failed_title" = "Failed to revert MobileGestalt!";
-"mg_revert_failed_body" = "Check logs for error information.";
-"ipados_ui_alert_body" = "This is a very dangerous tweak to use! If you use an alphanumeric passcode, DO NOT USE THIS TWEAK AT ALL! Please do not turn off \"Show Dock In Stage Manager\" or your device will BOOTLOOP when rotating to landscape! With these two things in mind, you may experience general instability, or other major issues such as app data randomly disappearing. I'm honestly not too certain why you'd want to use this tweak anyways, it's not like your device is gonna be all that usable (due to apps scaling weirdly) when it's enabled.";
-"region_restrictions_alert_body" = "Please do not use this feature to bypass region restrictions that would equate to breaking regional laws (e.g. disabling the camera shutter sound). We will NOT be held responsible for enabling any illegal activites!";
-"apple_intelligence_spoof_title" = "Apple Intelligence Spoof";
-"apple_intelligence_spoof_body" = "How to use this tweak:\n1. Spoof to the model next to the first one supported by Apple Intelligence.\n2. Spoof back to your model.\n3. Spoof to your final model and you should see the Apple Intelligence icon in Settings.\n4. Connect iPhone to power and leave the Settings > Storage tab open for ~1 hour.\n\nNOTE: Do not spoof back.";
