@@ -1,4 +1,3 @@
 "logs" = "Logs";
 "tweaks" = "Tweaks";
-"only_mobilegestalt_available" = "Only MobileGestalt is available when method is set to cmg.\nHouseArrest is still in development and may not work as expected.";
-"housearrest_dev_warning" = "HouseArrest is still in development and may not work as expected.";
+"only_mobilegestalt_available" = "Only MobileGestalt is available when method is set to cmg.";

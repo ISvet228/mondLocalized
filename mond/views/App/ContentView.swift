@@ -22,7 +22,7 @@ struct ContentView: View {
                     LogView()
                         .modifier(TerminalPlatter())
                 } header: {
-                    Label("Logs", systemImage: "apple.terminal")
+                    Label(NSLocalizedString("logs", tableName: "ContentView", comment: "Logs section header"), systemImage: "apple.terminal")
                 }
                 
                 Section {
@@ -68,10 +68,10 @@ struct ContentView: View {
                     }
                     .disabled(method == "cmg" || state.apps_granted != true)
                 } header: {
-                    Label("Tweaks", systemImage: "paintbrush")
+                    Label(NSLocalizedString("tweaks", tableName: "ContentView", comment: "Tweaks section header"), systemImage: "paintbrush")
                 } footer: {
                     if method == "cmg" {
-                         Text("Only MobileGestalt is available when method is set to cmg.")
+                         Text(NSLocalizedString("only_mobilegestalt_available", tableName: "ContentView", comment: ""))
                     }
                 }
             }

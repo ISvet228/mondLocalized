@@ -48,7 +48,7 @@ struct SettingsView: View {
                             VStack(alignment: .leading) {
                                 Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
                                      ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
-                                     ?? "Unknown App")
+                                     ?? NSLocalizedString("unknown_app", tableName: "SettingsView", comment: "Fallback app name"))
                                 .font(.headline)
                                 
                                 Text("\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0")")
@@ -68,7 +68,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Picker("Method", selection: $method) {
+                    Picker(NSLocalizedString("method", tableName: "SettingsView", comment: "Method picker label"), selection: $method) {
                         Text("bad_query").tag("bad_query")
                         Text("cmg").tag("cmg")
                     }
@@ -77,12 +77,13 @@ struct SettingsView: View {
                     Button {
                         grant_all(state: state)
                     } label: {
-                        Text("Run Exploit")
+                        Text(NSLocalizedString("run_exploit", tableName: "SettingsView", comment: "Run exploit button label"))
                     }
                 } header: {
-                    Label("Exploit", systemImage: "wrench.and.screwdriver")
+                    Label(NSLocalizedString("exploit", tableName: "SettingsView", comment: "Exploit section header"), systemImage: "wrench.and.screwdriver")
                 } footer: {
-                    Text(method == "cmg" ? "**CMG:** Supports iOS 27.0 b1 - b4. Only MobileGestalt will work with this method. Only use this when bad_query isnt working for you." : "**bad_query:** Supports iOS 27.0 b1 - b4. By [forcequit](https://github.com/forcequitOS).")
+                    Text(method == "cmg" ? NSLocaclizedString("exploit_method_cmg", tableName: "SettingsView", comment: "") : 
+                    NSLocaclizedString("exploit_method_bad_query_prefix", tableName: "SettingsView", comment: ""))
                 }
                 
                 Section {

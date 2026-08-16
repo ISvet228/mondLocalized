@@ -1,10 +1,10 @@
-"settings" = "Settings";
+
 "unknown_app" = "Unknown App";
 "method" = "Method";
 "run_exploit" = "Run Exploit";
 "exploit" = "Exploit";
-"exploit_method_cmg" = "CMG: Supports iOS 27.0 b1 - b4. PosterBoard wont work with this method. Only use this when bad_query isnt working for you.";
-"exploit_method_bad_query_prefix" = "bad_query: Supports iOS 27.0 b1 - b4. By";
+"exploit_method_cmg" = "**CMG:** Supports iOS 27.0 b1 - b4. Only MobileGestalt will work with this method. Only use this when bad_query isnt working for you.";
+"exploit_method_bad_query_prefix" = "**bad_query:** Supports iOS 27.0 b1 - b4. By [forcequit](https://github.com/forcequitOS).";
 "sandbox_extension_token_placeholder" = "Sandbox Extension Token.";
 "token_class" = "Class:";
 "token_path" = "Path:";
@@ -30,3 +30,4 @@
 "cancel" = "Cancel";
 "confirm" = "Confirm";
 "confirm_respring" = "Confirm that you want to respring.";
+"settings" = "Settings";
