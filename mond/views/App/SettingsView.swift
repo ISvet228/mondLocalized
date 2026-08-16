@@ -105,8 +105,12 @@ struct SettingsView: View {
                         }
                     }
                     .contextMenu {
-                        let tokenValue = token.split(separator: ";").first { $0.contains("com.apple") }.map(String.init) ?? "N/A"
-                        Text(NSLocalizedStringFromTable("token_class", "SettingsView", comment: "Token class label") + " \(tokenValue)")
+                         let tokenValue = token.split(separator: ";")
+                          .first { $0.contains("com.apple") }
+                          .map(String.init) ?? "N/A"
+    
+                            // 2. Теперь компилятор моментально соберет эту строку
+                        Text("\(NSLocalizedStringFromTable("token_class", "SettingsView", comment: "Token class label")) \(tokenValue)")
                         Text(NSLocalizedStringFromTable("token_path", "SettingsView", comment: "Token path label") + " \(token.split(separator: ";").last.map(String.init) ?? "N/A")")
                         
                         Button {
