@@ -114,7 +114,7 @@ struct PosterView: View {
             busy = false
             Alertinator.shared.alert(
                 title: NSLocalizedString("poster_apply_success_title", tableName: "PosterView", comment: ""),
-                body: try! AttributedString(markdown: NSLocalizedString("poster_take_effect", tableName: "PosterView", comment: "")),
+                body: NSLocalizedString("poster_take_effect", tableName: "PosterView", comment: ""),
                 actionLabel: NSLocalizedString("open", tableName: "PosterView", comment: ""),
                 action: {
                     // state.respring()
