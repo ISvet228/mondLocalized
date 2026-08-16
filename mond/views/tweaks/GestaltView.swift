@@ -98,7 +98,7 @@ struct GestaltView: View {
 
                 Section {
                     Picker(selection: $selected_st) {
-                        Text("\(String(NSLocalizedString("artwork.original_subtype_format", tableName: "SettingsView")) (\(og_st)))").tag("og")
+                        Text("\(String(NSLocalizedString("artwork.original_subtype_format", tableName: "SettingsView", comment: ""))) + (\(og_st)))").tag("og")
 
                         if is_device_good() {
                             Text(NSLocalizedString("artwork.disable_dynamic_island", tableName: "GestaltView", comment: "")).tag("no_dynamic_island")
