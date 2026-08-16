@@ -98,7 +98,7 @@ struct GestaltView: View {
 
                 Section {
                     Picker(selection: $selected_st) {
-                        Text(String(format: NSLocalizedString("artwork.original_subtype_format", comment: "Original subtype label"), og_st)).tag("og")
+                        Text("\(String(localized: "artwork.original_subtype_format", table: "SettingsView")) (\(og_st))").tag("og")
 
                         if is_device_good() {
                             Text(NSLocalizedString("artwork.disable_dynamic_island", tableName: "GestaltView", comment: "")).tag("no_dynamic_island")
@@ -162,7 +162,7 @@ struct GestaltView: View {
                 }
 
                 Section {
-                    TweakToggle(title: NSLocalizedString("eligibility.enable_eligibility_spoofing", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("eligibility.disable_region_restrictions", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("eligibility.apple_intelligence", tableName: "GestaltView", comment: ""))
 
@@ -210,7 +210,7 @@ struct GestaltView: View {
                 }
 
                 Section {
-                    let cache_extra = mg_dict_now["CacheExtra"] as? NSMutableDictionary;
+                    let cache_extra = mg_dict_now["CacheExtra"] as? NSMutableDictionary
 
                     TweakToggle(title: NSLocalizedString("ipados.allow_ipados_apps", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("ipados.apple_pencil_settings", tableName: "GestaltView", comment: ""))
