@@ -38,6 +38,7 @@
 "eligibility.default_model" = "Default";
 "eligibility.device_spoofing_info" = "Device Spoofing Info";
 "eligibility.device_spoofing_info_body" = "Only spoof your device model if you want to download Apple Intelligence. This may break Face ID. If you decide to unspoof and want to keep Apple Intelligence, do NOT re-enter the Apple Intelligence & Siri menu in Settings.";
+eligibility.eligibility = "Eligibility"
 
 "ipados.allow_ipados_apps" = "iPadOS Features";
 "ipados.apple_pencil_settings" = "Apple Pencil Settings";

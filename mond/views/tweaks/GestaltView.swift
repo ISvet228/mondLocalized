@@ -93,7 +93,7 @@ struct GestaltView: View {
                         Text(NSLocalizedString("respring", comment: ""))
                     }
                 } footer: {
-                    Text(try! AttributedString(markdown: NSLocalizedString("menug.tweak_warning", tableName: "GestaltView", comment: "")))
+                    Text(try! AttributedString(markdown: NSLocalizedString("menu.tweak_warning", tableName: "GestaltView", comment: "")))
                 }
 
                 Section {
@@ -146,7 +146,7 @@ struct GestaltView: View {
                     TweakToggle(title: NSLocalizedString("software.enable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("software.disable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""))
                 } header: {
-                    Label(NSLocalizedString("software_oriented_features", tableName: "GestaltView", comment: ""), systemImage: "gearshape")
+                    Label(NSLocalizedString("software.software_oriented_features", tableName: "GestaltView", comment: ""), systemImage: "gearshape")
                 }
 
                 Section {
