@@ -60,16 +60,16 @@ struct GestaltView: View {
                 if !is_valid || is_empty {
                     Section {
                         if is_empty {
-                            PlainAlert(title: NSLocalizedString("do_not_reboot",tableName: "GestaltView", comment: ""), icon: "exclamationmark.triangle.fill", text: NSLocalizedString("mg_empty_warning", tableName: "GestaltView", comment: ""), color: Color.yellow)
+                            PlainAlert(title: NSLocalizedString("menu_warning.do_not_reboot",tableName: "GestaltView", comment: ""), icon: "exclamationmark.triangle.fill", text: NSLocalizedString("menu_warning.mg_empty_warning", tableName: "GestaltView", comment: ""), color: Color.yellow)
                         }
 
                         if !is_valid {
-                            PlainAlert(title: NSLocalizedString("do_not_reboot",tableName: "GestaltView", comment: ""), icon: "exclamationmark.triangle.fill", text: NSLocalizedString("mg_invalid_warning", tableName: "GestaltView", comment: ""), color: Color.yellow)
+                            PlainAlert(title: NSLocalizedString("menu_warning.do_not_reboot",tableName: "GestaltView", comment: ""), icon: "exclamationmark.triangle.fill", text: NSLocalizedString("menu_warning.mg_invalid_warning", tableName: "GestaltView", comment: ""), color: Color.yellow)
                         }
                     } header: {
                         Label(NSLocalizedString("warning", comment: ""), systemImage: "exclamationmark.triangle")
                     } footer: {
-                        Text(NSLocalizedString("bootloop_warning", tableName: "GestaltView", comment: ""))
+                        Text(NSLocalizedString("menu_warning.bootloop", tableName: "GestaltView", comment: ""))
                     }
                 }
 
@@ -78,13 +78,13 @@ struct GestaltView: View {
                         mg_apply_ui_state(selected_st, enable_device_name, mg_device_name, product_type)
                         mg_apply()
                     } label: {
-                        Text(NSLocalizedString("apply_tweaks", tableName: "GestaltView", comment: ""))
+                        Text(NSLocalizedString("menu.apply_tweaks", tableName: "GestaltView", comment: ""))
                     }
 
                     Button {
                         mg_revert()
                     } label: {
-                        Text(NSLocalizedString("revert_tweaks", tableName: "GestaltView", comment: ""))
+                        Text(NSLocalizedString("menu.revert_tweaks", tableName: "GestaltView", comment: ""))
                     }
                     
                     Button {
@@ -93,15 +93,15 @@ struct GestaltView: View {
                         Text(NSLocalizedString("respring", comment: ""))
                     }
                 } footer: {
-                    Text(try! AttributedString(markdown: NSLocalizedString("tweak_warning", tableName: "GestaltView", comment: "")))
+                    Text(try! AttributedString(markdown: NSLocalizedString("menug.tweak_warning", tableName: "GestaltView", comment: "")))
                 }
 
                 Section {
                     Picker(selection: $selected_st) {
-                        Text(NSLocalizedString("original_subtype_format", tableName: "GestaltView", comment: "")).tag("og")
+                        Text(String(format: NSLocalizedString("artwork.original_subtype_format", comment: "Original subtype label"), og_st)).tag("og")
 
                         if is_device_good() {
-                            Text(NSLocalizedString("disable_dynamic_island", tableName: "GestaltView", comment: "")).tag("no_dynamic_island")
+                            Text(NSLocalizedString("artwork.disable_dynamic_island", tableName: "GestaltView", comment: "")).tag("no_dynamic_island")
                         }
 
                         Text("iPhone 14 Pro").tag("14p")
@@ -122,53 +122,53 @@ struct GestaltView: View {
                         }
                     } label: {
                         HStack {
-                            Text(NSLocalizedString("subtype", tableName: "GestaltView", comment: ""))
+                            Text(NSLocalizedString("artwork.subtype", tableName: "GestaltView", comment: ""))
                             Spacer()
                         }
                     }
 
-                    Toggle(NSLocalizedString("custom_device_name", tableName: "GestaltView", comment: ""), isOn: $enable_device_name)
+                    Toggle(NSLocalizedString("artwork.custom_device_name", tableName: "GestaltView", comment: ""), isOn: $enable_device_name)
 
                     if enable_device_name {
-                        TextField(NSLocalizedString("device_name", tableName: "GestaltView", comment: ""), text: $mg_device_name)
+                        TextField(NSLocalizedString("artwork.device_name", tableName: "GestaltView", comment: ""), text: $mg_device_name)
                     }
                 } header: {
-                    Label(NSLocalizedString("device_artwork", tableName: "GestaltView", comment: ""), systemImage: "paintbrush.pointed")
+                    Label(NSLocalizedString("artwork.device_artwork", tableName: "GestaltView", comment: ""), systemImage: "paintbrush.pointed")
                 }
 
                 Section {
-                    TweakToggle(title: NSLocalizedString("enable_dynamic_island_capability", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("always_on_display", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("aod_vibrancy", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("disable_wallpaper_parallax", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("charge_limit_menu", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("boot_shutdown_chime", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("enable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("disable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.always_on_display", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.aod_vibrancy", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.disable_wallpaper_parallax", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.charge_limit_menu", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.boot_shutdown_chime", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.enable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("software.disable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""))
                 } header: {
                     Label(NSLocalizedString("software_oriented_features", tableName: "GestaltView", comment: ""), systemImage: "gearshape")
                 }
 
                 Section {
-                    TweakToggle(title: "iPhone 16 Camera Control Settings")
-                    TweakToggle(title: "Action Button Settings")
-                    TweakToggle(title: "Collision SOS")
+                    TweakToggle(title: NSLocalizedString("hardware.camera_control_settings", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("hardware.action_button_settings", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("hardware.collision_sos", tableName: "GestaltView", comment: ""))
                     if has_home_button() {
-                        TweakToggle(title: "Tap to Wake")
+                        TweakToggle(title: NSLocalizedString("hardware.tap_to_wake", tableName: "GestaltView", comment: ""))
                     }
-                    TweakToggle(title: "Pulse Width Modulation")
+                    TweakToggle(title: NSLocalizedString("hardware.pulse_width_modulation", tableName: "GestaltView", comment: ""))
                 } header: {
-                    Label("Hardware-Oriented Features", systemImage: "iphone")
+                    Label(NSLocalizedString("hardware.hardware_oriented_features", tableName: "GestaltView", comment: ""), systemImage: "iphone")
                 }
 
                 Section {
-                    TweakToggle(title: "Security Research Device Mode")
-                    TweakToggle(title: "Disable Region Restrictions")
-                    TweakToggle(title: "Apple Intelligence")
+                    TweakToggle(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("eligibility.region_restrictions", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("eligibility.apple_intelligence", tableName: "GestaltView", comment: ""))
 
                     HStack(spacing: 10) {
-                        Picker("Spoofing", selection: $product_type) {
-                            Text("Default").tag(machine_name())
+                        Picker(NSLocalizedString("eligibility.spoofing", tableName: "GestaltView", comment: ""), selection: $product_type) {
+                            Text(NSLocalizedString("eligibility.default_model", tableName: "GestaltView", comment: "")).tag(machine_name())
                             if UIDevice.current.userInterfaceIdiom == .pad {
                                 if doubleSystemVersion() >= 17.4 {
                                     Text("iPad Pro 11-inch (M4)").tag("iPad16,3")
@@ -196,8 +196,8 @@ struct GestaltView: View {
 
                         Button {
                             Alertinator.shared.alert(
-                                title: "Device Spoofing Info",
-                                body: "Only spoof your device model if you want to download Apple Intelligence. This may break Face ID. If you decide to unspoof and want to keep Apple Intelligence, do NOT re-enter the Apple Intelligence & Siri menu in Settings."
+                                title: NSLocalizedString("eligibility.device_spoofing_info", tableName: "GestaltView", comment: ""),
+                                body: NSLocalizedString("eligibility.device_spoofing_info_body", tableName: "GestaltView", comment: "")
                             )
                         } label: {
                             Image(systemName: "info.circle")
@@ -206,31 +206,31 @@ struct GestaltView: View {
                         .buttonStyle(.plain)
                     }
                 } header: {
-                    Label("Eligibility", systemImage: "checklist")
+                    Label(NSLocalizedString("eligibility.eligibility", tableName: "GestaltView", comment: ""), systemImage: "checklist")
                 }
 
                 Section {
                     let cache_extra = mg_dict_now["CacheExtra"] as? NSMutableDictionary
 
-                    TweakToggle(title: "Allow iPad Apps")
-                    TweakToggle(title: "Apple Pencil Settings")
+                    TweakToggle(title: NSLocalizedString("ipados.allow_ipados_apps", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("ipados.apple_pencil_settings", tableName: "GestaltView", comment: ""))
 
                     if UIDevice.current.userInterfaceIdiom == .pad {
-                        TweakToggle(title: "Stage Manager Support")
+                        TweakToggle(title: NSLocalizedString("ipados.stage_manager_support", tableName: "GestaltView", comment: ""))
                     }
 
-                    TweakToggle(title: "Enable iPadOS Mode")
+                    TweakToggle(title: NSLocalizedString("ipados.ipados_mode", tableName: "GestaltView", comment: ""))
                         .disabled(cache_extra?["+3Uf0Pm5F8Xy7Onyvko0vA"] as? String != "iPhone")
                 } header: {
-                    Label("iPadOS Features", systemImage: "ipad")
+                    Label(NSLocalizedString("ipados.ipados_features", tableName: "GestaltView", comment: ""), systemImage: "ipad")
                 }
 
                 Section {
-                    TweakToggle(title: "Internal Storage View")
-                    TweakToggle(title: "Internal Features")
-                    TweakToggle(title: "Apple Internal Install")
+                    TweakToggle(title: NSLocalizedString("internal.storage", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("internal.internal_features", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("internal.apple_internal_install", tableName: "GestaltView", comment: ""))
                 } header: {
-                    Label("Internal", systemImage: "ant")
+                    Label(NSLocalizedString("internal.internal", tableName: "GestaltView", comment: ""), systemImage: "ant")
                 }
             }
             .navigationTitle("mond")
