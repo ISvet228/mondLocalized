@@ -226,7 +226,7 @@ struct GestaltView: View {
                 }
 
                 Section {
-                    TweakToggle(title: NSLocalizedString("internal.storage", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: NSLocalizedString("internal.internal_storage_view", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("internal.internal_features", tableName: "GestaltView", comment: ""))
                     TweakToggle(title: NSLocalizedString("internal.apple_internal_install", tableName: "GestaltView", comment: ""))
                 } header: {

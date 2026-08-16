@@ -123,20 +123,20 @@ let all_tweaks: [mg_tweak] = [
     mg_tweak(title: NSLocalizedString("software.disable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""), minv: 19.0, key: "SAGvsp6O6kAQ4fEfDJpC4Q", value: 0, info_t: .info, info_msg: NSLocalizedString("software.disable_liquid_glass_low_performance_mode_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.boot_shutdown_chime", tableName: "GestaltView", comment: ""), key: "QHxt+hGLaBPbQJbXiUJX3w", value: 1, info_t: .info, info_msg: NSLocalizedString("software.boot_shutdown_chime_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.charge_limit_menu", tableName: "GestaltView", comment: ""), minv: 17.0, key: "37NVydb//GP/GrhuTN+exg", value: 1, info_t: .info, info_msg: NSLocalizedString("software.charge_limit_menu_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: "Tap to Wake", key: "yZf3GTRMGTuwSV/lD7Cagw", value: 1, info_t: .info, info_msg: "Meant for devices like the iPhone SE where tapping to wake isn't otherwise available."),
-    mg_tweak(title: "iPhone 16 Camera Control Settings", minv: 18.0, keys: ["CwvKxM2cEogD3p+HYgaW0Q", "oOV1jhJbdV3AddkcCg0AEA"], value: 1, info_t: .info, info_msg: "Exposes the Camera Control settings and its related capabilities."),
-    mg_tweak(title: "Apple Pencil Settings", key: "yhHcB0iH0d1XzPO/CFd3ow", value: 1, info_t: .info, info_msg: "Reveals the Apple Pencil settings page."),
-    mg_tweak(title: "Action Button Settings", minv: 17.0, key: "cT44WE1EohiwRzhsZ8xEsw", value: 1, info_t: .info, info_msg: "Reveals the Action Button settings page."),
-    mg_tweak(title: "Collision SOS", key: "HCzWusHQwZDea6nNhaKndw", value: 1, info_t: .info, info_msg: "Reveals the collision detection options in the SOS settings."),
-    mg_tweak(title: "Pulse Width Modulation", minv: 19.0, key: "6IejgN+1Fmu5/QrZFOIeNw", value: 1),
-    mg_tweak(title: "Security Research Device Mode", minv: 26.0, key: "XYlJKKkj2hztRP1NWWnhlw", value: 1, info_t: .info, info_msg: "Flags the device as an Apple Security Research Device."),
-    mg_tweak(title: "Allow iPad Apps", key: "9MZ5AdH43csAUajl/dU+IQ", value: [1, 2], info_t: .info, info_msg: "Allows iPad apps to be installed on iPhone."),
-    mg_tweak(title: "Stage Manager Support", key: "qeaj75wk3HF4DwQ8qbIi7g", value: 1, info_t: .info, info_msg: "Flags the device as capable of Stage Manager."),
-    mg_tweak(title: "Apple Internal Install", key: "EqrsVvjcYDdxHBiQmGhAWw", value: 1, info_t: .warning, info_msg: "Turns on internal features like the Metal HUD; some services may act up."),
-    mg_tweak(title: "Internal Storage View", key: "LBJfwOEzExRxzlAnSuI7eg", value: 1, info_t: .warning, info_msg: "Displays internal files in the Storage settings; can be dangerous on some iPads."),
-    
+    mg_tweak(title: NSLocalizedString("hardware.tap_to_wake", tableName: "GestaltView", comment: ""), key: "yZf3GTRMGTuwSV/lD7Cagw", value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.tap_to_wake_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("hardware.camera_control_settings", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["CwvKxM2cEogD3p+HYgaW0Q", "oOV1jhJbdV3AddkcCg0AEA"], value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.camera_control_settings_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("ipados.apple_pencil_settings", tableName: "GestaltView", comment: ""), key: "yhHcB0iH0d1XzPO/CFd3ow", value: 1, info_t: .info, info_msg: NSLocalizedString("ipados.apple_pencil_settings_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("hardware.action_button_settings", tableName: "GestaltView", comment: ""), minv: 17.0, key: "cT44WE1EohiwRzhsZ8xEsw", value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.action_button_settings_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("hardware.collision_sos", tableName: "GestaltView", comment: ""), key: "HCzWusHQwZDea6nNhaKndw", value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.collision_sos_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("hardware.pulse_width_modulation", tableName: "GestaltView", comment: ""), minv: 19.0, key: "6IejgN+1Fmu5/QrZFOIeNw", value: 1),
+    mg_tweak(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""), minv: 26.0, key: "XYlJKKkj2hztRP1NWWnhlw", value: 1, info_t: .info, info_msg: NSLocalizedString("eligibility.security_research_device_mode_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("ipados.allow_ipad_apps", tableName： "GestaltView", comment： ""), key： "9MZ5AdH43csAUajl/dU+IQ", value： [1, 2], info_t： .info, info_msg： NSLocalizedString("ipados.allow_ipad_apps_info", tableName： "GestaltView", comment： "")),
+    mg_tweak(title: NSLocalizedString("ipados.stage_manager_support", tableName: "GestaltView", comment: ""), key: "qeaj75wk3HF4DwQ8qbIi7g", value: 1, info_t: .info, info_msg: NSLocalizedString("ipados.stage_manager_support_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("internal.apple_internal_install", tableName: "GestaltView", comment: ""), key: "EqrsVvjcYDdxHBiQmGhAWw", value: 1, info_t: .warning, info_msg: NSLocalizedString("internal.apple_internal_install_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("internal.internal_storage_view", tableName: "GestaltView", comment: ""), key: "LBJfwOEzExRxzlAnSuI7eg", value: 1, info_t: .warning, info_msg: NSLocalizedString("internal.internal_storage_view_info", tableName: "GestaltView", comment: "")),
+
     mg_tweak(
-        title: "Disable Region Restrictions",
+        title: NSLocalizedString("eligibility.disable_region_restrictions", tableName: "GestaltView", comment: ""),
         minv: nil,
         info_t: .info,
         info_msg: "This tweak may be broken or have no effect on some iOS versions or devices.",
@@ -147,7 +147,7 @@ let all_tweaks: [mg_tweak] = [
         },
         w_on: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
-            Alertinator.shared.alert(title: "Warning!", body: "Please do not use this feature to bypass region restrictions that would equate to breaking regional laws (e.g. disabling the camera shutter sound). We will NOT be held responsible for enabling any illegal activites!")
+            Alertinator.shared.alert(title: NSLocaclizedString("warning", comment: ""), body: NSLocalizedString("eligibility.disable_region_restrictions_warning", tableName: "GestaltView", comment: ""))
             cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] = "US"
             cache_extra["zHeENZu+wbg7PUprNwBWg"] = "LL/A"
         },
@@ -159,10 +159,10 @@ let all_tweaks: [mg_tweak] = [
     ),
     
     mg_tweak(
-        title: "Apple Intelligence",
+        title: NSLocalizedString("eligibility.apple_intelligence", tableName: "GestaltView", comment: ""),
         minv: 18.1,
         info_t: .info,
-        info_msg: "How to use this tweak:\n1. Spoof to the model next to the first one supported by Apple Intelligence.\n2. Spoof back to your model.\n3. Spoof to your final model and you should see the Apple Intelligence icon in Settings.\n4. Connect iPhone to power and leave the Settings > Storage tab open for ~1 hour.\n\nNOTE: Do not spoof back.",
+        info_msg: NSLocalizedString("eligibility.apple_intelligence_info", tableName: "GestaltView", comment: ""),
         r: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return false }
             return (cache_extra["A62OafQ85EJAiiqKn4agtg"] as? Int) == 1
@@ -171,8 +171,8 @@ let all_tweaks: [mg_tweak] = [
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
             cache_extra["A62OafQ85EJAiiqKn4agtg"] = 1
             Alertinator.shared.alert(
-                title: "Apple Intelligence Spoof",
-                body: "How to use this tweak:\n1. Spoof to the model next to the first one supported by Apple Intelligence.\n2. Spoof back to your model.\n3. Spoof to your final model and you should see the Apple Intelligence icon in Settings.\n4. Connect iPhone to power and leave the Settings > Storage tab open for ~1 hour.\n\nNOTE: Do not spoof back."
+                title: NSLocalizedString("eligibility.apple_intelligence_spoof", tableName: "GestaltView", comment: ""),
+                body: NSLocalizedString("eligibility.apple_intelligence_spoof_info", tableName: "GestaltView", comment: "")
             )
         },
         w_off: { dict in
@@ -182,10 +182,10 @@ let all_tweaks: [mg_tweak] = [
     ),
     
     mg_tweak(
-        title: "Enable iPadOS Mode",
+        title: NSLocalizedString("ipados.enable_ipados_mode", tableName: "GestaltView", comment: ""),
         minv: nil,
         info_t: .warning,
-        info_msg: "Experimental and high risk; This is a very dangerous tweak to use! If you use an alphanumeric passcode, DO NOT USE THIS TWEAK AT ALL! Please do not turn off \"Show Dock In Stage Manager\" or your device will BOOTLOOP when rotating to landscape! Some users have also reported that enabling the iPadOS UI and then tapping Stage Manager can cause the device to enter Recovery Mode, even when the UI itself appears unchanged. The Settings search bar may move to the top before this happens. With these three things in mind, you may experience general instability, or other major issues such as app data randomly disappearing. But I guess some funny multitasking features that still make the device relatively unusable are cool? Whatever dude, I'm not here to tell you how to use your own device.",
+        info_msg: NSLocalizedString("ipados.enable_ipados_mode_info", tableName: "GestaltView", comment: ""),
         r: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return false }
             let values: [String: Int] = [
@@ -233,7 +233,7 @@ let all_tweaks: [mg_tweak] = [
     ),
     
     mg_tweak(
-        title: "Internal Features",
+        title: NSLocalizedString("internal.internal_features", tableName: "GestaltView", comment: ""),
         minv: nil,
         info_t: nil,
         info_msg: nil,
@@ -468,7 +468,7 @@ func mg_load() {
                 is_valid = false
                 is_empty = (try? FileManager.default.attributesOfItem(atPath: mg_url_now.path))?[.size] as? UInt64 == 0
                 is_loading = false
-                Alertinator.shared.alert(title: "Failed to load current MobileGestalt!", body: "Restart the app and try again. Check logs for more detailed information.")
+                Alertinator.shared.alert(title: NSLocalizedString("warning.failed_to_load_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
             }
         }
     }
@@ -494,12 +494,12 @@ func mg_apply() {
         enable_device_name = false
 
         print("(mg) successfully overwrote mobilegestalt!")
-        Alertinator.shared.alert(title: "Successfully applied Gestalt tweaks!", body: "Respring your device for changes to take effect. Note that some tweaks may require a reboot for them to apply properly.", actionLabel: "Respring", action: {
+        Alertinator.shared.alert(title: NSLocalizedString("success.applied_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.respring_to_take_effect", tableName: "GestaltView", comment: ""), actionLabel: "Respring", action: {
             state.respring()
         })
     } catch {
         print("(mg) failed to apply mobilegestalt: \(error)")
-        Alertinator.shared.alert(title: "Failed to apply MobileGestalt!", body: "Restart the app and try again. Check logs for more detailed information.")
+        Alertinator.shared.alert(title: NSLocalizedString("error.failed_to_apply_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
     }
 }
 
@@ -510,10 +510,10 @@ func mg_revert() {
         try mg_write(backup_data)
 
         print("(mg) successfully reverted mobilegestalt!)")
-        Alertinator.shared.alert(title: "Successfully reverted Gestalt tweaks!", body: "Reboot your device for changes to take effect.")
+        Alertinator.shared.alert(title: NSLocalizedString("warning.successfully_reverted_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.reboot_to_take_effect", tableName: "GestaltView", comment: ""))
     } catch {
         print("(mg) failed to revert mobilegestalt: \(error)")
-        Alertinator.shared.alert(title: "Failed to revert MobileGestalt!", body: "Check logs for error information.")
+        Alertinator.shared.alert(title: NSLocalizedString("warning.failed_to_revert_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.check_logs", tableName: "GestaltView", comment: ""))
     }
 }
 
