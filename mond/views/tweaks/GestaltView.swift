@@ -162,9 +162,9 @@ struct GestaltView: View {
                 }
 
                 Section {
-                    TweakToggle(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("eligibility.region_restrictions", tableName: "GestaltView", comment: ""))
-                    TweakToggle(title: NSLocalizedString("eligibility.apple_intelligence", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: "Security Research Device Mode")
+                    TweakToggle(title: "Disable Region Restrictions")
+                    TweakToggle(title: "Apple Intelligence")
 
                     HStack(spacing: 10) {
                         Picker(NSLocalizedString("eligibility.spoofing", tableName: "GestaltView", comment: ""), selection: $product_type) {
