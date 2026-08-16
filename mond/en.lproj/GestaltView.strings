@@ -7,7 +7,7 @@
 "menu.revert_tweaks" = "Revert Tweaks";
 "menu.tweak_warning" = "**WARNING:** These tweaks have the capability to break features on your device or softbrick it if misused!";
 
-"artwork.original_subtype_format" = "Original (%d)";
+"artwork.original_subtype_format" = "Original (%@)";
 "artwork.disable_dynamic_island" = "Disable Dynamic Island";
 "artwork.subtype" = "Subtype";
 "artwork.custom_device_name" = "Custom Device Name";

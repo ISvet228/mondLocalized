@@ -212,7 +212,7 @@ struct GestaltView: View {
                 Section {
                     let cache_extra = mg_dict_now["CacheExtra"] as? NSMutableDictionary
 
-                    TweakToggle(title: NSLocalizedString("ipados.allow_ipados_apps", tableName: "GestaltView", comment: ""))
+                    TweakToggle(title: "FUCK"/*NSLocalizedString("ipados.allow_ipados_apps", tableName: "GestaltView", comment: "")*/)
                     TweakToggle(title: NSLocalizedString("ipados.apple_pencil_settings", tableName: "GestaltView", comment: ""))
 
                     if UIDevice.current.userInterfaceIdiom == .pad {
