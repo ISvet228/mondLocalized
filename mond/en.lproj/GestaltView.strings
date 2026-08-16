@@ -15,13 +15,21 @@
 "artwork.device_artwork" = "Device Artwork";
 
 "software.enable_dynamic_island_capability" = "Enable Dynamic Island Capability";
+"software.enable_dynamic_island_capability_info" = "An alternate way to enable the Dynamic Island, as used by Nugget.";
 "software.always_on_display" = "Always-On Display";
+"software.always_on_display_info" = "Can increase screen burn-in risk on devices that don't officially support it.";
 "software.aod_vibrancy" = "AOD Vibrancy";
+"software.aod_vibrancy_info" = "Turn this on if your Always-On Display renders incorrectly.";
 "software.disable_wallpaper_parallax" = "Disable Wallpaper Parallax";
+"software.disable_wallpaper_parallax_info" = "Prevents the wallpaper from moving when you tilt or move the device.";
 "software.charge_limit_menu" = "Charge Limit Menu";
+"software.charge_limit_menu_info" = "Reveals the Settings menu; whether it actually limits charging depends on your hardware.";
 "software.boot_shutdown_chime" = "Boot & Shutdown Chime";
+"software.boot_shutdown_chime_info" = "Adds the chime sound when the device powers on or shuts down.";
 "software.enable_liquid_glass_low_performance_mode" = "Enable Liquid Glass Low-Performance Mode";
+"software.enable_liquid_glass_low_performance_mode_info" = "Intended for iOS 26 and newer.";
 "software.disable_liquid_glass_low_performance_mode" = "Disable Liquid Glass Low-Performance Mode";
+"software.disable_liquid_glass_low_performance_mode_info" = "Don't use this at the same time as the option above.";
 "software.software_oriented_features" = "Software-Oriented Features";
 
 "hardware.camera_control_settings" = "iPhone 16 Camera Control Settings";
