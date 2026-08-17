@@ -14,7 +14,7 @@ import UIKit
 struct mg_tweak {
     let title: String
     let minv: Double?
-    let info_t: InfoType?
+    let info_t: String?
     let info_msg: String?
     
     let r: (NSMutableDictionary) -> Bool
@@ -89,7 +89,7 @@ extension mg_tweak {
         )
     }
 
-    init<T: Equatable>(title: String, minv: Double? = nil, key: String, value: T, info_t: InfoType, info_msg: String) {
+    init<T: Equatable>(title: String, minv: Double? = nil, key: String, value: T, info_t: String, info_msg: String) {
         self.init(
             title: title,
             minv: minv,
@@ -110,7 +110,7 @@ extension mg_tweak {
         )
     }
 
-    init<T: Equatable>(title: String, minv: Double? = nil, keys: [String], value: T, info_t: InfoType, info_msg: String) {
+    init<T: Equatable>(title: String, minv: Double? = nil, keys: [String], value: T, info_t: String, info_msg: String) {
         self.init(
             title: title,
             minv: minv,
@@ -141,31 +141,31 @@ extension mg_tweak {
 }
 
 let all_tweaks: [mg_tweak] = [
-    mg_tweak(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""), minv: 19.0, key: "YlEtTtHlNesRBMal1CqRaA", value: 1, info_t: "INFO TEST", info_msg: NSLocalizedString("software.enable_dynamic_island_capability_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("software.always_on_display", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["2OOJf1VhaM7NxfRok3HbWQ", "j8/Omm6s1lsmTDFsXjsBfA"], value: 1, info_t: .warning, info_msg: NSLocalizedString("software.always_on_display_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("software.aod_vibrancy", tableName: "GestaltView", comment: ""), minv: 18.0, key: "ykpu7qyhqFweVMKtxNylWA", value: 1, info_t: .info, info_msg: NSLocalizedString("software.aod_vibrancy_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("software.disable_wallpaper_parallax", tableName: "GestaltView", comment: ""), key: "UIParallaxCapability", value: 0, info_t: .info, info_msg: NSLocalizedString("software.disable_wallpaper_parallax_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("software.enable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""), minv: 19.0, key: "SAGvsp6O6kAQ4fEfDJpC4Q", value: 1, info_t: .info, info_msg: NSLocalizedString("software.enable_liquid_glass_low_performance_mode_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("software.disable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""), minv: 19.0, key: "SAGvsp6O6kAQ4fEfDJpC4Q", value: 0, info_t: .info, info_msg: NSLocalizedString("software.disable_liquid_glass_low_performance_mode_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("software.boot_shutdown_chime", tableName: "GestaltView", comment: ""), key: "QHxt+hGLaBPbQJbXiUJX3w", value: 1, info_t: .info, info_msg: NSLocalizedString("software.boot_shutdown_chime_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("software.charge_limit_menu", tableName: "GestaltView", comment: ""), minv: 17.0, key: "37NVydb//GP/GrhuTN+exg", value: 1, info_t: .info, info_msg: NSLocalizedString("software.charge_limit_menu_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("hardware.tap_to_wake", tableName: "GestaltView", comment: ""), key: "yZf3GTRMGTuwSV/lD7Cagw", value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.tap_to_wake_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("hardware.camera_control_settings", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["CwvKxM2cEogD3p+HYgaW0Q", "oOV1jhJbdV3AddkcCg0AEA"], value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.camera_control_settings_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("ipados.apple_pencil_settings", tableName: "GestaltView", comment: ""), key: "yhHcB0iH0d1XzPO/CFd3ow", value: 1, info_t: .info, info_msg: NSLocalizedString("ipados.apple_pencil_settings_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("hardware.action_button_settings", tableName: "GestaltView", comment: ""), minv: 17.0, key: "cT44WE1EohiwRzhsZ8xEsw", value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.action_button_settings_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""), minv: 19.0, key: "YlEtTtHlNesRBMal1CqRaA", value: 1, info_t: "Test", info_msg: NSLocalizedString("software.enable_dynamic_island_capability_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.always_on_display", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["2OOJf1VhaM7NxfRok3HbWQ", "j8/Omm6s1lsmTDFsXjsBfA"], value: 1, info_t: "Test", info_msg: NSLocalizedString("software.always_on_display_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.aod_vibrancy", tableName: "GestaltView", comment: ""), minv: 18.0, key: "ykpu7qyhqFweVMKtxNylWA", value: 1, info_t: "Test", info_msg: NSLocalizedString("software.aod_vibrancy_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.disable_wallpaper_parallax", tableName: "GestaltView", comment: ""), key: "UIParallaxCapability", value: 0, info_t: "Test", info_msg: NSLocalizedString("software.disable_wallpaper_parallax_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.enable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""), minv: 19.0, key: "SAGvsp6O6kAQ4fEfDJpC4Q", value: 1, info_t: "Test", info_msg: NSLocalizedString("software.enable_liquid_glass_low_performance_mode_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.disable_liquid_glass_low_performance_mode", tableName: "GestaltView", comment: ""), minv: 19.0, key: "SAGvsp6O6kAQ4fEfDJpC4Q", value: 0, info_t: "Test", info_msg: NSLocalizedString("software.disable_liquid_glass_low_performance_mode_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.boot_shutdown_chime", tableName: "GestaltView", comment: ""), key: "QHxt+hGLaBPbQJbXiUJX3w", value: 1, info_t: "Test", info_msg: NSLocalizedString("software.boot_shutdown_chime_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.charge_limit_menu", tableName: "GestaltView", comment: ""), minv: 17.0, key: "37NVydb//GP/GrhuTN+exg", value: 1, info_t: "Test", info_msg: NSLocalizedString("software.charge_limit_menu_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("hardware.tap_to_wake", tableName: "GestaltView", comment: ""), key: "yZf3GTRMGTuwSV/lD7Cagw", value: 1, info_t: "Test", info_msg: NSLocalizedString("hardware.tap_to_wake_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("hardware.camera_control_settings", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["CwvKxM2cEogD3p+HYgaW0Q", "oOV1jhJbdV3AddkcCg0AEA"], value: 1, info_t: "Test", info_msg: NSLocalizedString("hardware.camera_control_settings_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("ipados.apple_pencil_settings", tableName: "GestaltView", comment: ""), key: "yhHcB0iH0d1XzPO/CFd3ow", value: 1, info_t: "Test", info_msg: NSLocalizedString("ipados.apple_pencil_settings_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("hardware.action_button_settings", tableName: "GestaltView", comment: ""), minv: 17.0, key: "cT44WE1EohiwRzhsZ8xEsw", value: 1, info_t: "Test", info_msg: NSLocalizedString("hardware.action_button_settings_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("hardware.collision_sos", tableName: "GestaltView", comment: ""), key: "HCzWusHQwZDea6nNhaKndw", value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.collision_sos_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("hardware.pulse_width_modulation", tableName: "GestaltView", comment: ""), minv: 19.0, key: "6IejgN+1Fmu5/QrZFOIeNw", value: 1),
-    mg_tweak(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""), minv: 26.0, key: "XYlJKKkj2hztRP1NWWnhlw", value: 1, info_t: .info, info_msg: NSLocalizedString("eligibility.security_research_device_mode_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("ipados.allow_ipados_apps", tableName: "GestaltView", comment: ""), key: "9MZ5AdH43csAUajl/dU+IQ", value: [1, 2], info_t: .info, info_msg: NSLocalizedString("ipados.allow_ipados_apps_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("ipados.stage_manager_support", tableName: "GestaltView", comment: ""), key: "qeaj75wk3HF4DwQ8qbIi7g", value: 1, info_t: .info, info_msg: NSLocalizedString("ipados.stage_manager_support_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("internal.apple_internal_install", tableName: "GestaltView", comment: ""), key: "EqrsVvjcYDdxHBiQmGhAWw", value: 1, info_t: .warning, info_msg: NSLocalizedString("internal.apple_internal_install_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("internal.internal_storage_view", tableName: "GestaltView", comment: ""), key: "LBJfwOEzExRxzlAnSuI7eg", value: 1, info_t: .warning, info_msg: NSLocalizedString("internal.internal_storage_view_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""), minv: 26.0, key: "XYlJKKkj2hztRP1NWWnhlw", value: 1, info_t: "Test", info_msg: NSLocalizedString("eligibility.security_research_device_mode_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("ipados.allow_ipados_apps", tableName: "GestaltView", comment: ""), key: "9MZ5AdH43csAUajl/dU+IQ", value: [1, 2], info_t: "Test", info_msg: NSLocalizedString("ipados.allow_ipados_apps_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("ipados.stage_manager_support", tableName: "GestaltView", comment: ""), key: "qeaj75wk3HF4DwQ8qbIi7g", value: 1, info_t: "Test", info_msg: NSLocalizedString("ipados.stage_manager_support_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("internal.apple_internal_install", tableName: "GestaltView", comment: ""), key: "EqrsVvjcYDdxHBiQmGhAWw", value: 1, info_t: "Test", info_msg: NSLocalizedString("internal.apple_internal_install_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("internal.internal_storage_view", tableName: "GestaltView", comment: ""), key: "LBJfwOEzExRxzlAnSuI7eg", value: 1, info_t: "Test", info_msg: NSLocalizedString("internal.internal_storage_view_info", tableName: "GestaltView", comment: "")),
 
     mg_tweak(
         title: NSLocalizedString("eligibility.disable_region_restrictions", tableName: "GestaltView", comment: ""),
         minv: nil,
-        info_t: .info,
-        info_msg: "This tweak may be broken or have no effect on some iOS versions or devices.",
+        info_t: "Test",
+        info_msg: NSLocalizedString("eligibility.disable_region_restrictions_info", tableName: "GestaltView", comment: ""),
         r: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return false }
             return cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] as? String == "US" &&
@@ -187,7 +187,7 @@ let all_tweaks: [mg_tweak] = [
     mg_tweak(
         title: NSLocalizedString("eligibility.apple_intelligence", tableName: "GestaltView", comment: ""),
         minv: 18.1,
-        info_t: .info,
+        info_t: "Test",
         info_msg: NSLocalizedString("eligibility.apple_intelligence_info", tableName: "GestaltView", comment: ""),
         r: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return false }
@@ -210,7 +210,7 @@ let all_tweaks: [mg_tweak] = [
     mg_tweak(
         title: NSLocalizedString("ipados.ipados_mode", tableName: "GestaltView", comment: ""),
         minv: nil,
-        info_t: .warning,
+        info_t: "Test",
         info_msg: NSLocalizedString("ipados.ipados_mode_info", tableName: "GestaltView", comment: ""),
         r: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return false }
