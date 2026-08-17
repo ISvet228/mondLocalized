@@ -141,7 +141,7 @@ extension mg_tweak {
 }
 
 let all_tweaks: [mg_tweak] = [
-    mg_tweak(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""), minv: 19.0, key: "YlEtTtHlNesRBMal1CqRaA", value: 1, info_t: "INFO TEST", info_msg: NSLocalizedString("software.enable_dynamic_island_capability_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""), minv: 19.0, key: "YlEtTtHlNesRBMal1CqRaA", value: 1, info_t: .info, info_msg: NSLocalizedString("software.enable_dynamic_island_capability_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.always_on_display", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["2OOJf1VhaM7NxfRok3HbWQ", "j8/Omm6s1lsmTDFsXjsBfA"], value: 1, info_t: .warning, info_msg: NSLocalizedString("software.always_on_display_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.aod_vibrancy", tableName: "GestaltView", comment: ""), minv: 18.0, key: "ykpu7qyhqFweVMKtxNylWA", value: 1, info_t: .info, info_msg: NSLocalizedString("software.aod_vibrancy_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.disable_wallpaper_parallax", tableName: "GestaltView", comment: ""), key: "UIParallaxCapability", value: 0, info_t: .info, info_msg: NSLocalizedString("software.disable_wallpaper_parallax_info", tableName: "GestaltView", comment: "")),
