@@ -1,4 +1,4 @@
-/* Russian localization for mond */
-
-"warning" = "Внимание!";
+/* English localization for mond */
+//Keys that used in multiple files or other sht
+"warning" = "Предупреждение!";
 "respring" = "Респринг";
