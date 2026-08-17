@@ -129,7 +129,7 @@ struct SettingsView: View {
                 
                 Section {
                     PlainToggle(text: NSLocalizedString("keep_alive", tableName: "SettingsView", comment: "Keep alive toggle label"), infoType: .info, 
-                    infoMessage: "Keeps the app running in the background after you close it, allowing it to remain active.", isOn: $ka_on)
+                    infoMessage: NSLocalizedString("keep_alive_info", tableName: "SettingsView", comment:""), isOn: $ka_on)
                         .onChange(of: ka_on) { _, enabled in
                             if enabled {
                                 keep_alive()
