@@ -29,6 +29,16 @@ struct mg_tweak {
 }
 
 extension mg_tweak {
+    private static func cache_extra(_ dict: NSMutableDictionary) -> NSMutableDictionary? {
+        if let extra = dict["CacheExtra"] as? NSMutableDictionary {
+            return extra
+        }
+        guard let extra = dict["CacheExtra"] as? NSDictionary else { return nil }
+        let mutable = NSMutableDictionary(dictionary: extra)
+        dict["CacheExtra"] = mutable
+        return mutable
+    }
+    
     init<T: Equatable>(title: String, minv: Double? = nil, key: String, value: T) {
         self.init(
             title: title,
@@ -36,11 +46,17 @@ extension mg_tweak {
             info_t: nil,
             info_msg: nil,
             r: { dict in
-                guard let current = dict[key] as? T else { return false }
-                return current == value
+                guard let extra = dict["CacheExtra"] as? NSDictionary else { return false }
+                return extra[key] as? T == value
             },
-            w_on: { dict in dict[key] = value },
-            w_off: { dict in dict.removeObject(forKey: key) }
+            w_on: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
+                extra[key] = value
+            },
+            w_off: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
+                extra.removeObject(forKey: key)
+            }
         )
     }
 
@@ -51,21 +67,23 @@ extension mg_tweak {
             info_t: nil,
             info_msg: nil,
             r: { dict in
-                guard let key = keys.first,
-                      let current = dict[key] as? T
+                guard let extra = dict["CacheExtra"] as? NSDictionary,
+                      let key = keys.first
                 else {
                     return false
                 }
-                return current == value
+                return extra[key] as? T == value
             },
             w_on: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
                 for key in keys {
-                    dict[key] = value
+                    extra[key] = value
                 }
             },
             w_off: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
                 for key in keys {
-                    dict.removeObject(forKey: key)
+                    extra.removeObject(forKey: key)
                 }
             }
         )
@@ -201,7 +219,8 @@ let all_tweaks: [mg_tweak] = [
         },
         w_on: { dict in
             guard let cache_data = dict["CacheData"] as? NSMutableData,
-                  let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
+                  let cache_extra = dict["CacheExtra"] as? NSMutableDictionary,
+                  let value_off = cache_data_safe_offset("mtrAoWJ3gsq+I90ZnQ0vQw", in: cache_data) else { return }
             
             let value_off = cache_data_offset("mtrAoWJ3gsq+I90ZnQ0vQw")
             cache_data.mutableBytes.storeBytes(of: 3, toByteOffset: value_off, as: Int.self)
@@ -220,7 +239,8 @@ let all_tweaks: [mg_tweak] = [
         },
         w_off: { dict in
             guard let cache_data = dict["CacheData"] as? NSMutableData,
-                  let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
+                  let cache_extra = dict["CacheExtra"] as? NSMutableDictionary,
+                  let value_off = cache_data_safe_offset("mtrAoWJ3gsq+I90ZnQ0vQw", in: cache_data) else { return }
             
             let value_off = cache_data_offset("mtrAoWJ3gsq+I90ZnQ0vQw")
             cache_data.mutableBytes.storeBytes(of: 1, toByteOffset: value_off, as: Int.self)
@@ -238,25 +258,25 @@ let all_tweaks: [mg_tweak] = [
         info_t: nil,
         info_msg: nil,
         r: { dict in
-            guard let cache_data = dict["CacheData"] as? NSMutableData else { return false }
-            let off_apple_internal_install = cache_data_offset("EqrsVvjcYDdxHBiQmGhAWw")
-            return cache_data.bytes.load(fromByteOffset: off_apple_internal_install, as: Int.self) == 1
+            guard let cache_data = dict["CacheData"] as? NSMutableData,
+                  let off = cache_data_safe_offset("EqrsVvjcYDdxHBiQmGhAWw", in: cache_data) else { return false }
+            return cache_data.bytes.load(fromByteOffset: off, as: Int.self) == 1
         },
         w_on: { dict in
-            guard let cache_data = dict["CacheData"] as? NSMutableData else { return }
-            let off_apple_internal_install = cache_data_offset("EqrsVvjcYDdxHBiQmGhAWw")
-            let off_has_internal_settings_bundle = cache_data_offset("Oji6HRoPi7rH7HPdWVakuw")
-            let off_internal_build = cache_data_offset("LBJfwOEzExRxzlAnSuI7eg")
+            guard let cache_data = dict["CacheData"] as? NSMutableData,
+                  let off_apple_internal_install = cache_data_safe_offset("EqrsVvjcYDdxHBiQmGhAWw", in: cache_data),
+                  let off_has_internal_settings_bundle = cache_data_safe_offset("Oji6HRoPi7rH7HPdWVakuw", in: cache_data),
+                  let off_internal_build = cache_data_safe_offset("LBJfwOEzExRxzlAnSuI7eg", in: cache_data) else { return }
             
             cache_data.mutableBytes.storeBytes(of: 1, toByteOffset: off_apple_internal_install, as: Int.self)
             cache_data.mutableBytes.storeBytes(of: 1, toByteOffset: off_has_internal_settings_bundle, as: Int.self)
             cache_data.mutableBytes.storeBytes(of: 1, toByteOffset: off_internal_build, as: Int.self)
         },
         w_off: { dict in
-            guard let cache_data = dict["CacheData"] as? NSMutableData else { return }
-            let off_apple_internal_install = cache_data_offset("EqrsVvjcYDdxHBiQmGhAWw")
-            let off_has_internal_settings_bundle = cache_data_offset("Oji6HRoPi7rH7HPdWVakuw")
-            let off_internal_build = cache_data_offset("LBJfwOEzExRxzlAnSuI7eg")
+            guard let cache_data = dict["CacheData"] as? NSMutableData,
+                  let off_apple_internal_install = cache_data_safe_offset("EqrsVvjcYDdxHBiQmGhAWw", in: cache_data),
+                  let off_has_internal_settings_bundle = cache_data_safe_offset("Oji6HRoPi7rH7HPdWVakuw", in: cache_data),
+                  let off_internal_build = cache_data_safe_offset("LBJfwOEzExRxzlAnSuI7eg", in: cache_data) else { return }
             
             cache_data.mutableBytes.storeBytes(of: 0, toByteOffset: off_apple_internal_install, as: Int.self)
             cache_data.mutableBytes.storeBytes(of: 0, toByteOffset: off_has_internal_settings_bundle, as: Int.self)
@@ -343,6 +363,12 @@ func cache_data_offset(_ key: String) -> Int {
 
     _cache_data_offsets[key] = 0
     return 0
+}
+
+func cache_data_safe_offset(_ key: String, in data: NSMutableData) -> Int? {
+    let offset = cache_data_offset(key)
+    guard offset > 0, offset <= data.length - MemoryLayout<Int>.size else { return nil }
+    return offset
 }
 
 let state = AppState.shared
