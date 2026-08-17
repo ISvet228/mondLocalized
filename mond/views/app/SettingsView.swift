@@ -16,6 +16,7 @@ struct SettingsView: View {
     @AppStorage("ka_on") private var ka_on = true
     @AppStorage("token") private var token: String = ""
     @AppStorage("dismiss_after_import") private var dismiss_after_import = false
+    @AppStorage("atomic_write") private var atomic_write = true
     
     @State private var show_confirm: Bool = false
     
@@ -148,6 +149,8 @@ struct SettingsView: View {
 
                     PlainToggle(text: NSLocalizedString("dismiss_after_importing", tableName: "SettingsView", comment: "Dismiss after import toggle label"), infoType: .info, 
                     infoMessage: NSLocalizedString("dismiss_after_importing_info", tableName: "SettingsView", comment: "Dismiss after import info message"), isOn: $dismiss_after_import)
+                    PlainToggle(text: NSLocalizedString("persist_after_reboot", tableName: "SettingsView", comment: ""), infoType: .info, 
+                    infoMessage: NSLocalizedString("persist_after_reboot_info", tableName: "SettingsView", comment: ""), isOn: $atomic_write)
                 } header: {
                     Label(NSLocalizedString("settings", tableName: "SettingsView", comment: "Settings section label"), systemImage: "gear")
                 }

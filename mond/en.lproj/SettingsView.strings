@@ -18,6 +18,8 @@
 "keep_alive_info" = "Keeps the app running in the background after you close it, allowing it to remain active.";
 "dismiss_after_importing" = "Dismiss after importing";
 "dismiss_after_importing_info" = "When enabled, the Tendies explorer will close automatically after importing a .tendies file into PosterBoard.";
+"persist_after_reboot" = "Persist after reboot";
+"persist_after_reboot_info" = "When enabled, MobileGestalt is written in-place on the same inode, which (hopefully) prevents iOS from regenerating the cache on reboot. Disable to use atomic file replacement instead.";
 "settings" = "Settings";
 "tools" = "Tools";
 "respring_method_credits" = "Respring method by [neon](https://github.com/neonmodder123), swift implementation by [skadz](https://github.com/skadz108).";

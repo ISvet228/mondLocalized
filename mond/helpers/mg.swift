@@ -96,11 +96,17 @@ extension mg_tweak {
             info_t: info_t,
             info_msg: info_msg,
             r: { dict in
-                guard let current = dict[key] as? T else { return false }
-                return current == value
+                guard let extra = dict["CacheExtra"] as? NSDictionary else { return false }
+                return extra[key] as? T == value
             },
-            w_on: { dict in dict[key] = value },
-            w_off: { dict in dict.removeObject(forKey: key) }
+            w_on: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
+                extra[key] = value
+            },
+            w_off: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
+                extra.removeObject(forKey: key)
+            }
         )
     }
 
@@ -111,21 +117,23 @@ extension mg_tweak {
             info_t: info_t,
             info_msg: info_msg,
             r: { dict in
-                guard let key = keys.first,
-                      let current = dict[key] as? T
+                guard let extra = dict["CacheExtra"] as? NSDictionary,
+                      let key = keys.first
                 else {
                     return false
                 }
-                return current == value
+                return extra[key] as? T == value
             },
             w_on: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
                 for key in keys {
-                    dict[key] = value
+                    extra[key] = value
                 }
             },
             w_off: { dict in
+                guard let extra = Self.cache_extra(dict) else { return }
                 for key in keys {
-                    dict.removeObject(forKey: key)
+                    extra.removeObject(forKey: key)
                 }
             }
         )
@@ -133,7 +141,7 @@ extension mg_tweak {
 }
 
 let all_tweaks: [mg_tweak] = [
-    mg_tweak(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""), minv: 19.0, key: "YlEtTtHlNesRBMal1CqRaA", value: 1, info_t: .info, info_msg: NSLocalizedString("software.enable_dynamic_island_capability_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""), minv: 19.0, key: "YlEtTtHlNesRBMal1CqRaA", value: 1, info_t: "INFO TEST", info_msg: NSLocalizedString("software.enable_dynamic_island_capability_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.always_on_display", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["2OOJf1VhaM7NxfRok3HbWQ", "j8/Omm6s1lsmTDFsXjsBfA"], value: 1, info_t: .warning, info_msg: NSLocalizedString("software.always_on_display_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.aod_vibrancy", tableName: "GestaltView", comment: ""), minv: 18.0, key: "ykpu7qyhqFweVMKtxNylWA", value: 1, info_t: .info, info_msg: NSLocalizedString("software.aod_vibrancy_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.disable_wallpaper_parallax", tableName: "GestaltView", comment: ""), key: "UIParallaxCapability", value: 0, info_t: .info, info_msg: NSLocalizedString("software.disable_wallpaper_parallax_info", tableName: "GestaltView", comment: "")),
@@ -542,19 +550,136 @@ func mg_revert() {
         Alertinator.shared.alert(title: NSLocalizedString("warning.failed_to_revert_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.check_logs", tableName: "GestaltView", comment: ""))
     }
 }
+private enum mg_write_err: Error {
+    case open(errno: Int32)
+    case truncate(errno: Int32)
+    case write(errno: Int32)
+    case sync(errno: Int32)
+    case rollback(errno: Int32)
+    case verificationFailed
+}
+
+private func read_all(_ fd: Int32) throws -> Data {
+    var res = Data()
+    var buf = [UInt8](repeating: 0, count: 64 * 1024)
+
+    while true {
+        let count = buf.withUnsafeMutableBytes { rawBuffer in
+            read(fd, rawBuffer.baseAddress, rawBuffer.count)
+        }
+
+        if count > 0 {
+            res.append(buf, count: count)
+            continue
+        }
+
+        if count == 0 {
+            return res
+        }
+
+        if errno == EINTR {
+            continue
+        }
+
+        throw mg_write_err.verificationFailed
+    }
+}
+
+private func write_all(_ fd: Int32, _ data: Data) throws {
+    guard !data.isEmpty else { return }
+
+    try data.withUnsafeBytes { rawBuffer in
+        guard let base = rawBuffer.baseAddress else {
+            throw mg_write_err.write(errno: EFAULT)
+        }
+
+        var offset = 0
+
+        while offset < data.count {
+            let res = write(
+                fd,
+                base.advanced(by: offset),
+                data.count - offset
+            )
+
+            if res > 0 {
+                offset += res
+                continue
+            }
+
+            if res < 0 && errno == EINTR {
+                continue
+            }
+
+            throw mg_write_err.write(errno: errno)
+        }
+    }
+}
+
+func mg_write(_ data: Data, to path: String) throws {
+    let og = try Data(contentsOf: URL(fileURLWithPath: path))
+
+    let fd = path.withCString {
+        open($0, O_RDWR | O_CLOEXEC | O_NOFOLLOW)
+    }
+
+    guard fd >= 0 else {
+        throw mg_write_err.open(errno: errno)
+    }
+
+    defer {
+        close(fd)
+    }
+
+    do {
+        guard ftruncate(fd, 0) == 0 else {
+            throw mg_write_err.truncate(errno: errno)
+        }
+
+        try write_all(fd, data)
+
+        guard fsync(fd) == 0 else {
+            throw mg_write_err.sync(errno: errno)
+        }
+
+        guard lseek(fd, 0, SEEK_SET) >= 0 else {
+            throw mg_write_err.verificationFailed
+        }
+
+        let verify = try read_all(fd)
+
+        guard verify == data else {
+            throw mg_write_err.verificationFailed
+        }
+    } catch {
+        if ftruncate(fd, 0) == 0,
+           lseek(fd, 0, SEEK_SET) >= 0 {
+            _ = try? write_all(fd, og)
+            _ = fsync(fd)
+        }
+
+        throw error
+    }
+}
 
 func mg_write(_ data: Data) throws {
-    let target_url = URL(fileURLWithPath: TweakPaths.gestalt)
-    let temp_url = target_url.deletingLastPathComponent()
-        .appendingPathComponent(".\(target_url.lastPathComponent).\(UUID().uuidString).tmp")
-    
-    try data.write(to: temp_url, options: [.withoutOverwriting])
-    defer { try? fm.removeItem(at: temp_url) }
-    
-    if fm.fileExists(atPath: target_url.path) {
-        _ = try fm.replaceItemAt(target_url, withItemAt: temp_url)
+    let path = TweakPaths.gestalt
+
+    if UserDefaults.standard.bool(forKey: "atomic_write") {
+        try mg_write(data, to: path)
     } else {
-        try fm.moveItem(at: temp_url, to: target_url)
+        let target_url = URL(fileURLWithPath: path)
+        let temp_url = target_url.deletingLastPathComponent()
+            .appendingPathComponent(".\(target_url.lastPathComponent).\(UUID().uuidString).tmp")
+
+        try data.write(to: temp_url, options: [.withoutOverwriting])
+        defer { try? fm.removeItem(at: temp_url) }
+
+        if fm.fileExists(atPath: target_url.path) {
+            _ = try fm.replaceItemAt(target_url, withItemAt: temp_url)
+        } else {
+            try fm.moveItem(at: temp_url, to: target_url)
+        }
     }
 }
 
