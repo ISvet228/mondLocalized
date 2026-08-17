@@ -263,7 +263,7 @@ struct SantanderDirectoryView: View {
         do {
             let urls = try fm.contentsOfDirectory(at: path.url, includingPropertiesForKeys: nil)
             let items = urls.map(SantanderPath.init(url:))
-            return SantanderDirectoryListing(items: items, empty_state_message: items.isEmpty ? "Directory is empty." : nil)
+            return SantanderDirectoryListing(items: items, empty_state_message: items.isEmpty ? ("NSLocalizedString("directory_empty", tableName: "SantanderView", ccomment:"")) : nil)
         } catch {
             return nil
         }
