@@ -16,10 +16,8 @@ struct PosterView: View {
     
     @State private var show_settings: Bool = false
     @State private var show_importer: Bool = false
+    @State private var show_explorer: Bool = false
     @State private var busy = false
-    
-    @State private var show_browser: Bool = false
-    @State private var browser_url = URL(string: "https://cowabun.ga/wallpapers")!
 
     var body: some View {
         NavigationStack {
@@ -33,37 +31,37 @@ struct PosterView: View {
                                 ProgressView()
                             }
                             
-                            Text(NSLocalizedString("apply", comment: "Apply poster button"))
+                            Text(NSLocalizedString("apply", tableName: "PosterView", comment: ""))
                         }
                     }
                     .disabled(state.poster_files.isEmpty || busy)
 
-                    Button {
-                        reset()
-                    } label: {
-                        Text(NSLocalizedString("reset", comment: "Reset poster button"))
+                    if false {
+                        Button {
+                            reset()
+                        } label: {
+                            Text(NSLocalizedString("reset", tableName: "PosterView", comment: ""))
+                        }
+                        .disabled(busy)
                     }
-                    .disabled(busy)
                 }
                 
                 Section {
                     Button {
                         show_importer = true
                     } label: {
-                        Text(NSLocalizedString("import_tendies", comment: "Import tendies button"))
+                        Text(NSLocalizedString("import_tendies", tableName: "PosterView", comment: ""))
+                    }
+                    .disabled(busy)
+                    
+                    Button {
+                        show_explorer = true
+                    } label: {
+                        Text(NSLocalizedString("explore_tendies", tableName: "PosterView", comment: ""))
                     }
                     .disabled(busy)
                 } footer: {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(NSLocalizedString("poster_import_hint", comment: "Wallpaper import hint"))
-                        HStack(alignment: .firstTextBaseline, spacing: 4) {
-                            Text(NSLocalizedString("poster_get_tendies_prefix", comment: "Get tendies prefix"))
-                            Link(NSLocalizedString("poster_get_tendies_link", comment: "Get tendies link label"), destination: URL(string: "https://cowabun.ga/wallpapers")!)
-                        }
-                    }
-                    .sheet(isPresented: $show_browser) {
-                        SafariView(url: browser_url)
-                    }
+                    Text(try! AttributedString(markdown:NSLocalizedString("tendies_warning", tableName: "PosterView", comment: "")))
                 }
 
                 if !state.poster_files.isEmpty {
@@ -75,11 +73,11 @@ struct PosterView: View {
                             state.remove_poster_files(at: offsets)
                         }
                     } header: {
-                        Label(NSLocalizedString("imported", comment: "Imported section header"), systemImage: "document.on.document")
+                        Label(NSLocalizedString("imported", tableName: "PosterView", comment: ""), systemImage: "document.on.document")
                     }
                 }
             }
-            .navigationTitle(NSLocalizedString("posterboard", comment: "PosterBoard navigation title"))
+            .navigationTitle("PosterBoard")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
@@ -94,11 +92,13 @@ struct PosterView: View {
             .sheet(isPresented: $show_settings) {
                 SettingsView()
             }
+            .sheet(isPresented: $show_explorer) {
+                TendiesView()
+            }
             .fileImporter(isPresented: $show_importer, allowedContentTypes: [.data], allowsMultipleSelection: true) { result in
                 switch result {
                 case .success(let urls):
                     urls.forEach { state.append_poster_file($0) }
-                    show_browser = false
                 case .failure(let error):
                     print("(pb) import failed: \(error)")
                 }
@@ -113,19 +113,23 @@ struct PosterView: View {
             print("(pb) applied \(count) descriptor(s).")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_apply_success_title", comment: "Poster apply success title"),
-                body: NSLocalizedString("poster_apply_success_body", comment: "Poster apply success body"),
-                actionLabel: NSLocalizedString("respring", comment: "Respring action label"),
+                title: NSLocalizedString("poster_apply_success_title", tableName: "PosterView", comment: ""),
+                body: NSLocalizedString("poster_take_effect", tableName: "PosterView", comment: ""),
+                actionLabel: NSLocalizedString("open", tableName: "PosterView", comment: ""),
                 action: {
-                    state.respring()
+                    // state.respring()
+                    
+                    let cls = objc_getClass("LSApplicationWorkspace") as? NSObject
+                    let ws = cls?.perform(Selector(("defaultWorkspace"))).takeUnretainedValue()
+                    _ = ws?.perform(Selector(("openApplicationWithBundleID:")), with: "com.apple.PosterBoard")
                 }
             )
         } catch {
             print("(pb) failed: \(error.localizedDescription)\n")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_apply_failed_title", comment: "Poster apply failure title"),
-                body: NSLocalizedString("poster_apply_failed_body", comment: "Poster apply failure body")
+                title: NSLocalizedString("poster_apply_failed_title", tableName: "PosterView", comment: ""),
+                body: NSLocalizedString("poster_apply_failed_body", tableName: "PosterView", comment: "")
             )
         }
     }
@@ -137,9 +141,9 @@ struct PosterView: View {
             print("(pb) reset done.")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_reset_success_title", comment: "Poster reset success title"),
-                body: NSLocalizedString("poster_reset_success_body", comment: "Poster reset success body"),
-                actionLabel: NSLocalizedString("respring", comment: "Respring action label"),
+                title: NSLocalizedString("poster_reset_success_title", tableName: "PosterView", comment: ""),
+                body: NSLocalizedString("poster_reset_success_body", tableName: "PosterView", comment: ""),
+                actionLabel: NSLocalizedString("respring", comment: ""),
                 action: {
                     state.respring()
                 }
@@ -148,8 +152,8 @@ struct PosterView: View {
             print("(pb) failed: \(error.localizedDescription)")
             busy = false
             Alertinator.shared.alert(
-                title: NSLocalizedString("poster_reset_failed_title", comment: "Poster reset failure title"),
-                body: NSLocalizedString("poster_reset_failed_body", comment: "Poster reset failure body")
+                title: NSLocalizedString("poster_reset_failed_title", tableName: "PosterView", comment: ""),
+                body: NSLocalizedString("poster_reset_failed_body", tableName: "PosterView", comment: "")
             )
         }
     }

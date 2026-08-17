@@ -12,6 +12,7 @@ enum pb_error: LocalizedError {
     case container_404
     case not_zip(URL)
     case no_descriptors(URL)
+    case access_denied(String)
 
     nonisolated var errorDescription: String? {
         switch self {
@@ -21,6 +22,8 @@ enum pb_error: LocalizedError {
             return "\(url.lastPathComponent) is not a valid tendies/zip archive."
         case .no_descriptors(let url):
             return "no descriptors found in \(url.lastPathComponent)."
+        case .access_denied(let path):
+            return "failed to gain write access to \(path)."
         }
     }
 }
@@ -56,7 +59,7 @@ enum pb {
         throw pb_error.container_404
     }
 
-    private static func read_meta_key(at url: URL, key: String) -> String? {
+    static func read_meta_key(at url: URL, key: String) -> String? {
         var path_c = url.path.utf8CString.map { Int8($0) }
         let handle = bad_query(&path_c, true, nil, false, nil)
         guard handle >= 0 else { return nil }
@@ -113,11 +116,21 @@ enum pb {
         let container = try find_pb_container()
         let root = poster_extensions_root(container: container)
 
+        var root_c = root.path.utf8CString.map { Int8($0) }
+        let root_handle = bad_query(&root_c, true, nil, false, nil)
+        guard root_handle >= 0 else { return }
+        defer { bad_query_release(root_handle) }
+
         guard fm.fileExists(atPath: root.path) else { return }
 
         for ext in (try? fm.contentsOfDirectory(atPath: root.path)) ?? [] {
             let desc_path = root.appendingPathComponent(ext).appendingPathComponent("descriptors")
             guard fm.fileExists(atPath: desc_path.path) else { continue }
+
+            var path_c = desc_path.path.utf8CString.map { Int8($0) }
+            let handle = bad_query(&path_c, true, nil, false, nil)
+            guard handle >= 0 else { continue }
+            defer { bad_query_release(handle) }
 
             for item in (try? fm.contentsOfDirectory(atPath: desc_path.path)) ?? [] {
                 try? fm.removeItem(at: desc_path.appendingPathComponent(item))
@@ -218,14 +231,36 @@ enum pb {
 
     private static func write_descriptor(at src: URL, container: URL, ext: String) throws {
         let dest_dir = descriptors_url(container: container, ext: ext)
+        try ensure_directory(at: dest_dir.path)
+
+        var path_c = dest_dir.path.utf8CString.map { Int8($0) }
+        let handle = bad_query(&path_c, true, nil, false, nil)
+        defer { bad_query_release(handle) }
+        guard handle >= 0 else { throw pb_error.access_denied(dest_dir.path) }
+
         let dest_url = dest_dir.appendingPathComponent(UUID().uuidString)
-
-        if !fm.fileExists(atPath: dest_dir.path) {
-            try fm.createDirectory(at: dest_dir, withIntermediateDirectories: true)
-        }
-
         if fm.fileExists(atPath: dest_url.path) { try? fm.removeItem(at: dest_url) }
         try fm.copyItem(at: src, to: dest_url)
+    }
+
+    static func ensure_directory(at path: String) throws {
+        if fm.fileExists(atPath: path) { return }
+
+        let components = path.split(separator: "/").map(String.init)
+        var built = ""
+        var last_existing = ""
+        for part in components {
+            built += "/" + part
+            if fm.fileExists(atPath: built) { last_existing = built }
+        }
+
+        let anchor = last_existing.isEmpty ? path : last_existing
+        var path_c = anchor.utf8CString.map { Int8($0) }
+        let handle = bad_query(&path_c, true, nil, false, nil)
+        defer { bad_query_release(handle) }
+        guard handle >= 0 else { throw pb_error.access_denied(path) }
+
+        try fm.createDirectory(atPath: path, withIntermediateDirectories: true)
     }
 
     private static func randomize_id(in url: URL) {

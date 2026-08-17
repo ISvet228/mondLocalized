@@ -22,36 +22,56 @@ struct ContentView: View {
                     LogView()
                         .modifier(TerminalPlatter())
                 } header: {
-                    Label(NSLocalizedString("logs", comment: "Logs section header"), systemImage: "apple.terminal")
+                    Label(NSLocalizedString("logs", tableName: "ContentView", comment: "Logs section header"), systemImage: "apple.terminal")
                 }
                 
                 Section {
                     NavigationLink {
                         GestaltView()
                     } label: {
-                        Text("MobileGestalt")
+                        HStack {
+                            Text("MobileGestalt")
+                            if state.granting_mg {
+                                Spacer()
+                                ProgressView()
+                                    .tint(Color.primary)
+                            }
+                        }
                     }
+                    .disabled(state.mg_granted != true)
                     
                     NavigationLink {
                         PosterView()
                     } label: {
-                        Text("PosterBoard")
+                        HStack {
+                            Text("PosterBoard")
+                            if state.granting_pb {
+                                Spacer()
+                                ProgressView()
+                                    .tint(Color.primary)
+                            }
+                        }
                     }
-                    .disabled(method == "cmg")
+                    .disabled(method == "cmg" || state.pb_granted != true)
                     
                     NavigationLink {
                         SantanderView()
                     } label: {
-                        Text("HouseArrest")
+                        HStack {
+                            Text("HouseArrest")
+                            if state.granting_apps {
+                                Spacer()
+                                ProgressView()
+                                    .tint(Color.primary)
+                            }
+                        }
                     }
-                    .disabled(true)
+                    .disabled(method == "cmg" || state.apps_granted != true)
                 } header: {
-                    Label(NSLocalizedString("tweaks", comment: "Tweaks section header"), systemImage: "paintbrush")
+                    Label(NSLocalizedString("tweaks", tableName: "ContentView", comment: "Tweaks section header"), systemImage: "paintbrush")
                 } footer: {
                     if method == "cmg" {
-                         Text(NSLocalizedString("only_mobilegestalt_available", comment: "CMG warning footer"))
-                    } else {
-                        Text(NSLocalizedString("housearrest_dev_warning", comment: "PosterBoard warning footer"))
+                         Text(NSLocalizedString("only_mobilegestalt_available", tableName: "ContentView", comment: ""))
                     }
                 }
             }

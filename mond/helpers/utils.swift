@@ -31,7 +31,7 @@ func is_supported() -> Bool {
            v.patchVersion == 0
 }
 
-func hasHomeButton() -> Bool {
+func has_home_button() -> Bool {
     let windows = UIApplication.shared.connectedScenes
         .compactMap { $0 as? UIWindowScene }
         .flatMap { $0.windows }
@@ -41,21 +41,34 @@ func hasHomeButton() -> Bool {
 
 enum AppPaths {
     static var backups: String {
-        let url = backupsURL
+        let url = backups_url
         try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         return url.path
     }
 
-    private static var backupsURL: URL {
+    private static var backups_url: URL {
         let baseURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
             ?? URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         return baseURL.appendingPathComponent("backups", isDirectory: true)
+    }
+
+    static var tendies: String {
+        let url = tendies_url
+        try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        return url.path
+    }
+
+    private static var tendies_url: URL {
+        let baseURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+            ?? URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        return baseURL.appendingPathComponent("tendies", isDirectory: true)
     }
 }
 
 enum TweakPaths {
     static var gestalt = "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist"
     static var gestalt_dir = "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/"
+    static var apps = "/private/var/mobile/Containers/Data/Application/"
 }
 
 // respring.swift: easy respring on all iOS versions (probably).
@@ -113,8 +126,16 @@ struct RespringView: UIViewRepresentable {
 }
 
 final class AppState: ObservableObject {
+    static let shared = AppState()
+
     @Published var show_respring = false
     @Published var exploit_succeeded = false
+    @Published var granting_pb = false
+    @Published var pb_granted: Bool? = nil
+    @Published var granting_apps = false
+    @Published var apps_granted: Bool? = nil
+    @Published var granting_mg = false
+    @Published var mg_granted: Bool? = nil
     @Published var poster_files: [URL] = []
 
     func respring() {
