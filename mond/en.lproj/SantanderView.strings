@@ -3,9 +3,7 @@
 "display_hidden_files" = "Display hidden files";
 "sort_az" = "Sort A-Z";
 "sort_za" = "Sort Z-A";
-"cancel" = "Cancel";
 "save" = "Save";
-"save_failed" = "Save Failed";
 "ok" = "OK";
 "failed_to_render_image" = "Failed to render image";
 "missing_write_permission" = "Missing write permission.";

@@ -83,9 +83,9 @@ struct ContentView: View {
                         Text("CacheExtra Fields")
                     }
                 } header: {
-                    Label("Advanced", systemImage: "wrench.and.screwdriver")
+                    Label(NSLocalizedString("advanced", tableName: "ContentView", comment: ""), systemImage: "wrench.and.screwdriver")
                 } footer: {
-                    Text("Only use these Tweaks if you know what you're doing.\nYou could break something irreversibly.")
+                    Text(NSLocalizedString("advanced_warning", tableName: "ContentView", comment: ""))
                 }
             }
             .navigationTitle("mond")

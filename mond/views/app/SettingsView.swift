@@ -178,13 +178,13 @@ struct SettingsView: View {
                         Button {
                             dismiss()
                         } label: {
-                            Text(NSLocalizedString("done", tableName: "SettingsView", comment: "Done button label"))
+                            Text(NSLocalizedString("done", comment: "Done button label"))
                         }
                     }
                 }
             }
             .alert(NSLocalizedString("are_you_sure", tableName: "SettingsView", comment: "Alert title"), isPresented: $show_confirm) {
-                Button(NSLocalizedString("cancel", tableName: "SettingsView", comment: "Cancel button label")) {
+                Button(NSLocalizedString("cancel", comment: "Cancel button label")) {
                     show_confirm = false
                 }
 

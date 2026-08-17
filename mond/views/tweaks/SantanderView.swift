@@ -319,7 +319,7 @@ struct SantanderFileView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if is_editing {
-                        Button(NSLocalizedString("cancel", tableName: "SantanderView", comment: "")) {
+                        Button(NSLocalizedString("cancel", comment: "")) {
                             is_editing = false
                         }
                         Button(NSLocalizedString("save", tableName: "SantanderView", comment: "")) {
@@ -347,7 +347,7 @@ struct SantanderFileView: View {
                         || Self.plist_editor_content(from: data) != nil
                 }
             }
-            .alert(NSLocalizedString("save_failed", tableName: "SantanderView", comment: ""), isPresented: Binding(
+            .alert(NSLocalizedString("save_failed", comment: ""), isPresented: Binding(
                 get: { save_error != nil },
                 set: { if !$0 { save_error = nil } }
             )) {
