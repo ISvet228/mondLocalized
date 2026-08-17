@@ -7,10 +7,10 @@
 "menu.revert_tweaks" = "Отменить твики";
 "menu.tweak_warning" = "**ПРЕДУПРЕЖДЕНИЕ:** При неправильном использовании эти твики могут нарушить работу функций устройства или привести к софтбрику!";
 
-"artwork.original_subtype_format" = "Исходный ";
+"artwork.original_subtype_format" = "Оригинальный ";
 "artwork.disable_dynamic_island" = "Отключить Dynamic Island";
 "artwork.subtype" = "Подтип";
-"artwork.custom_device_name" = "Пользовательское имя устройства";
+"artwork.custom_device_name" = "Кастомное имя устройства";
 "artwork.device_name" = "Имя устройства";
 "artwork.device_artwork" = "Изображение устройства";
 
@@ -36,11 +36,11 @@
 "hardware.camera_control_settings_info" = "Открывает настройки Camera Control и связанные с ней возможности.";
 "hardware.action_button_settings" = "Настройки кнопки действия";
 "hardware.action_button_settings_info" = "Показывает страницу настроек кнопки действия.";
-"hardware.collision_sos" = "SOS при обнаружении столкновения";
+"hardware.collision_sos" = "SOS при столкновении";
 "hardware.collision_sos_info" = "Показывает параметры обнаружения столкновений в настройках SOS.";
 "hardware.tap_to_wake" = "Нажатие для пробуждения";
 "hardware.tap_to_wake_info" = "Предназначено для устройств вроде iPhone SE, где пробуждение нажатием иначе недоступно.";
-"hardware.pulse_width_modulation" = "Широтно-импульсная модуляция";
+"hardware.pulse_width_modulation" = "Широтно-импульсная модуляция(ШИМ)";
 "hardware.hardware_oriented_features" = "Аппаратные функции";
 
 "eligibility.security_research_device_mode" = "Режим устройства для исследований безопасности";

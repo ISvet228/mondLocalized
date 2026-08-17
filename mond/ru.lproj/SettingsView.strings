@@ -18,6 +18,8 @@
 "keep_alive_info" = "Оставляет приложение работать в фоновом режиме после его закрытия, позволяя ему оставаться активным.";
 "dismiss_after_importing" = "Закрывать после импорта";
 "dismiss_after_importing_info" = "Если включено, обозреватель Tendies автоматически закроется после импорта файла .tendies в PosterBoard.";
+"ignore_exploit_failure" = "Игнорировать сбои эксплойта";
+"ignore_exploit_failure_info" = "Если этот параметр включен, все настройки будут доступны, даже если эксплойт не удался.";
 "settings" = "Настройки";
 "tools" = "Инструменты";
 "respring_method_credits" = "Метод респринга: [neon](https://github.com/neonmodder123), реализация на Swift: [skadz](https://github.com/skadz108).";
