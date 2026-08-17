@@ -17,6 +17,7 @@ struct SettingsView: View {
     @AppStorage("token") private var token: String = ""
     @AppStorage("dismiss_after_import") private var dismiss_after_import = false
     @AppStorage("atomic_write") private var atomic_write = true
+    @AppStorage("ignore_failure") private var ignore_failure = false
     
     @State private var show_confirm: Bool = false
     
@@ -91,17 +92,7 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    HStack {
-                        TextField(NSLocalizedString("sandbox_extension_token", tableName: "SettingsView", comment: "Sandbox token field label"), text: $token)
-                        
-                        Spacer()
-                        
-                        Button {
-                            UIPasteboard.general.string = token
-                        } label: {
-                            Image(systemName: "document.on.document")
-                        }
-                    }
+                    TextField(NSLocalizedString("sandbox_extension_token", tableName: "SettingsView", comment: "Sandbox token field label"), text: $token)
                     .contextMenu {
                         Text((NSLocalizedString("token_class", comment: "Token class label") + "\(token.split(separator: ";").first { $0.contains("com.apple") }.map(String.init) ?? "N/A")"))
                         Text((NSLocalizedString("token_path", comment: "Token path label") + " \(token.split(separator: ";").last.map(String.init) ?? "N/A")"))
@@ -151,6 +142,8 @@ struct SettingsView: View {
                     infoMessage: NSLocalizedString("dismiss_after_importing_info", tableName: "SettingsView", comment: "Dismiss after import info message"), isOn: $dismiss_after_import)
                     PlainToggle(text: NSLocalizedString("persist_after_reboot", tableName: "SettingsView", comment: ""), infoType: .info, 
                     infoMessage: NSLocalizedString("persist_after_reboot_info", tableName: "SettingsView", comment: ""), isOn: $atomic_write)
+                    PlainToggle(text: NSLocalizedString("ignore_exploit_failure", tableName: "SettingsView", comment: ""), infoType: .info, 
+                    infoMessage: NSLocalizedString("ignore_exploit_failure_info", tableName: "SettingsView", comment: ""), isOn: $ignore_failure)
                 } header: {
                     Label(NSLocalizedString("settings", tableName: "SettingsView", comment: "Settings section label"), systemImage: "gear")
                 }

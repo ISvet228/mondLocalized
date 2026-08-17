@@ -233,7 +233,7 @@ struct GestaltView: View {
                     Label(NSLocalizedString("internal.internal", tableName: "GestaltView", comment: ""), systemImage: "ant")
                 }
             }
-            .navigationTitle("mond")
+            .navigationTitle("MobileGestalt")
             .tint(Color("AccentColor"))
             .task {
                 mg_load()
