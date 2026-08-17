@@ -130,7 +130,7 @@ let all_tweaks: [mg_tweak] = [
     mg_tweak(title: NSLocalizedString("hardware.collision_sos", tableName: "GestaltView", comment: ""), key: "HCzWusHQwZDea6nNhaKndw", value: 1, info_t: .info, info_msg: NSLocalizedString("hardware.collision_sos_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("hardware.pulse_width_modulation", tableName: "GestaltView", comment: ""), minv: 19.0, key: "6IejgN+1Fmu5/QrZFOIeNw", value: 1),
     mg_tweak(title: NSLocalizedString("eligibility.security_research_device_mode", tableName: "GestaltView", comment: ""), minv: 26.0, key: "XYlJKKkj2hztRP1NWWnhlw", value: 1, info_t: .info, info_msg: NSLocalizedString("eligibility.security_research_device_mode_info", tableName: "GestaltView", comment: "")),
-    mg_tweak(title: NSLocalizedString("ipados.allow_ipad_apps", tableName: "GestaltView", comment: ""), key: "9MZ5AdH43csAUajl/dU+IQ", value: [1, 2], info_t: .info, info_msg: NSLocalizedString("ipados.allow_ipad_apps_info", tableName: "GestaltView", comment: "")),
+    mg_tweak(title: NSLocalizedString("ipados.allow_ipados_apps", tableName: "GestaltView", comment: ""), key: "9MZ5AdH43csAUajl/dU+IQ", value: [1, 2], info_t: .info, info_msg: NSLocalizedString("ipados.allow_ipados_apps_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("ipados.stage_manager_support", tableName: "GestaltView", comment: ""), key: "qeaj75wk3HF4DwQ8qbIi7g", value: 1, info_t: .info, info_msg: NSLocalizedString("ipados.stage_manager_support_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("internal.apple_internal_install", tableName: "GestaltView", comment: ""), key: "EqrsVvjcYDdxHBiQmGhAWw", value: 1, info_t: .warning, info_msg: NSLocalizedString("internal.apple_internal_install_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("internal.internal_storage_view", tableName: "GestaltView", comment: ""), key: "LBJfwOEzExRxzlAnSuI7eg", value: 1, info_t: .warning, info_msg: NSLocalizedString("internal.internal_storage_view_info", tableName: "GestaltView", comment: "")),
@@ -182,10 +182,10 @@ let all_tweaks: [mg_tweak] = [
     ),
     
     mg_tweak(
-        title: NSLocalizedString("ipados.enable_ipados_mode", tableName: "GestaltView", comment: ""),
+        title: NSLocalizedString("ipados.ipados_mode", tableName: "GestaltView", comment: ""),
         minv: nil,
         info_t: .warning,
-        info_msg: NSLocalizedString("ipados.enable_ipados_mode_info", tableName: "GestaltView", comment: ""),
+        info_msg: NSLocalizedString("ipados.ipados_mode_info", tableName: "GestaltView", comment: ""),
         r: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return false }
             let values: [String: Int] = [
