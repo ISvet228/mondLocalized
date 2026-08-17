@@ -494,12 +494,12 @@ func mg_apply() {
         enable_device_name = false
 
         print("(mg) successfully overwrote mobilegestalt!")
-        Alertinator.shared.alert(title: NSLocalizedString("success.applied_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.respring_to_take_effect", tableName: "GestaltView", comment: ""), actionLabel: "Respring", action: {
+        Alertinator.shared.alert(title: NSLocalizedString("warning.successfully_applyed_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.respring_to_take_effect", tableName: "GestaltView", comment: ""), actionLabel: NSLocalizedString("respring", comment:""), action: {
             state.respring()
         })
     } catch {
         print("(mg) failed to apply mobilegestalt: \(error)")
-        Alertinator.shared.alert(title: NSLocalizedString("error.failed_to_apply_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
+        Alertinator.shared.alert(title: NSLocalizedString("warning.failed_to_apply_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
     }
 }
 
