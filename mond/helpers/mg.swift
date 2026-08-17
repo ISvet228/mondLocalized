@@ -230,7 +230,6 @@ let all_tweaks: [mg_tweak] = [
                   let cache_extra = dict["CacheExtra"] as? NSMutableDictionary,
                   let value_off = cache_data_safe_offset("mtrAoWJ3gsq+I90ZnQ0vQw", in: cache_data) else { return }
             
-            let value_off = cache_data_offset("mtrAoWJ3gsq+I90ZnQ0vQw")
             cache_data.mutableBytes.storeBytes(of: 3, toByteOffset: value_off, as: Int.self)
             
             let values: [String: Int] = [
@@ -250,7 +249,6 @@ let all_tweaks: [mg_tweak] = [
                   let cache_extra = dict["CacheExtra"] as? NSMutableDictionary,
                   let value_off = cache_data_safe_offset("mtrAoWJ3gsq+I90ZnQ0vQw", in: cache_data) else { return }
             
-            let value_off = cache_data_offset("mtrAoWJ3gsq+I90ZnQ0vQw")
             cache_data.mutableBytes.storeBytes(of: 1, toByteOffset: value_off, as: Int.self)
             
             let keys = ["mG0AnH/Vy1veoqoLRAIgTA", "UCG5MkVahJxG1YULbbd5Bg", "ZYqko/XM5zD3XBfN5RmaXA", "nVh/gwNpy7Jv1NOk00CMrw", "uKc7FPnEO++lVhHWHFlGbQ"]
