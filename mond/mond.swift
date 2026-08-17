@@ -37,7 +37,7 @@ struct mond: App {
             dup2(pipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
         }
         
-        UserDefaults.standard.register(defaults: ["exploit_method": "bad_query"])
+        UserDefaults.standard.register(defaults: ["method": "bad_query"])
         if UserDefaults.standard.bool(forKey: "ka_on") {
             keep_alive()
         }
