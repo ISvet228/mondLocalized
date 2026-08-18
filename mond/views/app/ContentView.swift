@@ -39,7 +39,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .disabled((method == "cmg" || state.pb_granted != true) && !ignore_failure)
+                    .disabled((state.mg_granted != true) && !ignore_failure)
                     
                     NavigationLink {
                         PosterView()
@@ -53,7 +53,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .disabled((method == "cmg" || state.apps_granted != true) && !ignore_failure)
+                    .disabled((method == "cmg" || state.pb_granted != true) && !ignore_failure)
                     
                     NavigationLink {
                         SantanderView()
@@ -67,7 +67,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .disabled(method == "cmg" || state.apps_granted != true)
+                    .disabled((method == "cmg" || state.apps_granted != true) && !ignore_failure)
                 } header: {
                     Label(NSLocalizedString("tweaks", tableName: "ContentView", comment: "Tweaks section header"), systemImage: "paintbrush")
                 } footer: {
