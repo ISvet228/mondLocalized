@@ -2,3 +2,8 @@
 
 "warning" = "¡Advertencia!";
 "respring" = "Respring";
+"not_supported" = "";
+"check_your_ios" = "";
+"cancel" = "Cancelar";
+"done" = "Listo";
+"save_failed" = "";

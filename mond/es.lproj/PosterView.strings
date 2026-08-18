@@ -1,12 +1,12 @@
 "apply" = "Aplicar";
 "reset" = "Quitar";
 "import_tendies" = "Importar Tendies";
-"poster_import_hint" = "Elige uno o más paquetes de fondos de pantalla .tendies (o .zip)";
-"poster_get_tendies_prefix" = "Obtén .tendies";
-"poster_get_tendies_link" = "AQUÍ";
+"explore_tendies" = "";
+"tendies_warning" = "";
 "imported" = "Importado";
 "poster_apply_success_title" = "¡Cambios aplicados a PosterBoard correctamente!";
-"poster_apply_success_body" = "Reinicia SpringBoard para que los cambios surtan efecto.";
+"poster_take_effect" = "";
+"open" = "";
 "poster_apply_failed_title" = "¡Error al aplicar cambios a PosterBoard!";
 "poster_apply_failed_body" = "Reinicia la app e intenta de nuevo. Revisa los registros para más información.";
 "poster_reset_success_title" = "¡Se revirtieron los cambios a PosterBoard correctamente!";

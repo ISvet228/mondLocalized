@@ -1,0 +1,17 @@
+"go_to_root" = "";
+"go_to_home" = "";
+"display_hidden_files" = "";
+"sort_az" = "";
+"sort_za" = "";
+"save" = "";
+"ok" = "";
+"failed_to_render_image" = "";
+"missing_write_permission" = "";
+"could_not_encode_text" = "";
+"invalid_plist_json" = "";
+"no_visible_items" = "";
+"directory_empty" = "";
+"no_app_containers_found" = "";
+"cannot_list_directory" = "";
+"not_a_directory" = "";
+"no_matching_items" = "";

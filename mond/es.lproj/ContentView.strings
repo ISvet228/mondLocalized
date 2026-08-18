@@ -1,4 +1,3 @@
 "logs" = "Registros";
 "tweaks" = "Tweaks";
-"only_mobilegestalt_available" = "Solo los ajustes de MobileGestalt estan disponibles cuando el metodo cmg está activo.\nPosterBoard todavía está en desarrollo y puede que no funcione a como se espera.";
-"housearrest_dev_warning" = "HouseArrest todavía está en desarrollo y puede que no funcione a como se espera.";
+"only_mobilegestalt_available" = "Solo los ajustes de MobileGestalt estan disponibles cuando el metodo cmg está activo.";
