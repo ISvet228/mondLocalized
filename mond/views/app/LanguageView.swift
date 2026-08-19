@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LanguageSelectionView: View {
+struct LanguageView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var manager = LanguageManager.shared
 
