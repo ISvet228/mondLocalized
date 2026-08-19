@@ -129,6 +129,7 @@ struct SettingsView: View {
                 
                 Section {
                     PlainToggle(text: NSLocalizedString("keep_alive", tableName: "SettingsView", comment: "Keep alive toggle label"), infoType: .info, 
+                    infoTitle: NSLocalizedString("information", tableName: "GestaltView", comment: ""),
                     infoMessage: NSLocalizedString("keep_alive_info", tableName: "SettingsView", comment:""), isOn: $ka_on)
                         .onChange(of: ka_on) { _, enabled in
                             if enabled {
@@ -139,10 +140,13 @@ struct SettingsView: View {
                         }
 
                     PlainToggle(text: NSLocalizedString("dismiss_after_importing", tableName: "SettingsView", comment: "Dismiss after import toggle label"), infoType: .info, 
+                    infoTitle: NSLocalizedString("information", tableName: "GestaltView", comment: ""),
                     infoMessage: NSLocalizedString("dismiss_after_importing_info", tableName: "SettingsView", comment: "Dismiss after import info message"), isOn: $dismiss_after_import)
                     PlainToggle(text: NSLocalizedString("persist_after_reboot", tableName: "SettingsView", comment: ""), infoType: .info, 
+                    infoTitle: NSLocalizedString("information", tableName: "GestaltView", comment: ""),
                     infoMessage: NSLocalizedString("persist_after_reboot_info", tableName: "SettingsView", comment: ""), isOn: $atomic_write)
                     PlainToggle(text: NSLocalizedString("ignore_exploit_failure", tableName: "SettingsView", comment: ""), infoType: .info, 
+                    infoTitle: NSLocalizedString("information", tableName: "GestaltView", comment: ""),
                     infoMessage: NSLocalizedString("ignore_exploit_failure_info", tableName: "SettingsView", comment: ""), isOn: $ignore_failure)
                 } header: {
                     Label(NSLocalizedString("settings", tableName: "SettingsView", comment: "Settings section label"), systemImage: "gear")

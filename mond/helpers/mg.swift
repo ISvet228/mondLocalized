@@ -25,20 +25,7 @@ struct mg_tweak {
     case info
     case warning
     case error
-
-    var title: String {
-        switch self {
-        case .info:
-            return NSLocalizedString("warning.information", tableName: "GestaltView", comment: "")
-
-        case .warning:
-            return NSLocalizedString("warning", comment: "")
-
-        case .error:
-            return NSLocalizedString("warning.error", tableName: "GestaltView", comment: "")
-        }
     }
-}
 }
 
 extension mg_tweak {

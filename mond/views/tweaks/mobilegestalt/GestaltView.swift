@@ -25,6 +25,7 @@ struct TweakToggle: View {
             PlainToggle(
                 text: tweak.title,
                 infoType: tweak.info_t?.party_info_type ?? .none,
+                infoTitle: NSLocalizedString("information", tableName: "GestaltView", comment: ""),
                 infoMessage: tweak.info_msg ?? "",
                 minSupportedVersion: tweak.minv ?? 0.0,
                 isOn: mg_tweak_binding(tweak)
