@@ -9,12 +9,15 @@ struct LanguageSelectionView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var manager = LanguageManager.shared
 
+    @State private var show_restart_alert = false
+
     var body: some View {
         NavigationStack {
             List(AppLanguage.supported) { language in
                 Button {
+                    guard language.id != manager.current else { return }
                     manager.select(language.id)
-                    dismiss()
+                    show_restart_alert = true
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
@@ -49,7 +52,21 @@ struct LanguageSelectionView: View {
                     }
                 }
             }
+            .alert(
+                NSLocalizedString("restart_required", tableName: "SettingsView", comment: "Restart required alert title"),
+                isPresented: $show_restart_alert
+            ) {
+                Button(NSLocalizedString("exit", tableName: "SettingsView", comment: "Exit button label"), role: .destructive) {
+                    exit(0)
+                }
+            } message: {
+                Text(NSLocalizedString("restart_required_message", tableName: "SettingsView", comment: "Restart required alert message"))
+            }
         }
+        // Prevent swiping the alert away without picking Exit —
+        // the language override is already active, only a relaunch
+        // makes the whole UI consistent with it.
+        .interactiveDismissDisabled(show_restart_alert)
     }
 
     private func title(for language: AppLanguage) -> String {
