@@ -180,7 +180,7 @@ struct CEView: View {
             let data = try PropertyListSerialization.data(fromPropertyList: mg_dict_now, format: .xml, options: 0)
             try mg_write(data)
             
-            Alertinator.shared.alert(
+            AlertinatorLocalized.shared.alert(
                 title: NSLocalizedString("saved", tableName: "CEView", comment: ""),
                 body: NSLocalizedString("you_must_respring", tableName: "CEView", comment: ""),
                 actionLabel: NSLocalizedString("respring", comment: ""),
@@ -189,7 +189,7 @@ struct CEView: View {
                 }
             )
         } catch {
-            Alertinator.shared.alert(title: NSLocalizedString("save_failed", comment: ""), body: error.localizedDescription)
+            AlertinatorLocalized.shared.alert(title: NSLocalizedString("save_failed", comment: ""), body: error.localizedDescription)
         }
     }
 }

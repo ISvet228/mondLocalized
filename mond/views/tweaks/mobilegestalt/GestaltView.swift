@@ -195,7 +195,7 @@ struct GestaltView: View {
                         }
 
                         Button {
-                            Alertinator.shared.alert(
+                            AlertinatorLocalized.shared.alert(
                                 title: NSLocalizedString("eligibility.device_spoofing_info", tableName: "GestaltView", comment: ""),
                                 body: NSLocalizedString("eligibility.device_spoofing_info_body", tableName: "GestaltView", comment: "")
                             )

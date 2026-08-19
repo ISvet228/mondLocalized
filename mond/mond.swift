@@ -62,7 +62,7 @@ struct mond: App {
                 }
                 .onAppear() {
                     if !is_supported() {
-                        Alertinator.shared.alert(title: NSLocalizedString("not_supported", comment:""), body: NSLocalizedString("check_your_ios", comment:""))
+                        AlertinatorLocalized.shared.alert(title: NSLocalizedString("not_supported", comment:""), body: NSLocalizedString("check_your_ios", comment:""))
                     }
                     
                     grant_all(state: state)

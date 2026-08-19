@@ -173,7 +173,7 @@ let all_tweaks: [mg_tweak] = [
         },
         w_on: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
-            Alertinator.shared.alert(title: NSLocalizedString("warning", comment: ""), body: NSLocalizedString("eligibility.disable_region_restrictions_warning", tableName: "GestaltView", comment: ""))
+            AlertinatorLocalized.shared.alert(title: NSLocalizedString("warning", comment: ""), body: NSLocalizedString("eligibility.disable_region_restrictions_warning", tableName: "GestaltView", comment: ""))
             cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] = "US"
             cache_extra["zHeENZu+wbg7PUprNwBWg"] = "LL/A"
         },
@@ -196,7 +196,7 @@ let all_tweaks: [mg_tweak] = [
         w_on: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
             cache_extra["A62OafQ85EJAiiqKn4agtg"] = 1
-            Alertinator.shared.alert(
+            AlertinatorLocalized.shared.alert(
                 title: NSLocalizedString("eligibility.apple_intelligence_spoof", tableName: "GestaltView", comment: ""),
                 body: NSLocalizedString("eligibility.apple_intelligence_spoof_info", tableName: "GestaltView", comment: "")
             )
@@ -500,7 +500,7 @@ func mg_load() {
                 is_valid = false
                 is_empty = (try? FileManager.default.attributesOfItem(atPath: mg_url_now.path))?[.size] as? UInt64 == 0
                 is_loading = false
-                Alertinator.shared.alert(title: NSLocalizedString("warning.failed_to_load_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
+                AlertinatorLocalized.shared.alert(title: NSLocalizedString("warning.failed_to_load_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
             }
         }
     }
@@ -526,12 +526,12 @@ func mg_apply() {
         enable_device_name = false
 
         print("(mg) successfully overwrote mobilegestalt!")
-        Alertinator.shared.alert(title: NSLocalizedString("warning.successfully_applyed_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.respring_to_take_effect", tableName: "GestaltView", comment: ""), actionLabel: NSLocalizedString("respring", comment:""), action: {
+        AlertinatorLocalized.shared.alert(title: NSLocalizedString("warning.successfully_applyed_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.respring_to_take_effect", tableName: "GestaltView", comment: ""), actionLabel: NSLocalizedString("respring", comment:""), action: {
             state.respring()
         })
     } catch {
         print("(mg) failed to apply mobilegestalt: \(error)")
-        Alertinator.shared.alert(title: NSLocalizedString("warning.failed_to_apply_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
+        AlertinatorLocalized.shared.alert(title: NSLocalizedString("warning.failed_to_apply_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.restart_and_check_logs", tableName: "GestaltView", comment: ""))
     }
 }
 
@@ -542,10 +542,10 @@ func mg_revert() {
         try mg_write(backup_data)
 
         print("(mg) successfully reverted mobilegestalt!)")
-        Alertinator.shared.alert(title: NSLocalizedString("warning.successfully_reverted_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.reboot_to_take_effect", tableName: "GestaltView", comment: ""))
+        AlertinatorLocalized.shared.alert(title: NSLocalizedString("warning.successfully_reverted_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.reboot_to_take_effect", tableName: "GestaltView", comment: ""))
     } catch {
         print("(mg) failed to revert mobilegestalt: \(error)")
-        Alertinator.shared.alert(title: NSLocalizedString("warning.failed_to_revert_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.check_logs", tableName: "GestaltView", comment: ""))
+        AlertinatorLocalized.shared.alert(title: NSLocalizedString("warning.failed_to_revert_mg", tableName: "GestaltView", comment: ""), body: NSLocalizedString("warning.check_logs", tableName: "GestaltView", comment: ""))
     }
 }
 private enum mg_write_err: Error {

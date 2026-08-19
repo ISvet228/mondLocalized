@@ -112,7 +112,7 @@ struct PosterView: View {
             let count = try pb.apply(at: state.poster_files)
             print("(pb) applied \(count) descriptor(s).")
             busy = false
-            Alertinator.shared.alert(
+            AlertinatorLocalized.shared.alert(
                 title: NSLocalizedString("poster_apply_success_title", tableName: "PosterView", comment: ""),
                 body: NSLocalizedString("poster_take_effect", tableName: "PosterView", comment: ""),
                 actionLabel: NSLocalizedString("open", tableName: "PosterView", comment: ""),
@@ -127,7 +127,7 @@ struct PosterView: View {
         } catch {
             print("(pb) failed: \(error.localizedDescription)\n")
             busy = false
-            Alertinator.shared.alert(
+            AlertinatorLocalized.shared.alert(
                 title: NSLocalizedString("poster_apply_failed_title", tableName: "PosterView", comment: ""),
                 body: NSLocalizedString("poster_apply_failed_body", tableName: "PosterView", comment: "")
             )
@@ -140,7 +140,7 @@ struct PosterView: View {
             try pb.reset()
             print("(pb) reset done.")
             busy = false
-            Alertinator.shared.alert(
+            AlertinatorLocalized.shared.alert(
                 title: NSLocalizedString("poster_reset_success_title", tableName: "PosterView", comment: ""),
                 body: NSLocalizedString("poster_reset_success_body", tableName: "PosterView", comment: ""),
                 actionLabel: NSLocalizedString("respring", comment: ""),
@@ -151,7 +151,7 @@ struct PosterView: View {
         } catch {
             print("(pb) failed: \(error.localizedDescription)")
             busy = false
-            Alertinator.shared.alert(
+            AlertinatorLocalized.shared.alert(
                 title: NSLocalizedString("poster_reset_failed_title", tableName: "PosterView", comment: ""),
                 body: NSLocalizedString("poster_reset_failed_body", tableName: "PosterView", comment: "")
             )
