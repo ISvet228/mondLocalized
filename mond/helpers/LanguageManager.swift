@@ -7,19 +7,18 @@ import Foundation
 import Combine
 
 struct AppLanguage: Identifiable, Equatable {
-    let id: String            // "system", or the .lproj code (en, ru, es, sr)
-    let nativeName: String    // Name of the language written in itself
-    let englishName: String   // Name of the language written in English
+    let id: String
+    let nativeName: String
+    let localizationCredits: String
 
-    static let system = AppLanguage(id: "system", nativeName: "", englishName: "")
+    static let system = AppLanguage(id: "system", nativeName: "", localizationCredits: "")
 
-    // Add a line here whenever a new .lproj is added to the project.
     static let supported: [AppLanguage] = [
         .system,
-        AppLanguage(id: "en", nativeName: "English", englishName: "English"),
-        AppLanguage(id: "ru", nativeName: "Русский", englishName: "Russian"),
-        AppLanguage(id: "es", nativeName: "Español", englishName: "Spanish"),
-        AppLanguage(id: "sr", nativeName: "Srpski", englishName: "Serbian"),
+        AppLanguage(id: "en", nativeName: "English", localizationCredits: "Made by rooootdev"),
+        AppLanguage(id: "ru", nativeName: "Русский", localizationCredits: "Made by Hikariman"),
+        AppLanguage(id: "es", nativeName: "Español", localizationCredits: "Made by usedoperative-sudo / by AI(50%)"),
+        AppLanguage(id: "sr", nativeName: "Srpski", localizationCredits: "Made by Hikariman"),
     ]
 }
 

@@ -182,7 +182,7 @@ struct SettingsView: View {
                         show_language_picker = true
                     } label: {
                         HStack {
-                            Label(NSLocalizedString("language", tableName: "SettingsView", comment: "Language row label"), systemImage: "globe")
+                            Label(NSLocalizedString("language", tableName: "LanguageView", comment: "Language row label"), systemImage: "globe")
 
                             Spacer()
 
@@ -217,14 +217,14 @@ struct SettingsView: View {
                 Text(NSLocalizedString("confirm_respring", tableName: "SettingsView", comment: "Confirm respring message"))
             }
             .sheet(isPresented: $show_language_picker) {
-                LanguageSelectionView()
+                LanguageView()
             }
         }
     }
 
     private var current_language_label: String {
         if language_manager.current == "system" {
-            return NSLocalizedString("system_default", tableName: "SettingsView", comment: "System default language option")
+            return NSLocalizedString("system_default", tableName: "LanguageView", comment: "System default language option")
         }
         return AppLanguage.supported.first { $0.id == language_manager.current }?.nativeName ?? ""
     }

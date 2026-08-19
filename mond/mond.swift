@@ -28,8 +28,6 @@ var path: String {
 @main
 struct mond: App {
     @StateObject private var state = AppState.shared
-    // Referencing .shared here just makes sure the saved language
-    // override is applied to Bundle.main before any view renders.
     @StateObject private var language_manager = LanguageManager.shared
     
     @AppStorage("ka_on") private var ka_on = true

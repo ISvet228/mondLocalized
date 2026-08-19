@@ -1,11 +1,3 @@
-//
-//  Bundle+Language.swift
-//  mond
-//
-//  Allows overriding the language used by NSLocalizedString at runtime,
-//  independent of the device's system language.
-//
-
 import Foundation
 import ObjectiveC
 
@@ -21,15 +13,10 @@ private final class LanguageBundle: Bundle, @unchecked Sendable {
 }
 
 extension Bundle {
-    // Swaps Bundle.main's class exactly once so our override above starts
-    // intercepting every NSLocalizedString(...) call from then on.
     private static let mond_swizzleOnce: Void = {
         object_setClass(Bundle.main, LanguageBundle.self)
     }()
 
-    /// Overrides the language `NSLocalizedString` resolves to.
-    /// Pass `nil` (or an unknown code) to go back to following the
-    /// device's own language settings.
     static func mond_setLanguage(_ code: String?) {
         _ = mond_swizzleOnce
 
