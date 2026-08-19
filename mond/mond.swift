@@ -28,6 +28,7 @@ var path: String {
 @main
 struct mond: App {
     @StateObject private var state = AppState.shared
+    @StateObject private var language_manager = LanguageManager.shared
     
     @AppStorage("ka_on") private var ka_on = true
     
@@ -54,6 +55,7 @@ struct mond: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .id(language_manager.current)
                 .environmentObject(state)
                 .onOpenURL { url in
                     guard is_pb_archive(url) else {

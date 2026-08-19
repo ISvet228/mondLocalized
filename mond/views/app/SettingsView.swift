@@ -20,6 +20,8 @@ struct SettingsView: View {
     @AppStorage("ignore_failure") private var ignore_failure = false
     
     @State private var show_confirm: Bool = false
+    @State private var show_language_picker: Bool = false
+    @ObservedObject private var language_manager = LanguageManager.shared
     
     var valid: Bool {
         (sandbox_extension_consume(token) ?? -1) >= 0
@@ -174,6 +176,22 @@ struct SettingsView: View {
                 } header: {
                     Label(NSLocalizedString("credits", tableName: "SettingsView", comment: "Credits section label"), systemImage: "person.3.fill")
                 }
+
+                Section {
+                    Button {
+                        show_language_picker = true
+                    } label: {
+                        HStack {
+                            Label(NSLocalizedString("language", tableName: "SettingsView", comment: "Language row label"), systemImage: "globe")
+
+                            Spacer()
+
+                            Text(current_language_label)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .foregroundColor(.primary)
+                }
             }
             .navigationTitle(NSLocalizedString("settings", tableName: "SettingsView", comment: "Settings view title"))
             .toolbar {
@@ -198,7 +216,17 @@ struct SettingsView: View {
             } message: {
                 Text(NSLocalizedString("confirm_respring", tableName: "SettingsView", comment: "Confirm respring message"))
             }
+            .sheet(isPresented: $show_language_picker) {
+                LanguageSelectionView()
+            }
         }
+    }
+
+    private var current_language_label: String {
+        if language_manager.current == "system" {
+            return NSLocalizedString("system_default", tableName: "SettingsView", comment: "System default language option")
+        }
+        return AppLanguage.supported.first { $0.id == language_manager.current }?.nativeName ?? ""
     }
 }
 
