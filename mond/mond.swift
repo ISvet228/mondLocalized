@@ -37,7 +37,10 @@ struct mond: App {
             dup2(pipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
         }
         
-        UserDefaults.standard.register(defaults: ["method": "bad_query"])
+        UserDefaults.standard.register(defaults: [
+            "method": "bad_query",
+            "atomic_write": true
+        ])
         if UserDefaults.standard.bool(forKey: "ka_on") {
             keep_alive()
         }

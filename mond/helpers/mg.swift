@@ -22,10 +22,34 @@ struct mg_tweak {
     let w_off: (NSMutableDictionary) -> Void
     
     enum InfoType {
-        case info
-        case warning
-        case error
+    case info
+    case warning
+    case error
+
+    var localizedName: String {
+        switch self {
+        case .info:
+            return NSLocalizedString(
+                "warning.information",
+                tableName: "GestaltView",
+                comment: ""
+            )
+
+        case .warning:
+            return NSLocalizedString(
+                "warning",
+                comment: ""
+            )
+
+        case .error:
+            return NSLocalizedString(
+                "warning.error",
+                tableName: "GestaltView",
+                comment: ""
+            )
+        }
     }
+}
 }
 
 extension mg_tweak {
@@ -140,6 +164,9 @@ extension mg_tweak {
     }
 }
 
+private let region_code_key = "h63QSdBCiT/z0WU6rdQv6Q"
+private let region_info_key = "yK+xavymRGZ3xWc1tb8XDg"  
+
 let all_tweaks: [mg_tweak] = [
     mg_tweak(title: NSLocalizedString("software.enable_dynamic_island_capability", tableName: "GestaltView", comment: ""), minv: 19.0, key: "YlEtTtHlNesRBMal1CqRaA", value: 1, info_t: .info, info_msg: NSLocalizedString("software.enable_dynamic_island_capability_info", tableName: "GestaltView", comment: "")),
     mg_tweak(title: NSLocalizedString("software.always_on_display", tableName: "GestaltView", comment: ""), minv: 18.0, keys: ["2OOJf1VhaM7NxfRok3HbWQ", "j8/Omm6s1lsmTDFsXjsBfA"], value: 1, info_t: .warning, info_msg: NSLocalizedString("software.always_on_display_info", tableName: "GestaltView", comment: "")),
@@ -168,19 +195,19 @@ let all_tweaks: [mg_tweak] = [
         info_msg: NSLocalizedString("eligibility.disable_region_restrictions_info", tableName: "GestaltView", comment: ""),
         r: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return false }
-            return cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] as? String == "US" &&
-                   cache_extra["zHeENZu+wbg7PUprwNwBWg"] as? String == "LL/A"
+            return cache_extra[region_code_key] as? String == "LL" &&
+                   cache_extra[region_info_key] as? String == "LL/A"
         },
         w_on: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
             AlertinatorLocalized.shared.alert(title: NSLocalizedString("warning", comment: ""), body: NSLocalizedString("eligibility.disable_region_restrictions_warning", tableName: "GestaltView", comment: ""))
-            cache_extra["h63QSdBCiT/z0WU6rdQv6Q"] = "US"
-            cache_extra["zHeENZu+wbg7PUprNwBWg"] = "LL/A"
+            cache_extra[region_code_key] = "LL"
+            cache_extra[region_info_key] = "LL/A"
         },
         w_off: { dict in
             guard let cache_extra = dict["CacheExtra"] as? NSMutableDictionary else { return }
-            cache_extra.removeObject(forKey: "h63QSdBCiT/z0WU6rdQv6Q")
-            cache_extra.removeObject(forKey: "zHeENZu+wbg7PUprNwBWg")
+            cache_extra.removeObject(forKey: region_code_key)
+            cache_extra.removeObject(forKey: region_info_key)
         }
     ),
     

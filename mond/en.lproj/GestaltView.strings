@@ -84,3 +84,5 @@
 "warning.reboot_to_take_effect" = "Reboot your device for changes to take effect.";
 "warning.failed_to_revert_mg" = "Failed to revert MobileGestalt!";
 "warning.check_logs" = "Check logs for error information.";
+"information" = "";
+"error" = "";
