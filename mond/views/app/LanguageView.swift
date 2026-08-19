@@ -50,7 +50,7 @@ struct LanguageSelectionView: View {
         AlertinatorLocalized.shared.alert(
             title: NSLocalizedString("restart_required", tableName: "LanguageView", comment: "Restart required alert title"),
             body: NSLocalizedString("restart_required_message", tableName: "LanguageView", comment: "Restart required alert message"),
-            showCancel: false,
+            showCancel: true,
             actionLabel: NSLocalizedString("exit", tableName: "LanguageView", comment: "Exit button label")
         ) {
             manager.select(language.id)
@@ -67,6 +67,6 @@ struct LanguageSelectionView: View {
     private func subtitle(for language: AppLanguage) -> String {
         language.id == "system"
             ? NSLocalizedString("system_default_description", tableName: "LanguageView", comment: "System default language description")
-            : language.englishName
+            : language.localizationCredits
     }
 }
