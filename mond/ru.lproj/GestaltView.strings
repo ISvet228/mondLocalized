@@ -84,4 +84,3 @@
 "warning.reboot_to_take_effect" = "Перезагрузите устройство, чтобы изменения вступили в силу.";
 "warning.failed_to_revert_mg" = "Не удалось отменить MobileGestalt!";
 "warning.check_logs" = "Проверьте логи для получения информации об ошибке.";
-"warning.information" = "Информация";

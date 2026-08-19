@@ -28,6 +28,7 @@ var path: String {
 @main
 struct mond: App {
     @StateObject private var state = AppState.shared
+    @StateObject private var language_manager = LanguageManager.shared
     
     @AppStorage("ka_on") private var ka_on = true
     
