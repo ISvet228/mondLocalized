@@ -63,6 +63,7 @@ jobs:
           gh release create development mond.ipa \
             --target "${GITHUB_SHA}" \
             --title "Development" \
+            --prerelease \
             --notes "automated build from ${GITHUB_SHA}
 
           ${NOTES}"
