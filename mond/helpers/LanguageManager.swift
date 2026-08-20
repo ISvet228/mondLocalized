@@ -18,6 +18,8 @@ struct AppLanguage: Identifiable, Equatable {
         AppLanguage(id: "en", nativeName: "English", localizationCredits: "Made by rooootdev"),
         AppLanguage(id: "ru", nativeName: "Русский", localizationCredits: "Made by Hikariman"),
         AppLanguage(id: "es", nativeName: "Español", localizationCredits: "Made by usedoperative-sudo / by AI(50%)"),
+        AppLanguage(id: "it", nativeName: "Italiano", localizationCredits: "Made by AI(100%)"),
+        AppLanguage(id: "uk", nativeName: "Українська", localizationCredits: "Made by Hikariman, Hikariman's brother and fUnGuN\nSorry for skill issue"),
         AppLanguage(id: "sr", nativeName: "Srpski", localizationCredits: "Made by Hikariman"),
     ]
 }

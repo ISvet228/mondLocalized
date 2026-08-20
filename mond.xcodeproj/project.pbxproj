@@ -102,6 +102,8 @@
 				en,
 				es,
 				ru,
+				it,
+				uk,
 				sr,
 				Base,
 			);
